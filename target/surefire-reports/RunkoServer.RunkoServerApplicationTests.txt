@@ -1,4 +1,4 @@
 -------------------------------------------------------------------------------
 Test set: RunkoServer.RunkoServerApplicationTests
 -------------------------------------------------------------------------------
-Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.442 sec - in RunkoServer.RunkoServerApplicationTests
+Tests run: 1, Failures: 0, Errors: 0, Skipped: 0, Time elapsed: 6.478 sec - in RunkoServer.RunkoServerApplicationTests
