@@ -1,1 +1,1 @@
-web: java $JAVA_OPTS -war target/runkoserver-1.0-SNAPSHOT.war --port $PORT target/*.war
+java -jar target/dependency/webapp-runner.jar target/*.war
