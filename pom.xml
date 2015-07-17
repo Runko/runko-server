@@ -6,15 +6,15 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>runko</groupId>
-    <artifactId>RunkoServeri</artifactId>
+    <artifactId>template</artifactId>
     <version>1.0-SNAPSHOT</version>
     <packaging>war</packaging>
 
-    <name>runko-server</name>
+    <name>template</name>
     
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <start-class>runkoserver.Application</start-class>
+        <start-class>template.Application</start-class>
         <java.version>1.8</java.version>
     </properties>
 
