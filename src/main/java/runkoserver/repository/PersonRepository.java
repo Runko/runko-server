@@ -13,5 +13,5 @@ import runkoserver.domain.Person;
  * @author Timo
  */
 public interface PersonRepository extends JpaRepository<Person, Long>{
-    Person findByKuksaId(String kuksaId);
+    
 }

@@ -22,16 +22,17 @@ public class PersonController {
     private PersonRepository personRepository;
     
     public Person create(@ModelAttribute("person") Person person) {
-        Person p = findByKuksaId(person.getKuksaId());    
-        if(p!=null) {
-            return p;
+        for (Person p : personRepository.findAll()) {
+            if (p.getKuksaId() == person.getKuksaId()) {
+                return p;
+            }
         }
-         return personRepository.save(person);
- 
+        
+        return personRepository.save(person);
     }
     
-    public Person findByKuksaId(String kuksaId) {
-        return personRepository.findByKuksaId(kuksaId);
+    public Person findById(String Id) {
+        return personRepository.findOne(Long.parseLong(Id));
     }
     
 }
