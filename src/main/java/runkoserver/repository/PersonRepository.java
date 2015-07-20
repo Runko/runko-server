@@ -6,12 +6,12 @@
 package runkoserver.repository;
 
 import org.springframework.data.jpa.repository.JpaRepository;
-import runkoserver.domain.User;
+import runkoserver.domain.Person;
 
 /**
  *
  * @author Timo
  */
-public interface UserRepository extends JpaRepository<User, Long>{
-    
+public interface PersonRepository extends JpaRepository<Person, Long>{
+    Person findByKuksaId(String kuksaId);
 }
