@@ -1,7 +1,0 @@
-runkoserver\controller\HelloController.class
-runkoserver\Application.class
-runkoserver\controller\RunkoController.class
-runkoserver\controller\ContentController.class
-runkoserver\controller\PersonController.class
-runkoserver\domain\Person.class
-runkoserver\repository\PersonRepository.class
