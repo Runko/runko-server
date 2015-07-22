@@ -10,18 +10,20 @@
     </head>
     <body>
 
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div th:replace ="fragments/navbar_template :: navbar">navbar</div>
+
         <h2>Luo sisältö</h2>
         <form  method="post" id="contentform" >
             <div class="form-group">
                 <div class="col-sm-6">
-                    <label>Sisällön nimi*</label>
-                    <input type="text" name="nimi" class="form-control" required />
-                    <br>
+                    <label>Sisällön nimi *</label>
+                    <input type="text" name="nimi"/>
+                    <br/>
                     <label>Sisältö</label>
+                    <br/>
                     <textarea rows="7" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
                     <div style="margin-top: 20px">
-                    <button type="submit" class="btn btn-primary">Tallenna</button>
+                        <button type="submit" class="btn btn-primary">Tallenna</button>
                     </div>
                 </div>
             </div>
