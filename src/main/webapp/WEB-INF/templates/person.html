@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+
+    <head>
+        <title>Tietokantatesti</title>    
+    </head>
+
+    <body>
+        <h1>Henkilön tietokantatesti</h1>
+
+        <form action="/persons" method="POST">
+            <p>Nimi:</p>
+            <input type="text" name="name"/>
+            <input type="submit" value="Lisää"/>
+        </form>
+        
+        <tr th:each="person : ${persons}">
+            <td th:text="${person.name}"></td>
+        </tr>
+    </body>
+
+</html>
