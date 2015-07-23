@@ -33,12 +33,40 @@ public abstract class Content {
     protected Content() {
     }
 
+    public Long getId() {
+        return id;
+    }
+    
     public String getName() {
         return this.name;
     }
 
-    public Long getId() {
-        return id;
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    public Date getTime() {
+        return time;
+    }
+
+    public void setTime(Date time) {
+        this.time = time;
+    }
+
+    public Person getOwner() {
+        return owner;
+    }
+
+    public void setOwner(Person owner) {
+        this.owner = owner;
+    }
+
+    public List<Person> getSubscribers() {
+        return subscribers;
+    }
+
+    public void setSubscribers(List<Person> subscribers) {
+        this.subscribers = subscribers;
     }
 
 }
