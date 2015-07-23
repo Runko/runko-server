@@ -1,9 +1,0 @@
-{
-    "filesToWatch": "/home/evly/Runko/runko-server/src/main/webapp/static/**",
-    "directoryToWatch": "/home/evly/Runko/runko-server/src/main/webapp/static",
-    "projectRootPath": "/home/evly/Runko/runko-server",
-    "targetPath": "/home/evly/Runko/runko-server/target",
-    "sourceDirectory": "src/main/webapp",
-    "jsSourceDirectory": "static",
-    "filteredFiles": ["**/node_modules.tar"]
-}
