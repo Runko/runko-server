@@ -30,4 +30,8 @@ public class ContentService {
     public List<Content> findAll() {
         return repository.findAll();
     }
+    
+    public Content findById(Long id) {
+        return repository.findOne(id);
+    }
 }
