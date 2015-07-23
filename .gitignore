@@ -1,2 +1,3 @@
 
-/target-grunt/
+target-grunt/*
+target/*
