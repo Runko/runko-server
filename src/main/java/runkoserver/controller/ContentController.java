@@ -8,15 +8,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.SimpleContent;
 import runkoserver.repository.ContentRepository;
-import runkoserver.service.ContentServices;
+import runkoserver.service.ContentService;
 
 @Controller
 @RequestMapping("/")
 public class ContentController {
 
     @Autowired
-    ContentServices services;
-//    ContentRepository repository;
+    ContentService contentService;
 
     @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
     public String simpleContentForm() {
@@ -26,10 +25,7 @@ public class ContentController {
     @RequestMapping(value = "/simpleform", method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @ModelAttribute SimpleContent simpleContent) {
-//                String name = simpleContent.getName();
-//        if (name != null && !name.trim().isEmpty()) {
-//            repository.save(simpleContent);
-        if (services.save(simpleContent)) {
+        if (contentService.save(simpleContent)) {
             redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
         } else {
             redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");

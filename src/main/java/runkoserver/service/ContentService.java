@@ -13,7 +13,7 @@ import java.util.List;
 import runkoserver.domain.Content;
 
 @Service
-public class ContentServices {
+public class ContentService {
 
     @Autowired
     ContentRepository repository;

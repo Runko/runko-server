@@ -6,18 +6,18 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import runkoserver.service.ContentServices;
+import runkoserver.service.ContentService;
 
 @Controller
 @RequestMapping("/")
 public class RunkoController {
     
     @Autowired
-    ContentServices contentServices;
+    ContentService contentService;
     
     @RequestMapping(method = RequestMethod.GET)
     public String Hello(Model model) {
-        model.addAttribute("content", contentServices.findAll());
+        model.addAttribute("content", contentService.findAll());
         return "index";
     }
 }
