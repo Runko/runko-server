@@ -15,7 +15,7 @@
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
         <h2>Luo sisältö</h2>
-        <form  method="post" id="contentform" >
+        <form  method="post" action="/simpleform" id="contentform" >
             <div class="form-group">
                 <div class="col-sm-6">
                     <label>Sisällön nimi *</label>
@@ -23,7 +23,7 @@
                     <br/>
                     <label>Sisältö</label>
                     <br/>
-                    <textarea rows="7" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
+                    <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
                     <div style="margin-top: 20px">
                         <button type="submit" class="btn btn-primary">Tallenna</button>
                     </div>
