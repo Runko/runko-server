@@ -10,25 +10,20 @@
 
         <title>Pääkaupunkiseudun partiolaiset</title>
     </head>
-    
+
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div class="col-sm-6">
+            
+            <h2 th:text="${content.name}"></h2>
 
-        <h2>Luo sisältö</h2>
-        <form  method="post" action="/simpleform" id="contentform" >
-            <div class="form-group">
-                <div class="col-sm-6">
-                    <label>Sisällön nimi *</label>
-                    <input type="text" name="nimi" class="form-control"/>
-                    <br/>
-                    <label>Sisältö</label>
-                    <br/>
-                    <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
-                    <div style="margin-top: 20px">
-                        <button type="submit" class="btn btn-primary">Tallenna</button>
-                    </div>
-                </div>
+            <p th:text="${content.textArea}"></p>
+            
+            <div style="margin-top: 20px">
+                <form action="#" method="POST" >
+                    <button type="submit" class="btn btn-primary">Muokkaa</button>
+                </form>
             </div>
-        </form>
+        </div>
     </body>
 </html>
