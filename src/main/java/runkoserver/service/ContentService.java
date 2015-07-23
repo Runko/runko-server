@@ -41,4 +41,9 @@ public class ContentService implements RepoService{
             repository.delete(id);
         }
     }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
 }

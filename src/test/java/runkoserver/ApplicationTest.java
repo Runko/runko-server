@@ -1,5 +1,6 @@
 package runkoserver;
 
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -11,6 +12,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.service.PersonService;
+import runkoserver.service.RepoService;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -19,7 +21,10 @@ public class ApplicationTest {
     @Autowired
     PersonService personService;
     
+    List<RepoService> repositories;
+    
     public ApplicationTest() {
+        repositories.add(personService);
     }
     
     @BeforeClass
@@ -36,7 +41,9 @@ public class ApplicationTest {
     
     @After
     public void tearDown() {
-        
+        for (RepoService repository : repositories) {
+            repository.deleteAll();
+        }
     }
 
     /**

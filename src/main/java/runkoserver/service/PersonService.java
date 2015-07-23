@@ -32,5 +32,10 @@ public class PersonService implements RepoService{
             repository.delete(Id);
         }
     }
+
+    @Override
+    public void deleteAll() {
+        repository.deleteAll();
+    }
     
 }
