@@ -7,7 +7,7 @@ import runkoserver.domain.Person;
 import runkoserver.repository.PersonRepository;
 
 @Service
-public class PersonService {
+public class PersonService implements RepoService{
     
     @Autowired
     PersonRepository repository;
@@ -26,9 +26,11 @@ public class PersonService {
         return repository.findById(Id);        
     }
     
+    @Override
     public void delete(Long Id) {
         if (repository.exists(Id)) {
             repository.delete(Id);
         }
     }
+    
 }

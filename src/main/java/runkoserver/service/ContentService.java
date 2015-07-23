@@ -13,7 +13,7 @@ import java.util.List;
 import runkoserver.domain.Content;
 
 @Service
-public class ContentService {
+public class ContentService implements RepoService{
 
     @Autowired
     ContentRepository repository;
@@ -33,5 +33,12 @@ public class ContentService {
     
     public Content findById(Long id) {
         return repository.findOne(id);
+    }
+    
+    @Override
+    public void delete(Long id) {
+        if (repository.exists(id)) {
+            repository.delete(id);
+        }
     }
 }
