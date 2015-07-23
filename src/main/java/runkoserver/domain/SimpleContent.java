@@ -1,5 +1,8 @@
 package runkoserver.domain;
 
+import javax.persistence.Entity;
+
+@Entity
 public class SimpleContent extends Content{
     
     private String textArea;
