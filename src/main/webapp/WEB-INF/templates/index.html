@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
     <head lang="en">
-        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{static/css/bootstrap.min.css}" />
+        <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{static/css/layout-center.css}" />
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta charset="UTF-8"/>  
         
@@ -10,10 +10,11 @@
     </head>
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div class="centered">
+            <h1>Partio</h1>
         
-        <h1>Partio</h1>
-        
-        <p th:text="${message}"> </p>
-        <div>Partiolaiset hei!!</div>
+            <p th:text="${message}"></p>
+            <p>Partiolaiset hei!!</p>
+        </div>    
     </body>
 </html>
