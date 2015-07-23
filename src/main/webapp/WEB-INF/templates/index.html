@@ -15,5 +15,10 @@
         
         <p th:text="${message}"> </p>
         <div>Partiolaiset hei!!</div>
+        
+         <tr th:each="content : ${content}">
+            <li th:text="${content.name}"></li>
+            <li th:text="${content.textArea}"></li>
+        </tr>
     </body>
 </html>
