@@ -13,13 +13,13 @@ import runkoserver.repository.ContentRepository;
 import runkoserver.service.ContentService;
 
 @Controller
-@RequestMapping("/")
+@RequestMapping("/content")
 public class ContentController {
 
     @Autowired
     ContentService contentService;
 
-    @RequestMapping(value = "/content/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getContent(@PathVariable Long id, Model model) {
         model.addAttribute("content", contentService.findById(id));
         
