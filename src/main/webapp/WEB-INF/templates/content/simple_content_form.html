@@ -1,23 +1,25 @@
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
     <head lang="en">
-        <link href="../../static/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{static/css/bootstrap.min.css}" />
+        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{static/css/bootstrap.min.css}" />
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>            
+        <!-- Bootstrap (js-tiedosto) -->
+        <script src="js/bootstrap.min.js" ></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta charset="UTF-8"/>  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
-
     </head>
+    
     <body>
-
-        <div th:replace ="fragments/navbar_template :: navbar">navbar</div>
+        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
         <h2>Luo sisältö</h2>
         <form  method="post" id="contentform" >
             <div class="form-group">
                 <div class="col-sm-6">
                     <label>Sisällön nimi *</label>
-                    <input type="text" name="nimi"/>
+                    <input type="text" name="nimi" class="form-control"/>
                     <br/>
                     <label>Sisältö</label>
                     <br/>
