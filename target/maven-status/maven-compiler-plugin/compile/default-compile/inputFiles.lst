@@ -1,0 +1,10 @@
+/home/evly/Runko/runko-server/src/main/java/runkoserver/controller/ContentController.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/controller/RunkoController.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/controller/HelloController.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/Application.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/domain/Content.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/domain/SimpleContent.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/domain/Person.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/controller/PersonController.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/repository/ContentRepository.java
+/home/evly/Runko/runko-server/src/main/java/runkoserver/repository/PersonRepository.java

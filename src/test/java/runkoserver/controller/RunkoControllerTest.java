@@ -37,18 +37,18 @@ public class RunkoControllerTest {
     public void tearDown() {
     }
 
-    /**
-     * Test of Hello method, of class RunkoController.
-     */
-    @Test
-    public void testHello() {
-        System.out.println("Hello");
-        RunkoController instance = new RunkoController();
-        String expResult = "";
-        String result = instance.Hello();
-        assertEquals(expResult, result);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
+//    /**
+//     * Test of Hello method, of class RunkoController.
+//     */
+//    @Test
+//    public void testHello() {
+//        System.out.println("Hello");
+//        RunkoController instance = new RunkoController();
+//        String expResult = "";
+//        String result = instance.Hello();
+//        assertEquals(expResult, result);
+//        // TODO review the generated test code and remove the default call to fail.
+//        fail("The test case is a prototype.");
+//    }
     
 }
