@@ -38,8 +38,9 @@ and open the template in the editor.
 
 */
 
-/* Omat */
+/* Menu */
 
+/* .navbarmenu makes menu to be center of the page */
 .navbarmenu {
     position: relative;
     margin-top: 40px;
@@ -48,13 +49,12 @@ and open the template in the editor.
     border-radius:0;
 }
 
+/* Others */
+
+/* .centered makes content to be center of the page */
 .centered {
     position: absolute;
     margin-top: 40px;
     margin-left: 30%;
     margin-right: -30%;
-}
-
-.wided {
-    min-width: 100%;
 }
