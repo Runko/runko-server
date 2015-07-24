@@ -1,0 +1,60 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-Jul-2015, 10:51:58
+    Author     : warva
+*/
+
+/*!
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/*
+.btn {
+  padding: 6px 12px;
+  margin-bottom: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.42857143;
+  text-align: center;
+  white-space: nowrap;
+  vertical-align: middle;
+  -ms-touch-action: manipulation;
+      touch-action: manipulation;
+  cursor: pointer;
+  -webkit-user-select: none;
+     -moz-user-select: none;
+      -ms-user-select: none;
+          user-select: none;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+}
+
+*/
+
+/* Omat */
+
+.navbarmenu {
+    position: relative;
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: -30%;
+    border-radius:0;
+}
+
+.centered {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: -30%;
+}
+
+.wided {
+    min-width: 100%;
+}
