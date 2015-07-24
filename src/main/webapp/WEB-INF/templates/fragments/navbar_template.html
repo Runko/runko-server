@@ -11,11 +11,13 @@
 
     <body>
         <!-- Navbar -->
-        <div class="navbar-fixed-top" th:fragment="navbar">
-            <a href="index" type="button" name="Runko" class="btn btn-default">Runko etusivu</a>
-            <a href="index" name="Viestit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Viestit</a>
-            <a href="simpleform" name="Suosikit" class="btn btn-default">Lisää sisältöä</a>
-            <a href="persons" name="Asetukset" class="btn btn-default">Käyttäjät</a>
+        <div th:fragment="navbar">
+            <div class="navbar-fixed-top">
+                <a href="/" type="button" name="Runko" class="btn btn-default">Runko etusivu</a>
+                <a href="/" name="Viestit" class="btn btn-default">Viestit</a>
+                <a href="simpleform" name="Suosikit" class="btn btn-default">Lisää sisältöä</a>
+                <a href="persons" name="Asetukset" class="btn btn-default">Käyttäjät</a>
+            </div>
         </div>
     </body>
 </html>

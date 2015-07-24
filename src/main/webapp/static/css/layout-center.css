@@ -15,7 +15,6 @@ and open the template in the editor.
  */
 
 .btn {
-  display: inline;
   padding: 6px 12px;
   margin-bottom: 0;
   font-size: 14px;
@@ -193,7 +192,7 @@ and open the template in the editor.
 
 .img-thumbnail,.thumbnail{-webkit-box-shadow:0 1px 2px rgba(0,0,0,.075);box-shadow:0 1px 2px rgba(0,0,0,.075)}
 
-// Dropdown-menu
+/* Dropdown-menu */
 
 .dropdown-menu>li>a:focus,.dropdown-menu>li>a:hover{
     background-color:#e8e8e8;
@@ -215,7 +214,7 @@ and open the template in the editor.
     background-repeat:repeat-x
 }
 
-// Navbar
+/* Navbar */
 
 .navbar-default{
     background-image:-webkit-linear-gradient(top,#fff 0,#f8f8f8 100%);
@@ -262,8 +261,8 @@ and open the template in the editor.
     box-shadow:inset 0 3px 9px rgba(0,0,0,.25)
 }
 
-.navbar-fixed-top { //muokattu
-    position: fixed;
+.navbar-fixed-top { /* muokattu */
+    position: relative;
     margin-top: 40px;
     margin-left: 30%;
     margin-right: -30%;
@@ -372,7 +371,7 @@ and open the template in the editor.
     box-shadow:inset 0 1px 3px rgba(0,0,0,.05),0 1px 0 rgba(255,255,255,.1)
 }
 
-// glyphicons
+/* glyphicons */
 
 .glyphicon {
   position: relative;
@@ -403,7 +402,7 @@ and open the template in the editor.
   content: "\e008";
 }
 
-// Omat
+/* Omat */
 
 .centered {
     position: absolute;
