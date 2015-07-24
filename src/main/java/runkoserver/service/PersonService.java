@@ -10,7 +10,7 @@ import runkoserver.repository.PersonRepository;
 public class PersonService implements RepoService{
     
     @Autowired
-    PersonRepository repository;
+    private PersonRepository repository;
     
     public List<Person> findAll() {
         return repository.findAll();
@@ -26,6 +26,10 @@ public class PersonService implements RepoService{
         return repository.findById(Id);        
     }
     
+    public List<Person> findByName(String name) {
+        return repository.findByName(name);
+    }
+    
     @Override
     public void delete(Long Id) {
         if (repository.exists(Id)) {
@@ -33,6 +37,7 @@ public class PersonService implements RepoService{
         }
     }
 
+    //For tests, unused anywhere else
     @Override
     public void deleteAll() {
         repository.deleteAll();
