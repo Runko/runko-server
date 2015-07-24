@@ -7,5 +7,6 @@ import runkoserver.domain.Person;
 
 public interface PersonRepository extends JpaRepository<Person, Long>{
     List<Person> findByName(String name);
+    Person findById(Long id);
 }
 
