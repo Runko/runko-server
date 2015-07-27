@@ -21,18 +21,18 @@
         <div class="centered">
 
             <h2>Kirjaudu sisään</h2>
-            <form method="post" action="/content/simpleform" id="contentform" >
+            <form method="post" action="" id="contentform" >
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label>Käyttäjätunnus</label>
                         <br/>
-                        <input type="text" name="name" class="form-control"/>
+                        <input type="text" name="username" class="form-control"/>
                         <br/>
                         <label>Salasana</label>
                         <br/>
-                        <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
+                        <input type="password" />
                         <div style="margin-top: 20px">
-                            <button type="submit" class="btn btn-primary">Tallenna</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Kirjaudu</button>
                         </div>
                     </div>
                 </div>
