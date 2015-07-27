@@ -7,38 +7,37 @@
         
         <!-- layout-center.css is Runkos css -->
         <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout-center.css}" />
-       
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>            
-        <!-- Bootstrap (js-tiedosto) -->
-        <script src="js/bootstrap.min.js"></script>
+        
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <meta charset="UTF-8" />  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
+
     </head>
-    
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
         
         <!-- centered is in layout-center.css -->
         <div class="centered">
-            <h2>Luo sisältö</h2>
-            <form method="post" action="/content/simpleform" id="contentform">
+
+            <h2>Kirjaudu sisään</h2>
+            <form method="post" action="" id="contentform">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label>Sisällön nimi *</label>
+                        <label>Käyttäjätunnus</label>
                         <br />
-                        <input type="text" name="name" class="form-control" />
+                        <input type="text" name="username" class="form-control" />
                         <br />
-                        <label>Sisältö</label>
+                        <label>Salasana</label>
                         <br />
-                        <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
+                        <input type="password" name="password" class="form-control" />
                         <div style="margin-top: 20px">
-                            <button type="submit" class="btn btn-primary">Tallenna</button>
+                            <button type="submit" name="submit" class="btn btn-primary">Kirjaudu</button>
                         </div>
                     </div>
                 </div>
             </form>
-        </div>
+            
+        </div> 
     </body>
 </html>

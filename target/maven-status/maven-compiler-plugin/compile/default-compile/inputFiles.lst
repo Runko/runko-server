@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\controller\ContentController.java
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\domain\SimpleContent.java
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\repository\AreaRepository.java
@@ -14,3 +15,19 @@ C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\repository\Co
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\domain\Person.java
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\controller\RunkoController.java
 C:\Users\Timo\Desktop\OhtuP\runko-server\src\main\java\runkoserver\repository\PersonRepository.java
+=======
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/repository/PersonRepository.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/controller/RunkoController.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/domain/Content.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/service/ContentService.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/service/RepoService.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/repository/ContentRepository.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/controller/HelloController.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/controller/LoginController.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/controller/PersonController.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/controller/ContentController.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/domain/SimpleContent.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/domain/Person.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/service/PersonService.java
+/home/ad/fshome6/u6/w/warva/Linux/Runko/runko-server/src/main/java/runkoserver/Application.java
+>>>>>>> development
