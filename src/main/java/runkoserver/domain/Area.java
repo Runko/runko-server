@@ -13,6 +13,7 @@ public class Area {
     private Long id;
 
     private String name;
+    private boolean visibility;
 
     @ManyToOne
     private Person owner;
@@ -63,4 +64,12 @@ public class Area {
         this.contents = contents;
     }
 
+    public void setVisibility(boolean visibility) {
+        this.visibility = visibility;
+
+    }
+
+    public boolean getVisibility() {
+        return visibility;
+    }
 }
