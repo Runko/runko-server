@@ -8,36 +8,26 @@
         <!-- layout-center.css is Runkos css -->
         <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout-center.css}" />
         
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>            
+        <!-- Bootstrap (js-tiedosto) -->
+        <script src="js/bootstrap.min.js" ></script>
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta charset="UTF-8"/>  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
-
     </head>
+
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
         
         <!-- centered is in layout-center.css -->
         <div class="centered">
+            <div class="col-sm-12">
+            
+                <h2 th:text="${area.name}"></h2>
+                    
 
-            <h1>Partio</h1>
-
-            <p th:text="${message}"> </p>
-            <p>Partiolaiset hei!!</p>
-            
-            <table>
-                <tr th:each="area : ${area}">
-                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                </tr>          
-            </table>
-            
-            <table>
-                <tr th:each="content : ${content}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
-                    <tr><td th:text="${content.textArea}"></td></tr>
-                </tr>
-            </table>
-            
-        </div> 
+            </div>
+       </div> 
     </body>
 </html>
