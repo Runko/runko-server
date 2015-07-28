@@ -12,7 +12,7 @@ import runkoserver.domain.Area;
 import runkoserver.service.AreaService;
 
 @Controller
-@RequestMapping("/content")
+@RequestMapping("/area")
 public class AreaController {
 
     @Autowired
@@ -27,13 +27,13 @@ public class AreaController {
     
     @RequestMapping(value = "/areaform", method = RequestMethod.GET)
     public String areaForm() {
-        return "/content/area_form";
+        return "area/area_form";
     }
 
-    @RequestMapping(value = "/areaform", method = RequestMethod.POST)
+    @RequestMapping(value = "/area_form", method = RequestMethod.POST)
     public String postAreaContent(RedirectAttributes redirectAttributes,
-            @ModelAttribute Area areaContent) {
-        if (areaService.save(areaContent)) {
+            @ModelAttribute Area area) {
+        if (areaService.save(area)) {
             redirectAttributes.addFlashAttribute("message", "Uusi alue tallennettu!");
         } else {
             redirectAttributes.addFlashAttribute("message", "Alueen tallentaminen epäonnistui");
