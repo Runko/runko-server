@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
+import runkoserver.repository.AreaRepository;
 import runkoserver.service.AreaService;
 
 @Controller
@@ -18,19 +19,19 @@ public class AreaController {
     @Autowired
     AreaService areaService;
 
-    @RequestMapping(value = "/{areaid}", method = RequestMethod.GET)
-    public String getArea(@PathVariable Long areaid, Model model) {
-        model.addAttribute("area", areaService.findById(areaid));
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public String getArea(@PathVariable Long id, Model model) {
+        model.addAttribute("area", areaService.findById(id));
         
-        return "";
+        return "/area/arealist";
     }
     
     @RequestMapping(value = "/areaform", method = RequestMethod.GET)
     public String areaForm() {
-        return "area/area_form";
+        return "/area/area_form";
     }
 
-    @RequestMapping(value = "/area_form", method = RequestMethod.POST)
+    @RequestMapping(value = "/areaform", method = RequestMethod.POST)
     public String postAreaContent(RedirectAttributes redirectAttributes,
             @ModelAttribute Area area) {
         if (areaService.save(area)) {
