@@ -26,9 +26,9 @@ public abstract class Content {
 
     @ManyToOne
     private Person owner;
-
-    @ManyToMany
-    private List<Person> subscribers;
+    
+    @ManyToMany(mappedBy="contents")
+    private List<Area> areas;
 
     protected Content() {
     }
@@ -61,13 +61,12 @@ public abstract class Content {
         this.owner = owner;
     }
 
-    public List<Person> getSubscribers() {
-        return subscribers;
+    public List<Area> getAreas() {
+        return areas;
     }
 
-    public void setSubscribers(List<Person> subscribers) {
-        this.subscribers = subscribers;
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
     }
-
 }
 

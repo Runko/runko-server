@@ -7,6 +7,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Person {
@@ -18,7 +19,13 @@ public class Person {
     private String name;
 
     @ManyToMany(mappedBy = "subscribers")
-    private List<Content> subscriptions;
+    private List<Area> subscriptions;
+    
+    @OneToMany
+    private List<Area> ownedAreas;
+    
+    @OneToMany
+    private List<Content> ownedContents;
 
     protected Person() {
     }
@@ -37,6 +44,30 @@ public class Person {
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public List<Area> getSubscriptions() {
+        return subscriptions;
+    }
+
+    public void setSubscriptions(List<Area> subscriptions) {
+        this.subscriptions = subscriptions;
+    }
+
+    public List<Area> getOwnedAreas() {
+        return ownedAreas;
+    }
+
+    public void setOwnedAreas(List<Area> ownedAreas) {
+        this.ownedAreas = ownedAreas;
+    }
+
+    public List<Content> getOwnedContents() {
+        return ownedContents;
+    }
+
+    public void setOwnedContents(List<Content> ownedContents) {
+        this.ownedContents = ownedContents;
     }
 
     @Override
