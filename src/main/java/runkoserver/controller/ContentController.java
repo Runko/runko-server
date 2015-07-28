@@ -10,15 +10,20 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.SimpleContent;
 import runkoserver.repository.ContentRepository;
+import runkoserver.service.AreaService;
 import runkoserver.service.ContentService;
 
 @Controller
 @RequestMapping("/content")
+
 public class ContentController {
 
     @Autowired
     ContentService contentService;
-
+    
+    @Autowired
+    AreaService areaService;
+    
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getContent(@PathVariable Long id, Model model) {
         model.addAttribute("content", contentService.findById(id));
@@ -27,7 +32,8 @@ public class ContentController {
     }
     
     @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
-    public String simpleContentForm() {
+    public String simpleContentForm(Model model) {
+        model.addAttribute("area", areaService.findAll());
         return "/content/simple_content_form";
     }
 
