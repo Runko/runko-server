@@ -5,10 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.ResponseBody;
 import runkoserver.service.AreaService;
 import runkoserver.service.ContentService;
 
+/**
+ * The main controller class to render front page etc.
+ */
 @Controller
 @RequestMapping("/")
 public class RunkoController {
