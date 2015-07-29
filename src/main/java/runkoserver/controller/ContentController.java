@@ -40,7 +40,7 @@ public class ContentController {
      * @param model object for Spring to use
      * @return path to the html file that shows Content information
      */
-
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getContent(@PathVariable Long id, Model model) {
         model.addAttribute("content", contentService.findById(id));
 
