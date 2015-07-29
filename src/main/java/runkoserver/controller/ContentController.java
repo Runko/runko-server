@@ -48,11 +48,11 @@ public class ContentController {
     }
 
     /**
+     * /**
      * GET-method for rendering the form to create new content.
-     * 
+     * @param model object for spring to use
      * @return path to the content creation form html file
      */
-
     @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
         model.addAttribute("area", areaService.findAll());
@@ -64,8 +64,9 @@ public class ContentController {
      * 
      * @param redirectAttributes a Spring object to carry attributes from this method to
      * the one that the user is next redirected to
-     * @param simpleContent the Content object that Spring creates based on the parameters
-     * that arrive in the POST-request
+     * @param name : Name of new content
+     * @param textArea : textfield of content
+     * @param areaIds : List with ares where content is connected
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = "/simpleform", method = RequestMethod.POST)
