@@ -32,7 +32,6 @@ public class AreaServiceTest {
         Area retrieved = areaService.findById(test.getId());
         assertNotNull(retrieved);
         assertEquals("Test", retrieved.getName());
-
     }
 
     @Test
@@ -42,13 +41,7 @@ public class AreaServiceTest {
     }
 
     @Test
-    public void testNameValidationWorks() {
-        doNewArea("    ");
-        assertNull(areaService.findById(test.getId()));
-    }
-
-    @Test
-    public void deleteArea() {
+    public void testDeleteArea() {
         List<Area> list = areaService.findAll();
         test = list.get(1);
         areaService.delete(test.getId());
@@ -56,9 +49,20 @@ public class AreaServiceTest {
         assertNull(areaService.findById(test.getId()));
     }
 
+    @Test
+    public void testNameIsEmptyOrNull() {
+        test = new Area();
+        test.setName("    ");
+        assertFalse(areaService.save(test));
+        test = new Area();
+        test.setName(null);
+        assertFalse(areaService.save(test));
+    }
+    
     private void doNewArea(String name) {
         test = new Area();
         test.setName(name);
         areaService.save(test);
     }
+ 
 }
