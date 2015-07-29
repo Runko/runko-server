@@ -20,7 +20,11 @@ public class RunkoController {
     
     @Autowired
     AreaService areaService;
-    
+    /**
+     * 
+     * @param model object for spring to use
+     * @return back to front page
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String Hello(Model model) {
         model.addAttribute("content", contentService.findAll());

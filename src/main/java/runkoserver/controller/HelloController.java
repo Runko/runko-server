@@ -9,6 +9,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 @Controller
 @RequestMapping("/hello")
 @ResponseBody
+/**
+ * Good memory of where it all began.
+ */
 public class HelloController {
     
     @RequestMapping(method = RequestMethod.GET)
