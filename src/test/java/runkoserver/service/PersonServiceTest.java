@@ -85,7 +85,7 @@ public class PersonServiceTest {
     @Test
     public void testPersonMustHaveName() {
         personServiceSetup();
-        personService.save(new Person("     "));
+        personService.save(new Person(" sas"));
         personService.save(new Person(null));
         assertEquals(2, personService.findAll().size());
     }
