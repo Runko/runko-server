@@ -10,12 +10,22 @@
        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
+        <!--  -->
         <script>
             $(document).ready(function(){
-                $("option").click(function(){
-                    $("li").text(function(origText){
-                        return $("option"); 
+                $("#klick1").text(){
+                    $("#copy").text(){
+                        return text; 
                     });
+                });
+            });
+        </script>
+        
+        <!--  -->
+        <script>
+            $(document).ready(function(){
+                $("#klik2").click(function(){
+                    $("option").remove(".remove");
                 });
             });
         </script>
@@ -48,7 +58,7 @@
                         </div>
                         
                         <div class="topspace">
-                            <select name="areas[]" size="5" multiple="multiple" class="form-control" style="min-width: 30%">
+                            <select name="areas[]" size="5" class="form-control" style="min-width: 30%" id="klick1">
                                 <option value="noarea">ei aluetta</option>
                                 <span th:each="area : ${area}">
                                     <option th:text="${area.name}" th:value="${area.name}"></option>
@@ -56,9 +66,9 @@
                             </select>
                             
                             <p>Valitut sisältöalueet</p>
-                            <ul style="list-style-type:none">
-                                <li></li>
-                            </ul> 
+                            <select name="areas[]" size="5" class="form-control" style="min-width: 30%">
+                                <option value="noarea" id="copy">ei valittua aluetta</option>
+                            </select> 
                         </div>
                         
                         <div  class="topspace">
