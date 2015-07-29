@@ -34,3 +34,9 @@ and open the template in the editor.
     margin-left: 30%;
     margin-right: -30%;
 }
+
+/* .topspace makes space */
+
+.topspace {
+    margin-top: 15px;
+}

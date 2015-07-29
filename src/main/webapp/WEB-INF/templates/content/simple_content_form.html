@@ -8,7 +8,18 @@
         <!-- layout-center.css is Runkos css -->
         <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout-center.css}" />
        
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>            
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        
+        <script>
+            $(document).ready(function(){
+                $("option").click(function(){
+                    $("li").text(function(origText){
+                        return $("option"); 
+                    });
+                });
+            });
+        </script>
+        
         <!-- Bootstrap (js-tiedosto) -->
         <script src="js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -29,11 +40,28 @@
                         <label>Sisällön nimi *</label>
                         <br />
                         <input type="text" name="name" class="form-control" />
-                        <br />
-                        <label>Sisältö</label>
-                        <br />
-                        <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
-                        <div style="margin-top: 20px">
+                        
+                        <div class="topspace">
+                            <label>Sisältö</label>
+                            <br />
+                            <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" placeholder="lisää sisältöä"></textarea>
+                        </div>
+                        
+                        <div class="topspace">
+                            <select name="areas[]" size="5" multiple="multiple" class="form-control" style="min-width: 30%">
+                                <option value="noarea">ei aluetta</option>
+                                <span th:each="area : ${area}">
+                                    <option th:text="${area.name}" th:value="${area.name}"></option>
+                                </span>
+                            </select>
+                            
+                            <p>Valitut sisältöalueet</p>
+                            <ul style="list-style-type:none">
+                                <li></li>
+                            </ul> 
+                        </div>
+                        
+                        <div  class="topspace">
                             <button type="submit" class="btn btn-primary">Tallenna</button>
                         </div>
                     </div>
