@@ -19,7 +19,7 @@ public class ContentServiceTest {
     
     @Autowired
     ContentService contentService;
-
+    
     private SimpleContent testText;
     
     public ContentServiceTest() {
@@ -39,7 +39,7 @@ public class ContentServiceTest {
         doNewSimpleContent("Test 2", "Juhuu");
         assertEquals(2, contentService.findAll().size());
     }
-
+    
     @Test
     public void testNameValidationWorks() {
         doNewSimpleContent(null, "Toivottavasti toimii!");
@@ -47,15 +47,17 @@ public class ContentServiceTest {
         doNewSimpleContent("    ", "Toivottavasti toimii!");
         assertNull(contentService.findById(testText.getId()));
     }
-
+    
     @Test
-    public void deleteContent() {
+    public void testdeleteContent() {
         List<Content> list = contentService.findAll();
         testText = (SimpleContent) list.get(1);
         contentService.delete(testText.getId());
         assertEquals(1, contentService.findAll().size());
         assertNull(contentService.findById(testText.getId()));
     }
+    
+ 
     
     private void doNewSimpleContent(String name, String text) {
         testText = new SimpleContent();
