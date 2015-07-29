@@ -10,26 +10,6 @@
        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
-        <!--  -->
-        <script>
-            $(document).ready(function(){
-                $("#klick1").text(){
-                    $("#copy").text(){
-                        return text; 
-                    });
-                });
-            });
-        </script>
-        
-        <!--  -->
-        <script>
-            $(document).ready(function(){
-                $("#klik2").click(function(){
-                    $("option").remove(".remove");
-                });
-            });
-        </script>
-        
         <!-- Bootstrap (js-tiedosto) -->
         <script src="js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -58,21 +38,16 @@
                         </div>
                         
                         <div class="topspace">
-                            <select name="areas[]" size="5" class="form-control" style="min-width: 30%" id="klick1">
-                                <option value="noarea">ei aluetta</option>
+                            <select name="areaIds" size="3" class="form-control" style="min-width: 30%" multiple="multiple">
+                                <option>Ei sisältöaluetta</option>
                                 <span th:each="area : ${area}">
-                                    <option th:text="${area.name}" th:value="${area.name}"></option>
+                                    <option th:name="${area.name}" th:text="${area.name}" th:value="${area.id}"></option>
                                 </span>
-                            </select>
-                            
-                            <p>Valitut sisältöalueet</p>
-                            <select name="areas[]" size="5" class="form-control" style="min-width: 30%">
-                                <option value="noarea" id="copy">ei valittua aluetta</option>
-                            </select> 
+                            </select>                          
                         </div>
                         
                         <div  class="topspace">
-                            <button type="submit" class="btn btn-primary">Tallenna</button>
+                            <button type="submit" class="btn btn-primary" value="Save">Tallenna</button>
                         </div>
                     </div>
                 </div>
