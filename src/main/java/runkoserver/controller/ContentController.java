@@ -64,9 +64,9 @@ public class ContentController {
      * 
      * @param redirectAttributes a Spring object to carry attributes from this method to
      * the one that the user is next redirected to
-     * @param name : Name of new content
-     * @param textArea : textfield of content
-     * @param areaIds : List with ares where content is connected
+     * @param name  Name of new content
+     * @param textArea  textfield of content
+     * @param areaIds  List with ares where content is connected
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = "/simpleform", method = RequestMethod.POST)
