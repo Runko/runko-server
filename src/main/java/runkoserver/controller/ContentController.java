@@ -14,11 +14,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.SimpleContent;
-<<<<<<< HEAD
 import runkoserver.repository.ContentRepository;
 import runkoserver.service.AreaService;
-=======
->>>>>>> b75e4fbd8fbc68c52f9a6c9d4e458540326f64ef
 import runkoserver.service.ContentService;
 
 /**
@@ -32,11 +29,10 @@ public class ContentController {
     @Autowired
     ContentService contentService;
 
-<<<<<<< HEAD
+
     @Autowired
     AreaService areaService;
 
-=======
     /**
      * GET-method for rendering a view with the information of a specific Content object.
      * 
@@ -44,23 +40,19 @@ public class ContentController {
      * @param model object for Spring to use
      * @return path to the html file that shows Content information
      */
->>>>>>> b75e4fbd8fbc68c52f9a6c9d4e458540326f64ef
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+
     public String getContent(@PathVariable Long id, Model model) {
         model.addAttribute("content", contentService.findById(id));
 
         return "/content/simple_content";
     }
-<<<<<<< HEAD
 
-=======
-    
     /**
      * GET-method for rendering the form to create new content.
      * 
      * @return path to the content creation form html file
      */
->>>>>>> b75e4fbd8fbc68c52f9a6c9d4e458540326f64ef
+
     @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
         model.addAttribute("area", areaService.findAll());
