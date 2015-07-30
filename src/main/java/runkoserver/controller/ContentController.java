@@ -79,17 +79,8 @@ public class ContentController {
         simpleContent.setName(name);
         simpleContent.setTextArea(textArea);
 
-        List<Area> areas = new ArrayList<>();
-        
-        if (areaIds != null) {
-            for (Long areaId : areaIds) {
-                Area a = areaService.findById(areaId);
-                if (a != null) {
-                    areas.add(a);
-                }
-            }
-        }
-        
+        List<Area> areas = areaService.findByIds(areaIds);
+        areaService.addContentToAreas(areas, simpleContent);
         simpleContent.setAreas(areas);
 
         if (contentService.save(simpleContent)) {
@@ -97,6 +88,7 @@ public class ContentController {
         } else {
             redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");
         }
+        
         return "redirect:/";
     }
 }
