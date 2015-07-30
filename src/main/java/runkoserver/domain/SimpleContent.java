@@ -1,7 +1,10 @@
 package runkoserver.domain;
 
 import javax.persistence.Entity;
-
+/**
+ * Content class for mobile publishing
+ * 
+ */
 @Entity
 public class SimpleContent extends Content{
     
