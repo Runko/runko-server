@@ -6,7 +6,7 @@
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
         
         <!-- layout-center.css is Runkos css -->
-        <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout-center.css}" />
+        <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
        
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
         
@@ -41,7 +41,7 @@
                             <select name="areaIds" size="3" class="form-control" style="min-width: 30%" multiple="multiple">
                                 <option>Ei sisältöaluetta</option>
                                 <span th:each="area : ${area}">
-                                    <option th:name="${area.name}" th:text="${area.name}" th:value="${area.id}"></option>
+                                    <option th:text="${area.name}" th:value="${area.id}"></option>
                                 </span>
                             </select>                          
                         </div>

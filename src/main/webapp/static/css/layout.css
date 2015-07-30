@@ -40,3 +40,15 @@ and open the template in the editor.
 .topspace {
     margin-top: 15px;
 }
+
+/* @media to mobileuse */
+
+@media only screen and (max-device-width: 480px){
+    .centered {
+        margin: 0%;
+    }
+    
+    .navbarmenu {
+        margin: 0%;
+    }
+}
