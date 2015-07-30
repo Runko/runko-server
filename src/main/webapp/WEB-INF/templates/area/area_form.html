@@ -25,7 +25,7 @@
             <h2>Luo uusi sisältöalue</h2>
             
             <!-- Form makes new area -->
-            <form method="post" action="/area/areaform" id="contentform">
+            <form method="post" action="/area/areaform" id="contentform" th:owner="${person.id}">
                 <div class="form-group">
                     <div class="col-sm-12">
                         <label>Alueen nimi *</label>
