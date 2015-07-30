@@ -34,3 +34,21 @@ and open the template in the editor.
     margin-left: 30%;
     margin-right: -30%;
 }
+
+/* .topspace makes space */
+
+.topspace {
+    margin-top: 15px;
+}
+
+/* @media to mobileuse */
+
+@media only screen and (max-device-width: 700px){
+    .centered {
+        margin: 0%;
+    }
+    
+    .navbarmenu {
+        display: none;
+    }
+}

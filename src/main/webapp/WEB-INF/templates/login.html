@@ -6,9 +6,9 @@
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
         
         <!-- layout-center.css is Runkos css -->
-        <link href="/css/layout-center.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout-center.css}" />
+        <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
         
-        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
@@ -27,11 +27,14 @@
                         <label>Käyttäjätunnus</label>
                         <br />
                         <input type="text" name="username" class="form-control" />
-                        <br />
-                        <label>Salasana</label>
-                        <br />
-                        <input type="password" name="password" class="form-control" />
-                        <div style="margin-top: 20px">
+                        
+                        <div class="topspace">
+                            <label>Salasana</label>
+                            <br />
+                            <input type="password" name="password" class="form-control" />
+                        </div>
+                        
+                        <div class="topspace">
                             <button type="submit" name="submit" class="btn btn-primary">Kirjaudu</button>
                         </div>
                     </div>
