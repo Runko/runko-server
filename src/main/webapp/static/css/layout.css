@@ -49,6 +49,6 @@ and open the template in the editor.
     }
     
     .navbarmenu {
-        margin: 0%;
+        display: none;
     }
 }
