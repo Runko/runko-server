@@ -19,6 +19,10 @@ public class Person {
     private long id;
 
     private String name;
+    
+    private String username;
+    
+    private String password;
 
     @ManyToMany(mappedBy = "subscribers")
     private List<Area> subscriptions;
@@ -32,8 +36,17 @@ public class Person {
     protected Person() {
     }
 
+    
     public Person(String name) {
         this.name = name;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public String getPassword() {
+        return password;
     }
 
     public long getId() {
@@ -42,6 +55,14 @@ public class Person {
 
     public String getName() {
         return name;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setName(String name) {
