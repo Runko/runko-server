@@ -43,12 +43,12 @@ and open the template in the editor.
 
 /* @media to mobileuse */
 
-@media only screen and (max-device-width: 480px){
+@media only screen and (max-device-width: 700px){
     .centered {
         margin: 0%;
     }
     
     .navbarmenu {
-        margin: 0%;
+        display: none;
     }
 }
