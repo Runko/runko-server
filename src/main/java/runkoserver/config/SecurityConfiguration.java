@@ -19,7 +19,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     /**
      * Sets required authentications for views.
      * @param http HttpSecurity class
-     * @throws Exception 
+     * @throws Exception error
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
          * Initializes authentication with selected service.
          * @param auth AuthenticationManagerBuilder. Can be set with different authentication services.
          * @throws Exception Throws usernameNotFound exception
-         * @See PersonUserDetailService#findUserByUsername
+         * @see PersonUserDetailService#findUserByUsername
          */
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
