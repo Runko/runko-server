@@ -41,7 +41,13 @@ and open the template in the editor.
     margin-top: 15px;
 }
 
-/* @media to mobileuse */
+/* Bold makes text bold  */
+
+.bold {
+    font-style: oblique;
+}
+
+/* @media is for mobile */
 
 @media only screen and (max-device-width: 700px){
     .centered {

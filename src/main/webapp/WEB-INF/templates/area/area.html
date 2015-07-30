@@ -24,11 +24,14 @@
         <div class="centered">
             <div class="col-sm-12">
 
+                <!-- This makes areas name to heading  -->
                 <h2 th:text="${area.name}"></h2>
 
+                <!-- This lists contents, which include to area -->
                 <table>
+                    <h3>Sisällöt</h3>
                     <tr th:each="content : ${area.contents}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
+                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" class="bold"></a></th></tr>
                     <tr><td th:text="${content.textArea}"></td></tr>
                     </tr>
                 </table>

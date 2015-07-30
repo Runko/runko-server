@@ -21,20 +21,27 @@
         <div class="centered">
 
             <h1>Partio</h1>
-
-            <p th:text="${message}"> </p>
+            
+            <!-- Here will be message if needed (like new content has created) -->
+            <p th:text="${message}"></p>
             <p>Partiolaiset hei!!</p>
             
-            <table>
+            <!-- Form lists all areas -->
+            <table class="topspace">
+                <h3>Sisältöalueet</h3>
                 <tr th:each="area : ${area}">
-                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                </tr>          
+                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
+                    <tr></tr>
+                </tr>
             </table>
             
-            <table>
+            <!-- Form lists all contents -->
+            <table class="topspace">
+                <h3>Sisällöt</h3>
                 <tr th:each="content : ${content}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
+                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" class="bold"></a></th></tr>
                     <tr><td th:text="${content.textArea}"></td></tr>
+                    <tr></tr>
                 </tr>
             </table>
             
