@@ -47,7 +47,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
          * Initializes authentication with selected service.
          * @param auth AuthenticationManagerBuilder. Can be set with different authentication services.
          * @throws Exception Throws usernameNotFound exception
-         * @see PersonUserDetailService#findUserByUsername
+         * @see PersonUserDetailService#loadUserByUsername
          */
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
