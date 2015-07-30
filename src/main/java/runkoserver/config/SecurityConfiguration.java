@@ -25,13 +25,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     protected void configure(HttpSecurity http) throws Exception {
         // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
         // kirjautumista
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/static/**", "/").permitAll()
+                .anyRequest().authenticated();
         
         http.csrf().disable();
 
         // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
         // pääsy kirjautumissivulle
-        http.formLogin().permitAll();
+        http.formLogin()
+                .loginPage("/login").permitAll();
     }
     
     /**
