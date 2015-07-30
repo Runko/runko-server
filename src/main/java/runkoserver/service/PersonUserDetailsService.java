@@ -11,8 +11,8 @@ import runkoserver.repository.PersonRepository;
 
 /**
  * Adapter to turn PersonRepository to be compatible for AuthenticationManagerBuilder.
- * @See runkoserver.config.SecurityConfiguration
- * @See runkoserver.repository.PersonRepository
+ * @see runkoserver.config.SecurityConfiguration
+ * @see runkoserver.repository.PersonRepository
  */
 @Service
 public class PersonUserDetailsService implements UserDetailsService{
