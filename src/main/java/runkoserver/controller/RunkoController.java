@@ -28,7 +28,7 @@ public class RunkoController {
     PersonService personService;
     
     /**
-     * 
+     * Get method for main-page.
      * @param model object for spring to use
      * @return back to front page
      */
@@ -40,7 +40,7 @@ public class RunkoController {
     }
     
     /**
-     * GET-method for profile-view
+     * GET-method for current user's profile-view.
      * @param model object for spring to use
      * @param principal access to user-token
      * @return profile-view
@@ -50,8 +50,8 @@ public class RunkoController {
         String username = principal.getName();
         Person p = personService.findByUsername(username);
         
-        model.addAttribute(p);
+        model.addAttribute("person", p);
         
-        return "profiili-sivu";
+        return "profile";
     }
 }
