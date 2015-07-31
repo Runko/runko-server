@@ -21,15 +21,21 @@
         <div class="centered">
             <h1>Henkilön tietokantatesti</h1>
 
+            <!-- Form makes new user -->
             <form action="/persons" method="POST">
                 <p>Nimi:</p>
                 <input type="text" name="name"/>
                 <input type="submit" value="Lisää"/>
             </form>
         
-            <tr th:each="person : ${persons}">
-                <li th:text="${person.name}"></li>
-            </tr>
+            <h3>Käyttäjät</h3>
+            
+            <!-- Table lists usernames -->
+            <table>
+                <tr th:each="person : ${persons}">
+                    <li th:text="${person.name}" class="bold"></li>
+                </tr>
+            </table>
         </div>
     </body>
 

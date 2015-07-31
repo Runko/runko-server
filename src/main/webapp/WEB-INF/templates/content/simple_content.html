@@ -24,19 +24,28 @@
         <div class="centered">
             <div class="col-sm-12">
 
+                <!-- This makes contens name to heading -->
                 <h2 th:text="${content.name}"></h2>
-                
+
+                <!-- This tell content -->
                 <p th:text="${content.textArea}"></p>
 
+                <!-- This lists areas, where content belongs to -->
                 <table>
+                    <h3>Sisältöalueet</h3>
                     <tr th:each="area : ${content.areas}">
-                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
+                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
+                    <tr></tr>
                     </tr>          
                 </table>
 
                 <div class="topspace">
                     <form action="#" >
                         <button type="submit" class="btn btn-primary">Muokkaa</button>
+                    </form>
+
+                    <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
+                        <button type="submit" class="btn btn-danger">Poista</button>
                     </form>
                 </div>
             </div>

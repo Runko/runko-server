@@ -32,7 +32,7 @@ public class AreaController {
     public String getArea(@PathVariable Long id, Model model) {
         model.addAttribute("area", areaService.findById(id));
 
-        return "/area/arealist";
+        return "/area/area";
     }
 
     /**
