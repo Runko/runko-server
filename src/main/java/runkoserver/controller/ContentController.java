@@ -29,13 +29,13 @@ public class ContentController {
     @Autowired
     ContentService contentService;
 
-
     @Autowired
     AreaService areaService;
 
     /**
-     * GET-method for rendering a view with the information of a specific Content object.
-     * 
+     * GET-method for rendering a view with the information of a specific
+     * Content object.
+     *
      * @param id id of the Content whose information will be shown
      * @param model object for Spring to use
      * @return path to the html file that shows Content information
@@ -50,6 +50,7 @@ public class ContentController {
     /**
      * /**
      * GET-method for rendering the form to create new content.
+     *
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
@@ -61,12 +62,12 @@ public class ContentController {
 
     /**
      * POST-method to create a new Content.
-     * 
-     * @param redirectAttributes a Spring object to carry attributes from this method to
-     * the one that the user is next redirected to
-     * @param name  Name of new content
-     * @param textArea  textfield of content
-     * @param areaIds  List with ares where content is connected
+     *
+     * @param redirectAttributes a Spring object to carry attributes from this
+     * method to the one that the user is next redirected to
+     * @param name Name of new content
+     * @param textArea textfield of content
+     * @param areaIds List with ares where content is connected
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = "/simpleform", method = RequestMethod.POST)
@@ -93,6 +94,28 @@ public class ContentController {
             redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");
         }
 
+        return "redirect:/";
+    }
+
+    /**
+     * Deletes a Content and any possible references to it.
+     * 
+     * @param id the id of the Content to be deleted
+     * @param redirectAttributes a Spring object to carry attributes from this
+     * method to the one that the user is next redirected to
+     * @return the URL path that the user will be redirected to
+     */
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public String deleteContent(@PathVariable Long id,
+            RedirectAttributes redirectAttributes) {
+        
+        Content content = contentService.findById(id);
+        
+        areaService.deleteContentFromAllAreas(content);
+        contentService.delete(id);
+        
+        redirectAttributes.addFlashAttribute("message", "Sisältö '" + content.getName() + "' poistettu.");
+        
         return "redirect:/";
     }
 }

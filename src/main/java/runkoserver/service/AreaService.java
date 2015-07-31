@@ -62,4 +62,10 @@ public class AreaService implements RepoService {
             area.getContents().add(content);
         }
     }
+    
+    public void deleteContentFromAllAreas(Content content) {
+        for (Area area : content.getAreas()) {
+            area.getContents().remove(content);
+        }
+    }
 }
