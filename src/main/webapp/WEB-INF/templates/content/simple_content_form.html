@@ -42,7 +42,6 @@
                         <!-- This lists all areas on which user can choose right area or areas -->
                         <div class="topspace">
                             <select name="areaIds" size="3" class="form-control" style="min-width: 30%" multiple="multiple">
-                                <option>Ei sisältöaluetta</option>
                                 <span th:each="area : ${area}">
                                     <option th:text="${area.name}" th:value="${area.id}"></option>
                                 </span>

@@ -79,16 +79,20 @@ public class ContentController {
         simpleContent.setName(name);
         simpleContent.setTextArea(textArea);
 
-        List<Area> areas = areaService.findByIds(areaIds);
-        areaService.addContentToAreas(areas, simpleContent);
-        simpleContent.setAreas(areas);
+        if (areaIds != null) {
+            List<Area> areas = areaService.findByIds(areaIds);
+            areaService.addContentToAreas(areas, simpleContent);
+            simpleContent.setAreas(areas);
+        } else {
+            simpleContent.setAreas(new ArrayList<>());
+        }
 
         if (contentService.save(simpleContent)) {
             redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
         } else {
             redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");
         }
-        
+
         return "redirect:/";
     }
 }
