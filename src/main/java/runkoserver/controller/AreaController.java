@@ -1,5 +1,6 @@
 package runkoserver.controller;
 
+import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,7 +10,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
+import runkoserver.domain.Person;
 import runkoserver.service.AreaService;
+import runkoserver.service.PersonService;
 
 /**
  * Controller class for HTTP requests related to Area objects.
@@ -20,6 +23,9 @@ public class AreaController {
 
     @Autowired
     AreaService areaService;
+    
+    @Autowired
+    PersonService personService;
 
     /**
      * GET-method for rendering a view with the information of a specific Area.
@@ -31,7 +37,6 @@ public class AreaController {
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model) {
         model.addAttribute("area", areaService.findById(id));
-
         return "/area/area";
     }
 
@@ -41,10 +46,12 @@ public class AreaController {
      * @return path to the area creation form html file
      */
     @RequestMapping(value = "/areaform", method = RequestMethod.GET)
-    public String areaForm() {
+    public String areaForm(Model model, Principal principal) {
+        Person person = personService.findByUsername(principal.getName());
+        model.addAttribute("person", person);
         return "/area/area_form";
     }
-
+    
     /**
      * POST-method to create a new Area.
      *
@@ -56,7 +63,7 @@ public class AreaController {
      */
     @RequestMapping(value = "/areaform", method = RequestMethod.POST)
     public String postAreaContent(RedirectAttributes redirectAttributes,
-            @ModelAttribute Area area) {
+            @ModelAttribute Area area){
         if (areaService.save(area)) {
             redirectAttributes.addFlashAttribute("message", "Uusi alue tallennettu!");
         } else {

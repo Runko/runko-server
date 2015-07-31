@@ -5,7 +5,7 @@
         <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
         
-        <!-- layout-center.css is Runkos css -->
+        <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
         
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -17,7 +17,7 @@
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
         
-        <!-- centered is in layout-center.css -->
+        <!-- centered is in layout.css -->
         <div class="centered">
             <h1>Henkilön tietokantatesti</h1>
 
@@ -33,8 +33,7 @@
             <!-- Table lists usernames -->
             <table>
                 <tr th:each="person : ${persons}">
-                    <tr><td><li th:text="${person.name}" class="bold"></li></td></tr>
-                    <tr><td><p th:text="${person.id}"></p></td></tr>
+                    <td><li th:text="${person.name}" class="bold"></li></td>
                 </tr>
             </table>
         </div>

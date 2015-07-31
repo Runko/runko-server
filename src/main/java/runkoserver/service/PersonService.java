@@ -30,6 +30,10 @@ public class PersonService implements RepoService{
         return repository.findByName(name);
     }
     
+    public Person findByUsername(String username){
+        return repository.findByUsername(username);
+    }
+    
     @Override
     public void delete(Long Id) {
         if (repository.exists(Id)) {
