@@ -19,19 +19,22 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
     /**
      * Sets required authentications for views.
      * @param http HttpSecurity class
-     * @throws Exception 
+     * @throws Exception error
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
         // kirjautumista
-        http.authorizeRequests().anyRequest().authenticated();
+        http.authorizeRequests()
+                .antMatchers("/static/**", "/").permitAll()
+                .anyRequest().authenticated();
         
         http.csrf().disable();
 
         // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
         // pääsy kirjautumissivulle
-        http.formLogin().permitAll();
+        http.formLogin()
+                .loginPage("/login").permitAll();
     }
     
     /**
@@ -47,7 +50,6 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
          * Initializes authentication with selected service.
          * @param auth AuthenticationManagerBuilder. Can be set with different authentication services.
          * @throws Exception Throws usernameNotFound exception
-         * @See PersonUserDetailService#findUserByUsername
          */
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {

@@ -7,7 +7,7 @@ import runkoserver.service.PersonService;
 
 /**
  * Configuration for setting repositories in example for testing.
- * @See runkoserver.repository
+ * @see runkoserver.repository
  */
 @Configuration
 public class RepositoryConfiguration {

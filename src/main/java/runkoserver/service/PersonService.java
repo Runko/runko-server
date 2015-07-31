@@ -6,6 +6,9 @@ import org.springframework.stereotype.Service;
 import runkoserver.domain.Person;
 import runkoserver.repository.PersonRepository;
 
+/**
+ * Service for all person-repository's handling requests.
+ */
 @Service
 public class PersonService implements RepoService{
     
@@ -30,7 +33,11 @@ public class PersonService implements RepoService{
         return repository.findByName(name);
     }
     
+<<<<<<< HEAD
     public Person findByUsername(String username){
+=======
+    public Person findByUsername(String username) {
+>>>>>>> 473d1851677df37d5130ca62be133d2d26730518
         return repository.findByUsername(username);
     }
     
