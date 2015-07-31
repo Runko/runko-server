@@ -1,5 +1,6 @@
 package runkoserver.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.junit.Test;
 import static org.junit.Assert.*;
@@ -21,6 +22,9 @@ public class AreaServiceTest {
     @Autowired
     AreaService areaService;
 
+    @Autowired
+    ContentService contentService;
+    
     private Area test;
 
     public AreaServiceTest() {
@@ -48,7 +52,7 @@ public class AreaServiceTest {
         assertEquals(1, areaService.findAll().size());
         assertNull(areaService.findById(test.getId()));
     }
-
+    
     @Test
     public void testNameIsEmptyOrNull() {
         test = new Area();
@@ -59,10 +63,27 @@ public class AreaServiceTest {
         assertFalse(areaService.save(test));
     }
     
+    public void testFindByIds(){
+        doNewArea("test3");
+        long id = test.getId();
+        Area test3 = areaService.findById(id);
+        assertEquals(test3, test);
+    }
+    
+    public void testAddContentToArea(){
+        SimpleContent content = new SimpleContent();
+        contentService.save(content);
+        List<Area> areas = new ArrayList();
+        areas.add(test);
+        areaService.addContentToAreas(areas, content);
+        assertEquals(areas, content.getAreas());
+    }
+
     private void doNewArea(String name) {
         test = new Area();
         test.setName(name);
         areaService.save(test);
     }
+    
  
 }
