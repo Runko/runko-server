@@ -7,7 +7,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import runkoserver.domain.Person;
-import runkoserver.repository.PersonRepository;
 import runkoserver.service.AreaService;
 import runkoserver.service.ContentService;
 import runkoserver.service.PersonService;
