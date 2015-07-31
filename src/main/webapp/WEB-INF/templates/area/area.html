@@ -30,6 +30,7 @@
                 <p>Omistaja: <span th:text="${area.owner.name}"></span></p>
 
                 <!-- This lists contents, which include to area -->
+                <!-- bold is in layout.css -->
                 <table>
                     <h3>Sisällöt</h3>
                     <tr th:each="content : ${area.contents}">

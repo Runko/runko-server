@@ -31,6 +31,7 @@
                 <p th:text="${content.textArea}"></p>
 
                 <!-- This lists areas, where content belongs to -->
+                <!-- bold is in layout.css -->
                 <table>
                     <h3>Sisältöalueet</h3>
                     <tr th:each="area : ${content.areas}">
@@ -39,6 +40,7 @@
                     </tr>          
                 </table>
 
+                <!-- topspace is in layout.css -->
                 <div class="topspace">
                     <form action="#" >
                         <button type="submit" class="btn btn-primary">Muokkaa</button>
