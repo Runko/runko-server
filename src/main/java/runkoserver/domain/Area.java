@@ -18,8 +18,8 @@ public class Area {
     private String name;
     private boolean visibility;
 
-    //@ManyToOne
-    private Long ownerId;
+    @ManyToOne
+    private Person owner;
 
     @ManyToMany
     private List<Person> subscribers;
@@ -43,12 +43,12 @@ public class Area {
         this.name = name;
     }
 
-    public Long getOwner() {
-        return ownerId;
+    public Person getOwner() {
+        return owner;
     }
 
-    public void setOwner(Long ownerId) {
-        this.ownerId = ownerId;
+    public void setOwner(Person owner) {
+        this.owner = owner;
     }
 
     public List<Person> getSubscribers() {

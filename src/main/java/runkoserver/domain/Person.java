@@ -27,7 +27,7 @@ public class Person {
     @ManyToMany(mappedBy = "subscribers")
     private List<Area> subscriptions;
     
-    @OneToMany
+    @OneToMany(mappedBy = "owner")
     private List<Area> ownedAreas;
     
     @OneToMany

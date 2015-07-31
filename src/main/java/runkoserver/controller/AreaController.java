@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
 import runkoserver.domain.Person;
@@ -63,7 +64,15 @@ public class AreaController {
      */
     @RequestMapping(value = "/areaform", method = RequestMethod.POST)
     public String postAreaContent(RedirectAttributes redirectAttributes,
-            @ModelAttribute Area area){
+            @RequestParam(required = true) Long ownerId,
+            @RequestParam(required = true) String name,
+            @RequestParam(required = true) Boolean visibility){
+        
+        Area area = new Area();
+        area.setName(name);
+        area.setOwner(personService.findById(ownerId));
+        area.setVisibility(visibility);
+        
         if (areaService.save(area)) {
             redirectAttributes.addFlashAttribute("message", "Uusi alue tallennettu!");
         } else {
