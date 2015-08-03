@@ -33,6 +33,7 @@ public class PersonService implements RepoService{
         return repository.findByName(name);
     }
     
+
     public Person findByUsername(String username) {
         return repository.findByUsername(username);
     }

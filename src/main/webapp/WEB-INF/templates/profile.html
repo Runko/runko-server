@@ -6,7 +6,7 @@
         <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
 
-        <!-- layout-center.css is Runkos css -->
+        <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -19,20 +19,20 @@
         <!-- Navigation-bar -->
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
+        <!-- centered is in layout.css -->
         <div class="centered">
-            <!-- Page title, centered is in layout.css -->
-            <header>
-                <h1>Profiili</h1>
-            </header>
+            
+            <h1>Profiili</h1>
 
-            <!-- centered is in layout.css -->
             <table class="table table-striped col-sm-12" >
                 <tr>
-                    <td><b>Nimi: </b></td>
+                    <!-- bold is in layout.css -->
+                    <td class="bold">Nimi: </td>
                     <td th:text="${person.name}"></td>
                 </tr>
                 <tr>
-                    <td><b>Käyttäjätunnus: </b></td>
+                    <!-- bold is in layout.css -->
+                    <td class="bold">Käyttäjätunnus: </td>
                     <td th:text="${person.username}"></td>
                 </tr>
             </table>
