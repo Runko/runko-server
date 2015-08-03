@@ -8,6 +8,9 @@ import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.repository.AreaRepository;
 
+/**
+ *  Service for all area-repository's handling requests.
+ */
 @Service
 public class AreaService implements RepoService {
 

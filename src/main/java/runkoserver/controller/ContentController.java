@@ -80,13 +80,8 @@ public class ContentController {
         simpleContent.setName(name);
         simpleContent.setTextArea(textArea);
 
-        if (areaIds != null) {
-            List<Area> areas = areaService.findByIds(areaIds);
-            areaService.addContentToAreas(areas, simpleContent);
-            simpleContent.setAreas(areas);
-        } else {
-            simpleContent.setAreas(new ArrayList<>());
-        }
+        List<Area> areas = areaService.findByIds(areaIds);
+        contentService.addAreasToContent(areas, simpleContent);
 
         if (contentService.save(simpleContent)) {
             redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
