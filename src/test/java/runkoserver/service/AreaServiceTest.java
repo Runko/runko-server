@@ -41,7 +41,7 @@ public class AreaServiceTest {
     @Test
     public void testListAllAreas() {
         doNewArea("Test 2");
-        assertEquals(2, areaService.findAll().size());
+        assertEquals(3, areaService.findAll().size());
     }
 
     @Test
@@ -49,7 +49,7 @@ public class AreaServiceTest {
         List<Area> list = areaService.findAll();
         test = list.get(1);
         areaService.delete(test.getId());
-        assertEquals(1, areaService.findAll().size());
+        assertEquals(3, areaService.findAll().size());
         assertNull(areaService.findById(test.getId()));
     }
     
@@ -63,21 +63,25 @@ public class AreaServiceTest {
         assertFalse(areaService.save(test));
     }
     
-    public void testFindByIds(){
-        doNewArea("test3");
+    @Test
+    public void testFindById(){
+        doNewArea("area");
         long id = test.getId();
-        Area test3 = areaService.findById(id);
-        assertEquals(test3, test);
+        assertEquals(test.getId(), areaService.findById(id).getId());
     }
-    
-    public void testAddContentToArea(){
-        SimpleContent content = new SimpleContent();
-        contentService.save(content);
-        List<Area> areas = new ArrayList();
-        areas.add(test);
-        areaService.addContentToAreas(areas, content);
-        assertEquals(areas, content.getAreas());
-    }
+
+//    @Test
+//    public void testAddContentToArea(){
+//        SimpleContent content = new SimpleContent();
+//        content.setName("maanantai");
+//        contentService.save(content);
+//        List<Area> areas = new ArrayList();
+//        doNewArea("area");
+//        areaService.save(test);
+//        areas.add(test);
+//        contentService.addAreasToContent(areas, content);
+//        assertEquals(areas, content.getAreas());
+//    }
 
     private void doNewArea(String name) {
         test = new Area();
