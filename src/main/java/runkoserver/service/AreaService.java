@@ -41,6 +41,14 @@ public class AreaService implements RepoService {
     public List<Area> findAll() {
         return repository.findAll();
     }
+    
+    /**
+     * Finds all Areas that have visibility set as true.
+     * @return List of public Areas
+     */
+    public List<Area> findAllPublicAreas() {
+        return repository.findByVisibilityTrue();
+    }
 
     public Area findById(Long id) {
         return repository.findOne(id);
