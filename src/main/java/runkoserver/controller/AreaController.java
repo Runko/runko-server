@@ -4,7 +4,6 @@ import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -44,6 +43,8 @@ public class AreaController {
     /**
      * GET-method for rendering the form to create new Areas.
      *
+     * @param model
+     * @param principal
      * @return path to the area creation form html file
      */
     @RequestMapping(value = "/areaform", method = RequestMethod.GET)
@@ -58,8 +59,9 @@ public class AreaController {
      *
      * @param redirectAttributes a Spring object to carry attributes from this method to
      * the one that the user is next redirected to
-     * @param area the Area object that Spring creates based on the parameters
-     * that arrive in the POST-request
+     * @param ownerId
+     * @param name
+     * @param visibility
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = "/areaform", method = RequestMethod.POST)
