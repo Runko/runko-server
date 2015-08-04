@@ -43,8 +43,8 @@ public class ContentAreaService {
     public boolean deleteContent(Long id) {
         if (contentRepository.exists(id)) {
             Content content = contentRepository.findOne(id);
-            contentRepository.delete(content.getId());
             deleteContentFromAreas(content);
+            contentRepository.delete(content.getId());            
             return true;
         }
         return false;
@@ -80,14 +80,14 @@ public class ContentAreaService {
         return areaRepository.findByVisibilityTrue();
     }
 
-    public Area findById(Long id) {
+    public Area findAreaById(Long id) {
         return areaRepository.findOne(id);
     }
 
     private List<Area> findListedAreasById(List<Long> areaIds) {
         List<Area> areas = new ArrayList<Area>();
         for (Long id : areaIds) {
-            areas.add(findById(id));
+            areas.add(findAreaById(id));
         }
         return areas;
     }
