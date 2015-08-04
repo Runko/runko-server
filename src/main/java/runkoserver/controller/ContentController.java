@@ -1,24 +1,17 @@
 package runkoserver.controller;
 
-import java.util.ArrayList;
 import java.util.List;
-import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.SimpleContent;
-import runkoserver.repository.ContentRepository;
-import runkoserver.service.AreaService;
 import runkoserver.service.ContentAreaService;
-import runkoserver.service.ContentService;
 
 /**
  * Controller class for HTTP requests related to Content-type objects.
@@ -28,12 +21,6 @@ import runkoserver.service.ContentService;
 
 public class ContentController {
 
-    @Autowired
-    ContentService contentService;
-
-    @Autowired
-    AreaService areaService;
-    
     @Autowired
     ContentAreaService contentAreaService;
 
@@ -47,7 +34,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getContent(@PathVariable Long id, Model model) {
-        model.addAttribute("content", contentService.findById(id));
+        model.addAttribute("content", contentAreaService.findContentById(id));
 
         return "/content/simple_content";
     }
@@ -61,7 +48,7 @@ public class ContentController {
      */
     @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
-        model.addAttribute("area", areaService.findAll());
+        model.addAttribute("area", contentAreaService.findAllAreas());
         return "/content/simple_content_form";
     }
 
@@ -85,7 +72,6 @@ public class ContentController {
 
 //        List<Area> areas = areaService.findByIds(areaIds);
 //        contentService.addAreasToContent(areas, simpleContent);
-
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
         } else {
@@ -97,7 +83,7 @@ public class ContentController {
 
     /**
      * Deletes a Content and any possible references to it.
-     * 
+     *
      * @param id the id of the Content to be deleted
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redirected to
@@ -106,14 +92,16 @@ public class ContentController {
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
             RedirectAttributes redirectAttributes) {
+
+        Content content = contentAreaService.findContentById(id);
+        if (contentAreaService.deleteContent(content.getId())) {
+            redirectAttributes.addFlashAttribute("message", "Sisältö '" 
+                    + content.getName() + "' poistettu.");
+
+            return "redirect:/";
+        }
         
-        Content content = contentService.findById(id);
-        
-        areaService.deleteContentFromAllAreas(content);
-        contentService.delete(id);
-        
-        redirectAttributes.addFlashAttribute("message", "Sisältö '" + content.getName() + "' poistettu.");
-        
+        redirectAttributes.addFlashAttribute("message", "Something happend");
         return "redirect:/";
     }
 }

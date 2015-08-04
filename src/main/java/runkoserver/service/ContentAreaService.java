@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
+import runkoserver.domain.Person;
 import runkoserver.domain.SimpleContent;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ContentRepository;
@@ -42,7 +43,9 @@ public class ContentAreaService {
 
     public boolean deleteContent(Long id) {
         if (contentRepository.exists(id)) {
-            contentRepository.delete(id);
+            Content content = contentRepository.findOne(id);
+            deleteContentFromAreas(content);
+            contentRepository.delete(content.getId());            
             return true;
         }
         return false;
@@ -78,14 +81,23 @@ public class ContentAreaService {
         return areaRepository.findByVisibilityTrue();
     }
 
-    public Area findById(Long id) {
+    public Area findAreaById(Long id) {
         return areaRepository.findOne(id);
+    }
+    
+    public Area createArea(String name, Person person, Boolean visibility) {
+        Area area = new Area();
+        area.setName(name);
+        area.setOwner(person);
+        area.setVisibility(visibility);
+        
+        return area;
     }
 
     private List<Area> findListedAreasById(List<Long> areaIds) {
         List<Area> areas = new ArrayList<Area>();
         for (Long id : areaIds) {
-            areas.add(findById(id));
+            areas.add(findAreaById(id));
         }
         return areas;
     }
@@ -93,6 +105,13 @@ public class ContentAreaService {
     private void saveContentToAreas(Content content) {
         for (Area area : content.getAreas()) {
             area.addContent(content);
+            areaRepository.save(area);
+        }
+    }
+    
+    private void deleteContentFromAreas(Content content) {
+        for (Area area : content.getAreas()) {
+            area.deleteContent(content);
             areaRepository.save(area);
         }
     }
@@ -112,4 +131,5 @@ public class ContentAreaService {
         }
         return false;
     }
+    
 }
