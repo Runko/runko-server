@@ -47,6 +47,19 @@ public class ContentAreaService {
         }
         return false;
     }
+    
+    public SimpleContent createSimpleContent(String name, String textArea, List<Long> areaIds) {
+        SimpleContent content = new SimpleContent();
+        content.setName(name);
+        content.setTextArea(textArea);
+        if (areaIds != null) {
+            content.setAreas(findListedAreasById(areaIds));
+        } else {
+            content.setAreas(new ArrayList<Area>());
+        }
+
+        return content;
+    }
 
     //Areas' repository interactions
     public boolean saveArea(Area area) {
@@ -98,18 +111,5 @@ public class ContentAreaService {
             return true;
         }
         return false;
-    }
-
-    public SimpleContent createSimpleContent(String name, String textArea, List<Long> areaIds) {
-        SimpleContent content = new SimpleContent();
-        content.setName(name);
-        content.setTextArea(textArea);
-        if (areaIds != null) {
-            content.setAreas(findListedAreasById(areaIds));
-        } else {
-            content.setAreas(new ArrayList<Area>());
-        }
-
-        return content;
     }
 }
