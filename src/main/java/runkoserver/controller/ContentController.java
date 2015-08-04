@@ -2,6 +2,7 @@ package runkoserver.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,6 +17,7 @@ import runkoserver.domain.Content;
 import runkoserver.domain.SimpleContent;
 import runkoserver.repository.ContentRepository;
 import runkoserver.service.AreaService;
+import runkoserver.service.ContentAreaService;
 import runkoserver.service.ContentService;
 
 /**
@@ -31,6 +33,9 @@ public class ContentController {
 
     @Autowired
     AreaService areaService;
+    
+    @Autowired
+    ContentAreaService contentAreaService;
 
     /**
      * GET-method for rendering a view with the information of a specific
@@ -76,14 +81,12 @@ public class ContentController {
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds) {
 
-        SimpleContent simpleContent = new SimpleContent();
-        simpleContent.setName(name);
-        simpleContent.setTextArea(textArea);
+        SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds);
 
-        List<Area> areas = areaService.findByIds(areaIds);
-        contentService.addAreasToContent(areas, simpleContent);
+//        List<Area> areas = areaService.findByIds(areaIds);
+//        contentService.addAreasToContent(areas, simpleContent);
 
-        if (contentService.save(simpleContent)) {
+        if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
         } else {
             redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");
