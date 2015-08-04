@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
@@ -108,6 +109,7 @@ public class ContentAreaService {
             areaRepository.save(area);
         }
     }
+    
     
     private void deleteContentFromAreas(Content content) {
         for (Area area : content.getAreas()) {
