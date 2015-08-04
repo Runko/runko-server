@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.authentication.configurers
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.annotation.web.servlet.configuration.EnableWebMvcSecurity;
+import static runkoserver.libraries.Links.*;
 import runkoserver.service.PersonUserDetailsService;
 
 /**
@@ -26,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
         // kirjautumista
         http.authorizeRequests()
-                .antMatchers("/static/**", "/").permitAll()
+                .antMatchers(FILE_CSS, LINK_HOME).permitAll()
                 .anyRequest().authenticated();
         
         http.csrf().disable();
@@ -34,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
         // pääsy kirjautumissivulle
         http.formLogin()
-                .loginPage("/login").permitAll();
+                .loginPage(LINK_LOGIN).permitAll();
     }
     
     /**

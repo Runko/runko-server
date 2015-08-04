@@ -2,11 +2,14 @@ package runkoserver.domain;
 
 import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
 public class Area {
@@ -14,8 +17,11 @@ public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-
+    
+    @NotBlank
+    @Length(min = 4, max = 50)
     private String name;
+    
     private boolean visibility;
 
     @ManyToOne
@@ -24,7 +30,7 @@ public class Area {
     @ManyToMany
     private List<Person> subscribers;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Content> contents;
 
     public Long getId() {
@@ -59,6 +65,22 @@ public class Area {
         this.subscribers = subscribers;
     }
 
+    public boolean addContent(Content content) {
+        if (!contents.contains(content)) {
+            contents.add(content);
+            return true;
+        }
+        return false;
+    }
+    
+    public boolean deleteContent(Content content) {
+        if (contents.contains(content)) {
+            contents.remove(content);
+            return true;
+        }
+        return false;
+    }
+    
     public List<Content> getContents() {
         return contents;
     }
