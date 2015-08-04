@@ -20,6 +20,8 @@ public abstract class Links {
     
     public static final String LINK_CONTENT_INDEX = "/content";
     public static final String LINK_CONTENT_SIMPLEFORM = "/simpleform";
+    
+    public static final String LINK_LOGIN = "/login";
        
     public static final String FILE_AREA = "/area/area";
     public static final String FILE_AREA_FORM = "/area/area_form";
@@ -30,4 +32,8 @@ public abstract class Links {
     
     public static final String FILE_SIMPLECONTENT = "/content/simple_content";
     public static final String FILE_SIMPLECONTENT_FORM = "/content/simple_content_form";
+    
+    public static final String FILE_LOGIN = "login";
+    
+    public static final String FILE_CSS = "/static/**";
 }
