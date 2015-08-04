@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
+import runkoserver.domain.Person;
 import runkoserver.domain.SimpleContent;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ContentRepository;
@@ -82,6 +83,15 @@ public class ContentAreaService {
 
     public Area findAreaById(Long id) {
         return areaRepository.findOne(id);
+    }
+    
+    public Area createArea(String name, Person person, Boolean visibility) {
+        Area area = new Area();
+        area.setName(name);
+        area.setOwner(person);
+        area.setVisibility(visibility);
+        
+        return area;
     }
 
     private List<Area> findListedAreasById(List<Long> areaIds) {

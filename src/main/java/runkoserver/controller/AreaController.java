@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
 import runkoserver.domain.Person;
-import runkoserver.service.AreaService;
+import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
 
 /**
@@ -20,9 +20,9 @@ import runkoserver.service.PersonService;
 @Controller
 @RequestMapping("/area")
 public class AreaController {
-
+    
     @Autowired
-    AreaService areaService;
+    ContentAreaService contentAreaService;
     
     @Autowired
     PersonService personService;
@@ -36,7 +36,7 @@ public class AreaController {
      */
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model) {
-        model.addAttribute("area", areaService.findById(id));
+        model.addAttribute("area", contentAreaService.findAreaById(id));
         return "/area/area";
     }
 
@@ -70,12 +70,10 @@ public class AreaController {
             @RequestParam(required = true) String name,
             @RequestParam(required = true) Boolean visibility){
         
-        Area area = new Area();
-        area.setName(name);
-        area.setOwner(personService.findById(ownerId));
-        area.setVisibility(visibility);
+        Area area = contentAreaService.createArea(name, personService.findById(ownerId), visibility);
         
-        if (areaService.save(area)) {
+        
+        if (contentAreaService.saveArea(area)) {
             redirectAttributes.addFlashAttribute("message", "Uusi alue tallennettu!");
         } else {
             redirectAttributes.addFlashAttribute("message", "Alueen tallentaminen epäonnistui");
