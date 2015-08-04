@@ -67,6 +67,6 @@ public class ContentAreaServiceTest {
     //Test for areas
     @Test
     public void testCreateSimpleContentWithArea() {
-
+        
     }
 }
