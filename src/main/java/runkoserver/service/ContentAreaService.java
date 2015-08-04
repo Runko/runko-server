@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
@@ -25,6 +24,12 @@ public class ContentAreaService {
     AreaRepository areaRepository;
 
     //Contents' repository interactions.
+    
+    /**
+     * Saves new content and adds connections to corresponding areas.
+     * @param content content to be added
+     * @return was save successful
+     */
     public boolean saveContent(Content content) {
         if (content != null) {
             contentRepository.save(content);
@@ -42,6 +47,11 @@ public class ContentAreaService {
         return contentRepository.findOne(id);
     }
 
+    /**
+     * Deletes content and removes any connections with its areas.
+     * @param id content id
+     * @return was delete successful
+     */
     public boolean deleteContent(Long id) {
         if (contentRepository.exists(id)) {
             Content content = contentRepository.findOne(id);
@@ -52,6 +62,13 @@ public class ContentAreaService {
         return false;
     }
     
+    /**
+     * Creation of simple-context.
+     * @param name name of the context
+     * @param textArea text area of the context
+     * @param areaIds Id-numbers of the added areas
+     * @return created SimpleContent
+     */
     public SimpleContent createSimpleContent(String name, String textArea, List<Long> areaIds) {
         SimpleContent content = new SimpleContent();
         content.setName(name);
@@ -86,6 +103,13 @@ public class ContentAreaService {
         return areaRepository.findOne(id);
     }
     
+    /**
+     * Creates new area
+     * @param name name of the area
+     * @param person owner of the area
+     * @param visibility is area visible for unauthenticated visitors
+     * @return created Area
+     */
     public Area createArea(String name, Person person, Boolean visibility) {
         Area area = new Area();
         area.setName(name);
@@ -95,14 +119,24 @@ public class ContentAreaService {
         return area;
     }
 
+    /**
+     * Finds all areas by id from the given list by their id and returns them as
+     * Area-objects. Used by CreateSimpleContent-method
+     * @param areaIds Areas' ids
+     * @return list of Area-objects
+     */
     private List<Area> findListedAreasById(List<Long> areaIds) {
-        List<Area> areas = new ArrayList<Area>();
+        List<Area> areas = new ArrayList<>();
         for (Long id : areaIds) {
             areas.add(findAreaById(id));
         }
         return areas;
     }
     
+    /**
+     * Adds connection between given content and it's Areas. Used by delete content.
+     * @param content on which the connections are wanted
+     */
     private void saveContentToAreas(Content content) {
         for (Area area : content.getAreas()) {
             area.addContent(content);
@@ -110,7 +144,10 @@ public class ContentAreaService {
         }
     }
     
-    
+    /**
+     * Deletes connection between given connection and it's Areas-
+     * @param content on which connections are disabled
+     */
     private void deleteContentFromAreas(Content content) {
         for (Area area : content.getAreas()) {
             area.deleteContent(content);
