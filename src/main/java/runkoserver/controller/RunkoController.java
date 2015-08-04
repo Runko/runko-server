@@ -2,16 +2,12 @@ package runkoserver.controller;
 
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.AnonymousAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import runkoserver.domain.Person;
-import runkoserver.service.AreaService;
-import runkoserver.service.ContentService;
+import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
 
 /**
@@ -22,10 +18,7 @@ import runkoserver.service.PersonService;
 public class RunkoController {
 
     @Autowired
-    ContentService contentService;
-
-    @Autowired
-    AreaService areaService;
+    ContentAreaService contentAreaService;
 
     @Autowired
     PersonService personService;
@@ -39,9 +32,9 @@ public class RunkoController {
     @RequestMapping(method = RequestMethod.GET)
     public String Hello(Model model) {
         if (personService.userIsLoggedIn()) {
-            model.addAttribute("areas", areaService.findAll());
+            model.addAttribute("areas", contentAreaService.findAllAreas());
         } else {
-            model.addAttribute("areas", areaService.findAllPublicAreas());
+            model.addAttribute("areas", contentAreaService.findAllPublicAreas());
         }
 
         return "index";
