@@ -30,7 +30,7 @@ public class Area {
     @ManyToMany
     private List<Person> subscribers;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Content> contents;
 
     public Long getId() {
