@@ -16,37 +16,36 @@
     </head>
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
-        
+
         <!-- centered is in layout.css -->
         <div class="centered">
 
             <h1>Partio</h1>
-            
+
             <!-- Here will be message if needed (like new content has created) -->
             <p th:text="${message}"></p>
             <p>Partiolaiset hei!!</p>
-            
+
+
             <!-- Form lists all areas -->
             <!-- topspace is in layout.css -->
-            <table class="topspace">
-                <h3>Sisältöalueet</h3>
-                <tr th:each="area : ${area}">
-                    <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                    <tr></tr>
-                </tr>
-            </table>
-            
-            <!-- Form lists all contents -->
-            <!-- topspace is in layout.css -->
-            <table class="topspace">
-                <h3>Sisällöt</h3>
-                <tr th:each="content : ${content}">
+            <h3>Sisältöalueet</h3>
+            <div th:each="area : ${areas}">
+                <table class="topspace">
+                    <tr><th>Nimi: </th><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
+                    <tr><th>Visibility: </th> <td th:text="${area.visibility}"></td></tr>
+
+                    <!-- List all contents related to area -->
+                    <tr><th>Sisällöt</th></tr>
+
+                    <tr th:each="content : ${area.contents}">
                     <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
                     <tr><td th:text="${content.textArea}"></td></tr>
                     <tr></tr>
-                </tr>
-            </table>
-            
+                    </tr>
+                </table>
+            </div>
+
         </div> 
     </body>
 </html>

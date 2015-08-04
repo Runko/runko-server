@@ -2,6 +2,9 @@ package runkoserver.service;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Person;
 import runkoserver.repository.PersonRepository;
@@ -36,6 +39,16 @@ public class PersonService implements RepoService{
 
     public Person findByUsername(String username) {
         return repository.findByUsername(username);
+    }
+    
+    /**
+     * Checks if the user on the site has logged in.
+     * @return true if the user is logged in, otherwise false
+     */
+    public boolean userIsLoggedIn() {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+
+        return !(auth instanceof AnonymousAuthenticationToken);
     }
     
     @Override
