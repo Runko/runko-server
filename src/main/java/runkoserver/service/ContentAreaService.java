@@ -104,7 +104,7 @@ public class ContentAreaService {
     }
     
     /**
-     * Creates new area
+     * Creates a new area.
      * @param name name of the area
      * @param person owner of the area
      * @param visibility is area visible for unauthenticated visitors

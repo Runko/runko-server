@@ -11,14 +11,18 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
 import runkoserver.domain.Person;
+import static runkoserver.libraries.Attributes.*;
+import static runkoserver.libraries.Links.*;
+import static runkoserver.libraries.Messages.*;
 import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
+
 
 /**
  * Controller class for HTTP requests related to Area objects.
  */
 @Controller
-@RequestMapping("/area")
+@RequestMapping(LINK_AREA_INDEX)
 public class AreaController {
     
     @Autowired
@@ -34,10 +38,10 @@ public class AreaController {
      * @param model model object for Spring to use
      * @return path to the html file that shows Area information
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model) {
-        model.addAttribute("area", contentAreaService.findAreaById(id));
-        return "/area/area";
+        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAreaById(id));
+        return FILE_AREA;
     }
 
     /**
@@ -47,11 +51,11 @@ public class AreaController {
      * @param principal
      * @return path to the area creation form html file
      */
-    @RequestMapping(value = "/areaform", method = RequestMethod.GET)
+    @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.GET)
     public String areaForm(Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        model.addAttribute("person", person);
-        return "/area/area_form";
+        model.addAttribute(ATTRIBUTE_PERSON, person);
+        return FILE_AREA_FORM;
     }
     
     /**
@@ -64,7 +68,7 @@ public class AreaController {
      * @param visibility
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = "/areaform", method = RequestMethod.POST)
+    @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.POST)
     public String postAreaContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) Long ownerId,
             @RequestParam(required = true) String name,
@@ -74,10 +78,10 @@ public class AreaController {
         
         
         if (contentAreaService.saveArea(area)) {
-            redirectAttributes.addFlashAttribute("message", "Uusi alue tallennettu!");
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_AREA_SAVE_SUCCESS);
         } else {
-            redirectAttributes.addFlashAttribute("message", "Alueen tallentaminen epäonnistui");
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_AREA_SAVE_FAIL);
         }
-        return "redirect:/";
+        return REDIRECT_HOME;
     }
 }

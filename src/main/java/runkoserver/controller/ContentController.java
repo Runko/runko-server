@@ -11,13 +11,16 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Content;
 import runkoserver.domain.SimpleContent;
+import static runkoserver.libraries.Attributes.*;
+import static runkoserver.libraries.Links.*;
+import static runkoserver.libraries.Messages.*;
 import runkoserver.service.ContentAreaService;
 
 /**
  * Controller class for HTTP requests related to Content-type objects.
  */
 @Controller
-@RequestMapping("/content")
+@RequestMapping(LINK_CONTENT_INDEX)
 
 public class ContentController {
 
@@ -32,11 +35,11 @@ public class ContentController {
      * @param model object for Spring to use
      * @return path to the html file that shows Content information
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getContent(@PathVariable Long id, Model model) {
-        model.addAttribute("content", contentAreaService.findContentById(id));
+        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findContentById(id));
 
-        return "/content/simple_content";
+        return FILE_SIMPLECONTENT;
     }
 
     /**
@@ -46,10 +49,10 @@ public class ContentController {
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
-    @RequestMapping(value = "/simpleform", method = RequestMethod.GET)
+    @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
-        model.addAttribute("area", contentAreaService.findAllAreas());
-        return "/content/simple_content_form";
+        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+        return FILE_SIMPLECONTENT_FORM;
     }
 
     /**
@@ -62,7 +65,7 @@ public class ContentController {
      * @param areaIds List with ares where content is connected
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = "/simpleform", method = RequestMethod.POST)
+    @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
@@ -73,12 +76,12 @@ public class ContentController {
 //        List<Area> areas = areaService.findByIds(areaIds);
 //        contentService.addAreasToContent(areas, simpleContent);
         if (contentAreaService.saveContent(simpleContent)) {
-            redirectAttributes.addFlashAttribute("message", "Uutta sisältöä tallennettu!");
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_SUCCESS);
         } else {
-            redirectAttributes.addFlashAttribute("message", "Sisällön tallentaminen epäonnistui");
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_FAIL);
         }
 
-        return "redirect:/";
+        return REDIRECT_HOME;
     }
 
     /**
@@ -89,19 +92,18 @@ public class ContentController {
      * method to the one that the user is next redirected to
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
             RedirectAttributes redirectAttributes) {
 
         Content content = contentAreaService.findContentById(id);
         if (contentAreaService.deleteContent(content.getId())) {
-            redirectAttributes.addFlashAttribute("message", "Sisältö '" 
-                    + content.getName() + "' poistettu.");
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
 
-            return "redirect:/";
+            return REDIRECT_HOME;
         }
         
-        redirectAttributes.addFlashAttribute("message", "Something happend");
-        return "redirect:/";
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_FAIL);
+        return REDIRECT_HOME;
     }
 }
