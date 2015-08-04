@@ -42,7 +42,9 @@ public class ContentAreaService {
 
     public boolean deleteContent(Long id) {
         if (contentRepository.exists(id)) {
-            contentRepository.delete(id);
+            Content content = contentRepository.findOne(id);
+            contentRepository.delete(content.getId());
+            deleteContentFromAreas(content);
             return true;
         }
         return false;
@@ -96,6 +98,13 @@ public class ContentAreaService {
             areaRepository.save(area);
         }
     }
+    
+    private void deleteContentFromAreas(Content content) {
+        for (Area area : content.getAreas()) {
+            area.deleteContent(content);
+            areaRepository.save(area);
+        }
+    }
 
     //shared interactions
     /**
@@ -112,4 +121,5 @@ public class ContentAreaService {
         }
         return false;
     }
+    
 }
