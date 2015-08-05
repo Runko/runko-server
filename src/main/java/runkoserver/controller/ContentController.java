@@ -29,7 +29,7 @@ public class ContentController {
 
     @Autowired
     ContentAreaService contentAreaService;
-    
+
     @Autowired
     PersonService personService;
 
@@ -42,9 +42,10 @@ public class ContentController {
      * @return path to the html file that shows Content information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
-    public String getContent(@PathVariable Long id, Model model) {
+    public String getContent(@PathVariable Long id, Model model, Principal principal) {
+        
         model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findContentById(id));
-
+        model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName())); 
         return FILE_SIMPLECONTENT;
     }
 
@@ -79,11 +80,8 @@ public class ContentController {
             @RequestParam(required = false) List<Long> areaIds,
             Principal principal) {
 
-        
-        
         Person p = personService.findByUsername(principal.getName());
         SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
-
 
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_SUCCESS);
@@ -99,7 +97,7 @@ public class ContentController {
      *
      * @param id the id of the Content to be deleted
      * @param redirectAttributes a Spring object to carry attributes from this
-     * method to the one that the user is next redirected to
+     * method to the one that the user is next redi
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
@@ -107,12 +105,14 @@ public class ContentController {
             RedirectAttributes redirectAttributes) {
 
         Content content = contentAreaService.findContentById(id);
+
+        
         if (contentAreaService.deleteContent(content.getId())) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
 
             return REDIRECT_HOME;
         }
-        
+
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_FAIL);
         return REDIRECT_HOME;
     }
