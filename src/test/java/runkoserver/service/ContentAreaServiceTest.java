@@ -25,6 +25,7 @@ public class ContentAreaServiceTest {
 
     private SimpleContent testSC;
     private Area testArea;
+    private List<Long> areaIDs;
 
     public ContentAreaServiceTest() {
     }
@@ -34,6 +35,7 @@ public class ContentAreaServiceTest {
         contentAreaService.deleteAll();
         testSC = null;
         testArea = null;
+
     }
 
     //Tests for content
@@ -63,12 +65,10 @@ public class ContentAreaServiceTest {
         assertTrue(contentAreaService.deleteContent(testSC.getId()));
         assertFalse(contentAreaService.deleteContent(testSC.getId()));
     }
-    
-  
 
     @Test
     public void testDeleteContentWithAreas() {
-        List<Long> areaIDs = new ArrayList<>();
+        areaIDs = new ArrayList<>();
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         areaIDs.add(testArea.getId());
         doNewSimpleContentAndSave("Test", "Delete", areaIDs, null);
@@ -114,10 +114,11 @@ public class ContentAreaServiceTest {
         testSC = contentAreaService.createSimpleContent(name, textArea, areaIDs, person);
         contentAreaService.saveContent(testSC);
     }
+
     @Test
-    public void testDeleteAllLifeFromEarth(){
-    doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
-    doNewSimpleContentAndSave("Life","Is guut", null, null);
-    assertTrue(contentAreaService.deleteAll());
+    public void testDeleteAllLifeFromEarth() {
+        doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
+        doNewSimpleContentAndSave("Life", "Is guut", null, null);
+        assertTrue(contentAreaService.deleteAll());
     }
 }

@@ -74,19 +74,18 @@ public class ContentAreaService {
      */
     public SimpleContent createSimpleContent(String name, String textArea, List<Long> areaIds, Person owner) {
         SimpleContent content = new SimpleContent();
+        content.setAreas(new ArrayList<>());
         content.setName(name);
         content.setTextArea(textArea);
         content.setOwner(owner);
         if (areaIds != null) {
-            content.setAreas(findListedAreasById(areaIds));
-        } else {
-            content.setAreas(new ArrayList<>());
+            for (Area area : findListedAreasById(areaIds)) {
+                content.addArea(area);
+            }
         }
 
         return content;
     }
-
-
 
     //Areas' repository interactions
     public boolean saveArea(Area area) {
@@ -150,8 +149,9 @@ public class ContentAreaService {
     private void saveContentToAreas(Content content) {
         for (Area area : content.getAreas()) {
             area.addContent(content);
-            areaRepository.save(area);
+
         }
+
     }
 
     /**
@@ -175,7 +175,6 @@ public class ContentAreaService {
     public boolean deleteAll() {
         contentRepository.deleteAll();
         areaRepository.deleteAll();
-
         if (findAllAreas().isEmpty() && findAllContent().isEmpty()) {
             return true;
         }
