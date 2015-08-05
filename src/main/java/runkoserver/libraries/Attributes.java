@@ -11,6 +11,7 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_PERSON= "person";
     public static final String ATTRIBUTE_USERNAME = "username";
     public static final String ATTRIBUTE_PASSWORD = "password";
+    public static final String ATTRIBUTE_NAME = "name";
     
     public static final String TITLE_FRONTPAGE = "Partio";
 }

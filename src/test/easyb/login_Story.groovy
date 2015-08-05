@@ -3,15 +3,15 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 import org.springframework.boot.SpringApplication;
-import org.springframework.context.ApplicationContext;
+import org.springframework.context.ConfigurableApplicationContext;
 import runkoserver.Application;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
 
-before "start application", {
+before "testing application", {
     given "application is running", {
-        SpringApplication.run(Application.class);
+        ConfigurableApplicationContext context = SpringApplication.run(Application.class);
         driver = new HtmlUnitDriver();        
     }
 }
@@ -68,5 +68,9 @@ scenario "user can log in with correct credentials", {
     }
 }
 
-
-
+after "stop server" , {
+    then "server should be shutdown", {
+        driver.quit();
+        context.close();
+    }
+}
