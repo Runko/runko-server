@@ -27,7 +27,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
         // kirjautumista
         http.authorizeRequests()
-                .antMatchers(FILE_CSS, LINK_HOME).permitAll()
+                .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
                 .anyRequest().authenticated();
         
         http.csrf().disable();
