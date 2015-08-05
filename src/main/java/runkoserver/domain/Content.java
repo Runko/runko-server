@@ -91,4 +91,14 @@ public abstract class Content {
     public void setAreas(List<Area> areas) {
         this.areas = areas;
     }
+
+    public boolean hasPublicAreas() {
+        for (Area area : areas) {
+            if (area.getVisibility()) {
+                return true;
+            }
+        }
+
+        return false;
+    }
 }

@@ -37,17 +37,32 @@ public class ContentController {
      * GET-method for rendering a view with the information of a specific
      * Content object.
      *
+     * @param redirectAttributes
      * @param id id of the Content whose information will be shown
      * @param model object for Spring to use
      * @param principal To get who is logged in
      * @return path to the html file that shows Content information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
-    public String getContent(@PathVariable Long id, Model model, Principal principal) {
-        
-        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findContentById(id));
-        model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName())); 
-        return FILE_SIMPLECONTENT;
+    public String getContent(RedirectAttributes redirectAttributes,
+            @PathVariable Long id,
+            Model model,
+            Principal principal) {
+
+        Content content = contentAreaService.findContentById(id);
+
+        if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
+            model.addAttribute(ATTRIBUTE_CONTENT, content);
+            
+            if (principal != null) {
+                model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
+            }
+            
+            return FILE_SIMPLECONTENT;
+        }
+
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_PAGE_NOT_AVAILABLE);
+        return REDIRECT_HOME;
     }
 
     /**
