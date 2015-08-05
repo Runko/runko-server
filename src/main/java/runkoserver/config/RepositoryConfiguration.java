@@ -21,5 +21,9 @@ public class RepositoryConfiguration {
         p.setUsername("testi");
         p.setPassword("testi");
         personRepository.save(p);
+        p = new Person("Timo");
+        p.setUsername("testi2");
+        p.setPassword("testi2");
+        personRepository.save(p);
     }
 }
