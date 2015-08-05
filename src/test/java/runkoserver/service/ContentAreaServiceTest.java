@@ -25,6 +25,7 @@ public class ContentAreaServiceTest {
 
     private SimpleContent testSC;
     private Area testArea;
+    private List<Long> areaIDs;
 
     public ContentAreaServiceTest() {
     }
@@ -34,42 +35,43 @@ public class ContentAreaServiceTest {
         contentAreaService.deleteAll();
         testSC = null;
         testArea = null;
+
     }
 
     //Tests for content
     @Test
     public void testSaveContent() {
         assertFalse(contentAreaService.saveContent(testSC));
-        testSC = contentAreaService.createSimpleContent("Test", "Test", null);
+        testSC = contentAreaService.createSimpleContent("Test", "Test", null, null);
         assertTrue(contentAreaService.saveContent(testSC));
     }
 
     @Test
     public void testFindAllContent() {
-        doNewSimpleContentAndSave("Test ", "Find", null);
-        doNewSimpleContentAndSave("All", "Content", null);
+        doNewSimpleContentAndSave("Test ", "Find", null, null);
+        doNewSimpleContentAndSave("All", "Content", null, null);
         assertEquals(2, contentAreaService.findAllContent().size());
     }
 
     @Test
     public void testFindContentById() {
-        doNewSimpleContentAndSave("Test Find", "by Id", null);
+        doNewSimpleContentAndSave("Test Find", "by Id", null, null);
         assertEquals(testSC.getName(), contentAreaService.findContentById(testSC.getId()).getName());
     }
 
     @Test
     public void testDeleteContentWithOutAreas() {
-        doNewSimpleContentAndSave("Test", "Delete", null);
+        doNewSimpleContentAndSave("Test", "Delete", null, null);
         assertTrue(contentAreaService.deleteContent(testSC.getId()));
         assertFalse(contentAreaService.deleteContent(testSC.getId()));
     }
 
     @Test
     public void testDeleteContentWithAreas() {
-        List<Long> areaIDs = new ArrayList<>();
+        areaIDs = new ArrayList<>();
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         areaIDs.add(testArea.getId());
-        doNewSimpleContentAndSave("Test", "Delete", areaIDs);
+        doNewSimpleContentAndSave("Test", "Delete", areaIDs, null);
         assertTrue(contentAreaService.deleteContent(testSC.getId()));
         assertFalse(contentAreaService.deleteContent(testSC.getId()));
         assertNull(testArea.getContents());
@@ -108,14 +110,15 @@ public class ContentAreaServiceTest {
         contentAreaService.saveArea(testArea);
     }
 
-    private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs) {
-        testSC = contentAreaService.createSimpleContent(name, textArea, areaIDs);
+    private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
+        testSC = contentAreaService.createSimpleContent(name, textArea, areaIDs, person);
         contentAreaService.saveContent(testSC);
     }
+
     @Test
-    public void testDeleteAllLifeFromEarth(){
-    doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
-    doNewSimpleContentAndSave("Life","Is guut", null);
-    assertTrue(contentAreaService.deleteAll());
+    public void testDeleteAllLifeFromEarth() {
+        doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
+        doNewSimpleContentAndSave("Life", "Is guut", null, null);
+        assertTrue(contentAreaService.deleteAll());
     }
 }

@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Entity;
@@ -7,6 +8,7 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
@@ -89,6 +91,17 @@ public abstract class Content {
     }
 
     public void setAreas(List<Area> areas) {
+        this.areas= new ArrayList<>();
         this.areas = areas;
+    }
+
+    public boolean hasPublicAreas() {
+        for (Area area : areas) {
+            if (area.getVisibility()) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }

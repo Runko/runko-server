@@ -7,6 +7,8 @@ public abstract class Links {
     public static final String REDIRECT = "redirect:";
     public static final String REDIRECT_HOME = "redirect:/";
     
+    public static final String LINK_LOCALHOST = "http://localhost:8080";
+    
     public static final String LINK_HOME = "/";
     
     public static final String LINK_PROFILE = "/profile";
@@ -35,5 +37,5 @@ public abstract class Links {
     
     public static final String FILE_LOGIN = "login";
     
-    public static final String FILE_CSS = "/static/**";
+    public static final String FOLDER_CSS = "/static/**";
 }
