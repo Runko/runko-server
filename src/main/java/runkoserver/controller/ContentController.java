@@ -4,6 +4,7 @@ import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -24,7 +25,7 @@ import runkoserver.service.PersonService;
  */
 @Controller
 @RequestMapping(LINK_CONTENT_INDEX)
-
+@Transactional
 public class ContentController {
 
     @Autowired
@@ -89,6 +90,7 @@ public class ContentController {
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
      */
+    
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
