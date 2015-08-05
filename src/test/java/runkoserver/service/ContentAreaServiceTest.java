@@ -63,6 +63,8 @@ public class ContentAreaServiceTest {
         assertTrue(contentAreaService.deleteContent(testSC.getId()));
         assertFalse(contentAreaService.deleteContent(testSC.getId()));
     }
+    
+  
 
     @Test
     public void testDeleteContentWithAreas() {

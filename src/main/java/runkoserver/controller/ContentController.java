@@ -39,6 +39,7 @@ public class ContentController {
      *
      * @param id id of the Content whose information will be shown
      * @param model object for Spring to use
+     * @param principal To get who is logged in
      * @return path to the html file that shows Content information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
@@ -70,7 +71,7 @@ public class ContentController {
      * @param name Name of new content
      * @param textArea textfield of content
      * @param areaIds List with ares where content is connected
-     * @param principal To get Who is logged in.
+     * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
