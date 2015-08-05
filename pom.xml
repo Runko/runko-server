@@ -80,23 +80,11 @@
         </dependency>
         
         <dependency>
-            <groupId>org.easyb</groupId>
-            <artifactId>easyb-core</artifactId>
-            <version>1.6</version>
-        </dependency>
-        
-        <dependency>
             <groupId>org.mockito</groupId>
             <artifactId>mockito-core</artifactId>
             <version>1.9.5</version>
             <scope>test</scope>
-        </dependency>
-        
-        <dependency>
-            <groupId>org.seleniumhq.selenium</groupId>
-            <artifactId>selenium-java</artifactId>
-            <version>2.46.0</version>
-        </dependency>
+        </dependency>        
 
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -126,6 +114,20 @@
         <dependency>
             <groupId>org.springframework.security</groupId>
             <artifactId>spring-security-config</artifactId>
+        </dependency>
+        
+        <!-- Selenium -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>2.46.0</version>
+        </dependency>
+        
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-htmlunit-driver</artifactId>
+            <version>2.43.1</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -183,7 +185,7 @@
                 </executions>
                 <configuration>
                     <storyType>html</storyType>
-                    <storyReport>${basedir}/target/easyb/easyb-report.html
+                    <storyReport>${basedir}/easyb/easyb-report.html
                     </storyReport>
                 </configuration>
             </plugin>
@@ -201,26 +203,26 @@
         </plugins>
     </reporting>
 
-<repositories>
-    <repository>
-        <id>spring-releases</id>
-        <name>Spring Releases</name>
-        <url>https://repo.spring.io/libs-release</url>
-    </repository>
-    <repository>
-        <id>org.jboss.repository.releases</id>
-        <name>JBoss Maven Release Repository</name>
-        <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
-    </repository>
-</repositories>
+    <repositories>
+        <repository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </repository>
+        <repository>
+            <id>org.jboss.repository.releases</id>
+            <name>JBoss Maven Release Repository</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/releases</url>
+        </repository>
+    </repositories>
 
-<pluginRepositories>
-    <pluginRepository>
-        <id>spring-releases</id>
-        <name>Spring Releases</name>
-        <url>https://repo.spring.io/libs-release</url>
-    </pluginRepository>
-</pluginRepositories>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>spring-releases</id>
+            <name>Spring Releases</name>
+            <url>https://repo.spring.io/libs-release</url>
+        </pluginRepository>
+    </pluginRepositories>
 
 </project>
 

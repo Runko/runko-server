@@ -13,7 +13,12 @@ public abstract class Messages {
     public static final String MESSAGE_CONTENT_SAVE_FAIL = "Sisällön tallentaminen epäonnistui";
     public static final String MESSAGE_CONTENT_DELETE_SUCCESS = "Sisältö poistettu onnistuneesti: ";
     public static final String MESSAGE_CONTENT_DELETE_FAIL = "Sisällön poistaminen epäonnistui";
+    
+    //is shown by Spring security by default. Used at least for testing.
+    public static final String MESSAGE_LOGIN_DEFAULT = "Invalid username and password.";
+
     public static final String MESSAGE_NOT_PERMISSION = "Sinulla ei ole oikeuksia toimintoon.";
 
     public static final String MESSAGE_PAGE_NOT_AVAILABLE = "Pahoittelut, hakemasi sivu ei ole saatavilla.";
+
 }
