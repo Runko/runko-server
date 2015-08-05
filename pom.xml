@@ -185,7 +185,7 @@
                 </executions>
                 <configuration>
                     <storyType>html</storyType>
-                    <storyReport>${basedir}/target/easyb/easyb-report.html
+                    <storyReport>${basedir}/easyb/easyb-report.html
                     </storyReport>
                 </configuration>
             </plugin>
