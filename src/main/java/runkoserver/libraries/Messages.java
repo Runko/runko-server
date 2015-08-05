@@ -16,4 +16,9 @@ public abstract class Messages {
     
     //is shown by Spring security by default. Used at least for testing.
     public static final String MESSAGE_LOGIN_DEFAULT = "Invalid username and password.";
+
+    public static final String MESSAGE_NOT_PERMISSION = "Sinulla ei ole oikeuksia toimintoon.";
+
+    public static final String MESSAGE_PAGE_NOT_AVAILABLE = "Pahoittelut, hakemasi sivu ei ole saatavilla.";
+
 }
