@@ -16,6 +16,20 @@ before "start application", {
     }
 }
 
+scenario "user can see login-page", {
+    given "user navigates to frontpage", {
+        driver.get(LINK_LOCALHOST);
+    }
+    
+    when "user is not logged on", {
+        
+    }
+    
+    then "user sees the frontpage", {
+        driver.getPageSource().shouldHave(TITLE_FRONTPAGE);
+    }
+}
+
 scenario "user can't log in with incorrect password", {
     given "user is at login form", {
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
