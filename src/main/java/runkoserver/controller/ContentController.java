@@ -1,5 +1,6 @@
 package runkoserver.controller;
 
+import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -10,11 +11,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Content;
+import runkoserver.domain.Person;
 import runkoserver.domain.SimpleContent;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
 import runkoserver.service.ContentAreaService;
+import runkoserver.service.PersonService;
 
 /**
  * Controller class for HTTP requests related to Content-type objects.
@@ -26,6 +29,9 @@ public class ContentController {
 
     @Autowired
     ContentAreaService contentAreaService;
+    
+    @Autowired
+    PersonService personService;
 
     /**
      * GET-method for rendering a view with the information of a specific
@@ -63,18 +69,22 @@ public class ContentController {
      * @param name Name of new content
      * @param textArea textfield of content
      * @param areaIds List with ares where content is connected
+     * @param principal To get Who is logged in.
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
-            @RequestParam(required = false) List<Long> areaIds) {
+            @RequestParam(required = false) List<Long> areaIds,
+            Principal principal) {
 
-        SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds);
+        
+        
+        Person p = personService.findByUsername(principal.getName());
+        SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
 
-//        List<Area> areas = areaService.findByIds(areaIds);
-//        contentService.addAreasToContent(areas, simpleContent);
+
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_SUCCESS);
         } else {
