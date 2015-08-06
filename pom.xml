@@ -145,9 +145,12 @@
                 <version>2.7</version>
                 <configuration>
                     <instrumentation>
-                        <ignores>
+                        <ignores>                           
                         </ignores>
-                        <excludes>                        
+                        <excludes>
+                            <exlude>runkoserver/libraries/Attributes.class</exlude>
+                            <exlude>runkoserver/libraries/Links.class</exlude>
+                            <exlude>runkoserver/libraries/Messages.class</exlude>                          
                         </excludes>
                     </instrumentation>
                     <check>
