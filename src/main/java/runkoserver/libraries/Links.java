@@ -7,10 +7,6 @@ public abstract class Links {
     public static final String REDIRECT = "redirect:";
     public static final String REDIRECT_HOME = "redirect:/";
     
-    public static final String SERVER_PORT = "server.port=9000";
-    
-    public static final String LINK_LOCALHOST = "http://localhost:9000";
-    
     public static final String LINK_HOME = "/";
     
     public static final String LINK_PROFILE = "/profile";
@@ -27,6 +23,10 @@ public abstract class Links {
     public static final String LINK_CONTENT_SIMPLEFORM = "/simpleform";
     
     public static final String LINK_LOGIN = "/login";
+    
+    //for test-purposes
+    public static final String SERVER_PORT = "server.port=9000";
+    public static final String LINK_LOCALHOST = "http://localhost:9000";
        
     public static final String FILE_AREA = "/area/area";
     public static final String FILE_AREA_FORM = "/area/area_form";
@@ -41,6 +41,7 @@ public abstract class Links {
     
     public static final String FILE_SIMPLECONTENT = "/content/simple_content";
     public static final String FILE_SIMPLECONTENT_FORM = "/content/simple_content_form";
+    public static final String FILE_SIMPLECONTENT_EDIT = "/content/simple_content_edit";
     
     public static final String FILE_LOGIN = "login";
     

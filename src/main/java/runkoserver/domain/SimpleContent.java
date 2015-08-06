@@ -1,12 +1,13 @@
 package runkoserver.domain;
 
+import java.io.Serializable;
 import javax.persistence.Entity;
 /**
  * Content class for mobile publishing
  * 
  */
 @Entity
-public class SimpleContent extends Content{
+public class SimpleContent extends Content implements Serializable{
     
     private String textArea;
 
