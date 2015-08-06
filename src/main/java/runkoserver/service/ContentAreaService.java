@@ -86,7 +86,20 @@ public class ContentAreaService {
 
         return content;
     }
-
+ 
+    public SimpleContent updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds) {
+        SimpleContent content = (SimpleContent) findContentById(contentId);
+        content.setName(name);
+        content.setTextArea(textArea);
+        deleteContentFromAreas(content);
+        content.setAreas(new ArrayList<>());
+        if (areaIds != null) {
+            for (Area area : findListedAreasById(areaIds)) {
+                content.addArea(area);
+            }
+        }
+        return content;
+    }
     //Areas' repository interactions
     public boolean saveArea(Area area) {
         if (area != null) {
