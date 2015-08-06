@@ -32,7 +32,7 @@
                         <label>Sisällön nimi *</label>
                         <br />
 
-                        <input type="text" name="name" class="form-control"  required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." th:value="${content.name}"/>
+                        <input type="text" name="name" class="form-control"  required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." th:value="${content.name}"/>
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
                             <label>Sisältö</label>

@@ -19,18 +19,20 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.Application;
 import runkoserver.domain.Area;
+import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
 import runkoserver.service.ContentAreaService;
 
 /**
- * Integration tests for content-usage.
+ * Integration tests for area-usage.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest(value = "server.port=9000")
 @SeleniumTest(baseUrl = "http://localhost:9000")
+
 public class AreaTest {
     
     @Autowired
@@ -51,31 +53,82 @@ public class AreaTest {
         password.submit();
     }
     
-    @Test
     private Area createNewArea(String areaName) {
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
-        WebElement visibility = driver.findElement(By.name(ATTRIBUTE_NAME));
         
         String theName = areaName;
         name.sendKeys(theName);
         
-        visibility.submit();
+        name.submit();
         
         return contentAreaService.findAreaByName(theName);
     }
     
+    private Content createNewSimpleContent(String contentName, String tArea, String area) {
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
+        
+        WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
+        WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
+        
+        int areaId = area.getId();
+        
+        String theName = contentName;
+        name.sendKeys(theName);
+        String text = tArea;
+        textArea.sendKeys(text);
+        String areaName = area;
+        
+        textArea.submit();
+        
+        return contentAreaService.findContentByName(theName);
+    }
+    
     @Test
     public void areaCanBeCreatedWithValidInformation() {
-        String areaName = "Orange is back!";
+        String areaName = "Orange is new black!";
         
         createNewArea(areaName);
     }
     
     @Test
     public void areaCannotBeCreatedWithInvalidInformation() {
+        String areaName = "av";
         
+        createNewArea(areaName);
     }
     
+    @Test
+    public void createdAreaCanBeFound() {
+        String areaName = "Elämä on!";        
+        
+        Area area = createNewArea(areaName);
+        
+        assertTrue(area != null);
+    }
+    
+    @Test
+    public void createdAreaContainsAllGivenInformation() {
+        String areaName = "Tämä on testi.";
+        
+        Area area = createNewArea(areaName);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        assertTrue(driver.getPageSource().contains(areaName));
+    }
+    
+    @Test
+    public void contentCanBeCreatedInNewArea(){
+        String areaName = "Uusi alue";
+        String contentName = "Uusi sisältö";
+        String contentText = "Lisätään sisältöä.";
+        
+        Area area = createNewArea(areaName);
+        Content content = createNewSimpleContent(contentName, contentText, areaName);
+        
+        
+        
+    }
 }
