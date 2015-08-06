@@ -150,7 +150,8 @@
                         <excludes>
                             <exlude>runkoserver/libraries/Attributes.class</exlude>
                             <exlude>runkoserver/libraries/Links.class</exlude>
-                            <exlude>runkoserver/libraries/Messages.class</exlude>                          
+                            <exlude>runkoserver/libraries/Messages.class</exlude>   
+                                                   
                         </excludes>
                     </instrumentation>
                     <check>
