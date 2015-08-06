@@ -59,4 +59,22 @@ public class RunkoController {
 
         return FILE_PROFILE;
     }
+
+    /**
+     * Checks if user is already logged in and if so, redirects the user to the
+     * logout page (which should then after automatic logout redirect the user
+     * to the login page), otherwise redirects straight to the login page.
+     *
+     * @param redirectAttributes
+     * @return redirect to logout or login URL
+     */
+    @RequestMapping(value = LINK_LOGIN_LOGOUT, method = RequestMethod.GET)
+    public String logout() {
+        
+        if (personService.userIsLoggedIn()) {;
+            return REDIRECT + LINK_LOGOUT;
+        }
+        
+        return REDIRECT + LINK_LOGIN;
+    }
 }

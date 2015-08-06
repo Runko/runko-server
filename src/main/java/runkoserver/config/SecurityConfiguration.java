@@ -27,34 +27,38 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
         // kirjautumista
         http.authorizeRequests()
-
                 .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
-
                 .antMatchers(LINK_CONTENT_INDEX + LINK_CONTENT_SIMPLEFORM).authenticated()
                 .antMatchers(FOLDER_CSS, LINK_HOME, LINK_CONTENT_INDEX + "/*").permitAll()
-
                 .anyRequest().authenticated();
-        
+
         http.csrf().disable();
 
         // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
         // pääsy kirjautumissivulle
         http.formLogin()
+                .defaultSuccessUrl(LINK_HOME, true)
                 .loginPage(LINK_LOGIN).permitAll();
+
+        // uloskirjautumisen asetukset
+        http.logout()
+		.logoutSuccessUrl(LINK_LOGIN);
     }
-    
+
     /**
      * Configures authentication service.
      */
     @Configuration
     protected static class AuthenticationConfiguration extends GlobalAuthenticationConfigurerAdapter {
-        
+
         @Autowired
         PersonUserDetailsService personUserDetailsService;
-        
+
         /**
          * Initializes authentication with selected service.
-         * @param auth AuthenticationManagerBuilder. Can be set with different authentication services.
+         *
+         * @param auth AuthenticationManagerBuilder. Can be set with different
+         * authentication services.
          * @throws Exception Throws usernameNotFound exception
          */
         @Override
