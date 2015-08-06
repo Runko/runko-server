@@ -41,6 +41,7 @@ public abstract class Links {
     
     public static final String FILE_SIMPLECONTENT = "/content/simple_content";
     public static final String FILE_SIMPLECONTENT_FORM = "/content/simple_content_form";
+    public static final String FILE_SIMPLECONTENT_EDIT = "/content/simple_content_edit";
     
     public static final String FILE_LOGIN = "login";
     

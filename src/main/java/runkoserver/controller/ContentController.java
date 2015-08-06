@@ -1,5 +1,6 @@
 package runkoserver.controller;
 
+import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -68,14 +69,32 @@ public class ContentController {
 
     /**
      * /**
+     * GET-method for rendering the form to modify existing content.
+     *
+     * @param id
+     * @param model object for spring to use
+     * @return path to the content creation form html file
+     */
+    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
+    public String simpleContentEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findContentById(id));
+
+        return FILE_SIMPLECONTENT_EDIT;
+    }
+
+    /**
+     * /**
      * GET-method for rendering the form to create new content.
      *
+     * @param id
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+
         return FILE_SIMPLECONTENT_FORM;
     }
 
@@ -90,7 +109,6 @@ public class ContentController {
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
      */
-    
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
@@ -110,6 +128,19 @@ public class ContentController {
         return REDIRECT_HOME;
     }
 
+    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
+    public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
+            @RequestParam(required = true) String name,
+            @RequestParam(required = true) String textArea,
+            @RequestParam(required = false) List<Long> areaIds
+            ) {
+        
+      
+         contentAreaService.updateSimpleContent(id, name, textArea, areaIds);
+        
+        return REDIRECT_HOME;
+    }
+
     /**
      * Deletes a Content and any possible references to it.
      *
@@ -118,13 +149,12 @@ public class ContentController {
      * method to the one that the user is next redi
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
+    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
             RedirectAttributes redirectAttributes) {
 
         Content content = contentAreaService.findContentById(id);
 
-        
         if (contentAreaService.deleteContent(content.getId())) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
 
