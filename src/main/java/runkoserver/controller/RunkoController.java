@@ -41,22 +41,4 @@ public class RunkoController {
 
         return FILE_HOME;
     }
-
-    /**
-     * GET-method for current user's profile-view.
-     *
-     * @param model object for spring to use
-     * @param principal access to user-token
-     * @return profile-view
-     */
-    @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
-    public String showProfile(Model model, Principal principal
-    ) {
-        String username = principal.getName();
-        Person p = personService.findByUsername(username);
-
-        model.addAttribute(ATTRIBUTE_PERSON, p);
-
-        return FILE_PROFILE;
-    }
 }

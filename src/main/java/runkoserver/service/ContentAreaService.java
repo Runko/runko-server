@@ -180,5 +180,8 @@ public class ContentAreaService {
         }
         return false;
     }
+    public List<Content> findByOwner(Person person){
+    return contentRepository.findByOwner(person);
+    }
 
 }
