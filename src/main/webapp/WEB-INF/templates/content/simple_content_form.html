@@ -29,9 +29,9 @@
             <form method="post" action="/content/simpleform" id="contentform">
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <label>Sisällön nimi *</label>
+                        <label>Sisällön otsikko *</label>
                         <br />
-                        <input type="text" name="name" class="form-control" />
+                        <input type="text" name="name" class="form-control" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ]+.{3,50}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
                         
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
