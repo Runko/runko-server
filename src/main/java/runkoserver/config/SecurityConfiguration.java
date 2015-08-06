@@ -30,8 +30,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
                 .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
 
-                .antMatchers(LINK_CONTENT_INDEX + LINK_CONTENT_SIMPLEFORM).authenticated()
-                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_CONTENT_INDEX + "/*").permitAll()
+                .antMatchers(LINK_CONTENT + LINK_CONTENT_SIMPLEFORM).authenticated()
+                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_CONTENT + "/*").permitAll()
 
                 .anyRequest().authenticated();
         

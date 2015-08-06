@@ -47,8 +47,8 @@ public class AreaController {
     /**
      * GET-method for rendering the form to create new Areas.
      *
-     * @param model
-     * @param principal
+     * @param model  model object for Spring to use
+     * @param principal tells who is logged in. 
      * @return path to the area creation form html file
      */
     @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.GET)
@@ -63,9 +63,9 @@ public class AreaController {
      *
      * @param redirectAttributes a Spring object to carry attributes from this method to
      * the one that the user is next redirected to
-     * @param ownerId
-     * @param name
-     * @param visibility
+     * @param ownerId  tells who owns area
+     * @param name Area's title
+     * @param visibility tells if area is public or not
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.POST)

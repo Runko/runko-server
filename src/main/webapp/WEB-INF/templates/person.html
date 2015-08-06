@@ -24,8 +24,8 @@
             <!-- Form makes new user -->
             <form action="/persons" method="POST">
                 <p>Nimi:</p>
-                <input type="text" name="name"/>
-                <input type="submit" value="Lisää"/>
+                <input type="text" name="name" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ]+.{1,}" placeholder="Nimi ei saa olla tyhjä."/>
+                <input type="submit" value="Lisää" />
             </form>
         
             <h3>Käyttäjät</h3>
