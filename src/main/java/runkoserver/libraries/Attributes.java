@@ -14,9 +14,12 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_PASSWORD = "password";
     public static final String ATTRIBUTE_NAME = "name";
     public static final String ATTRIBUTE_TEXTAREA = "textArea";
+    public static final String ATTRIBUTE_CONTENT_DELETE = "Poista";
     
     public static final String TITLE_FRONTPAGE = "Partio";
     
     public static final String LOGIN_TEST = "testi";
     public static final String PASSWORD_TEST = "testi";
+    public static final String LOGIN_TEST2 = "testi2";
+    public static final String PASSWORD_TEST2 = "testi2";
 }

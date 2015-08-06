@@ -157,7 +157,7 @@ public class ContentController {
      * method to the one that the user is next redi
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.DELETE)
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
             RedirectAttributes redirectAttributes) {
 
