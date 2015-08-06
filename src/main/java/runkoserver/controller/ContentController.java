@@ -87,7 +87,6 @@ public class ContentController {
      * /**
      * GET-method for rendering the form to create new content.
      *
-     * @param id
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
@@ -134,7 +133,7 @@ public class ContentController {
      * @param name content's title
      * @param textArea content's text area
      * @param areaIds list of areas where content is connected
-     * @return 
+     * @return back to index
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
@@ -142,10 +141,8 @@ public class ContentController {
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds
             ) {
-        
-      
-         contentAreaService.updateSimpleContent(id, name, textArea, areaIds);
-        
+        contentAreaService.updateSimpleContent(id, name, textArea, areaIds);
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
         return REDIRECT_HOME;
     }
 
