@@ -127,7 +127,15 @@ public class ContentController {
 
         return REDIRECT_HOME;
     }
-
+    /**
+     * POST-method to modify SimpleContents data.
+     * @param id identifies  which content is modified
+     * @param redirectAttributes
+     * @param name content's title
+     * @param textArea content's text area
+     * @param areaIds list of areas where content is connected
+     * @return 
+     */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
