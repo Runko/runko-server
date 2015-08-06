@@ -50,4 +50,13 @@ public class PersonController {
       
        return LINK_PROFILE;
     }
+    
+    @RequestMapping(value = LINK_PROFILE + "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
+    public String getProfileEdit(RedirectAttributes redirectAttributes, Model model, Principal principal) {
+       Person person =personService.findByUsername(principal.getName());
+       model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+       model.addAttribute(ATTRIBUTE_PERSON, person);
+       
+       return FILE_PROFILE_EDIT;
+    }
 }

@@ -1,5 +1,4 @@
 <!DOCTYPE html>
-<!-- View for viewing current user's profile -->
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 
     <head lang="en">
@@ -9,20 +8,22 @@
         <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+
+        <!-- Bootstrap (js-tiedosto) -->
+        <script src="js/bootstrap.min.js"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />  
 
-        <title>Profiili</title>
-
+        <title>Pääkaupunkiseudun partiolaiset</title>
     </head>
+
     <body>
-        <!-- Navigation-bar -->
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
         <!-- centered is in layout.css -->
-        <div class="centered">
-
-            <h1>Profiili</h1>
+        <div class="centered" >
+            <h2>Muokkaa profiilia</h2>
 
             <table class="table table-striped col-sm-12" >
                 <tr>
@@ -36,24 +37,13 @@
                     <td th:text="${person.username}"></td>
                 </tr>
             </table>
-            <h2>Omat sisällöt</h2>
-            <table class="table table-striped col-sm-12">
-                <div th:unless="${#lists.isEmpty(contents)}">
-                    <tr th:each="content : ${contents}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
-                    <tr></tr>
-                    </tr>    
-                </div>
-            </table>
-            <div th:if="${#lists.isEmpty(contents)}">
-                <p>Et ole luonu sisältöä!</p>
-            </div>
-            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}">
+            <!-- Form makes new content -->
+            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
                 <!-- topspace is in layout.css -->
                 <div  class="topspace">
                     <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
                 </div>
             </form>
         </div>
-    </body>
+</body>
 </html>
