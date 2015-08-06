@@ -1,4 +1,3 @@
-
 package runkoserver.repository;
 
 import java.util.List;
@@ -9,6 +8,10 @@ import runkoserver.domain.Content;
 import runkoserver.domain.Person;
 
 public interface ContentRepository extends JpaRepository<Content, Long> {
+
     @Query
     public List<Content> findByOwner(Person person);
+    
+    @Query
+    public Content findByName(String name);
 }

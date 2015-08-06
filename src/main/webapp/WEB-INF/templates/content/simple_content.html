@@ -39,12 +39,13 @@
                     <tr></tr>
                     </tr>          
                 </table>
+
                 <div th:if="${person != null}" >
                     <div th:if="${person.id == content.owner.id}">
                         <!-- Shows buttons only if user who is logged in is owner -->
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
-                            <form action="#" >
+                            <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
                                 <button type="submit" class="btn btn-primary">Muokkaa</button>
                             </form>
                         </div>  
@@ -56,6 +57,7 @@
                             </form>
                         </div>
                     </div>
+
                 </div>
             </div>
         </div> 
