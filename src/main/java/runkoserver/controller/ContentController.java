@@ -24,7 +24,7 @@ import runkoserver.service.PersonService;
  * Controller class for HTTP requests related to Content-type objects.
  */
 @Controller
-@RequestMapping(LINK_CONTENT_INDEX)
+@RequestMapping(LINK_CONTENT)
 @Transactional
 public class ContentController {
 
