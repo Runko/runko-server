@@ -46,6 +46,10 @@ public class ContentAreaService {
     public Content findContentById(Long id) {
         return contentRepository.findOne(id);
     }
+    
+    public Content findContentByName(String name) {
+        return contentRepository.findByName(name);
+    }
 
     /**
      * Deletes content and removes any connections with its areas.

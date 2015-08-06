@@ -11,5 +11,7 @@ public interface ContentRepository extends JpaRepository<Content, Long> {
 
     @Query
     public List<Content> findByOwner(Person person);
-
+    
+    @Query
+    public Content findByName(String name);
 }
