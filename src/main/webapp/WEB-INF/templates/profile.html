@@ -21,7 +21,7 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-            
+
             <h1>Profiili</h1>
 
             <table class="table table-striped col-sm-12" >
@@ -36,6 +36,19 @@
                     <td th:text="${person.username}"></td>
                 </tr>
             </table>
+            <h2>Omat sisällöt</h2>
+            <table class="table table-striped col-sm-12">
+                <div th:unless="${#lists.isEmpty(contents)}">
+                    <tr th:each="content : ${contents}">
+                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
+                    <tr></tr>
+                    </tr>    
+                </div>
+            </table>
+            <div th:if="${#lists.isEmpty(contents)}">
+                <p>Et ole luonu sisältöä!</p>
+            </div>
+
         </div>
     </body>
 </html>

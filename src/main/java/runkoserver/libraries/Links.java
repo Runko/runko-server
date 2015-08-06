@@ -12,6 +12,7 @@ public abstract class Links {
     public static final String LINK_HOME = "/";
     
     public static final String LINK_PROFILE = "/profile";
+    public static final String LINK_PERSONS = "/persons";
     
     public static final String LINK_VIEW_ID = "/{id}";
     
@@ -31,6 +32,10 @@ public abstract class Links {
     public static final String FILE_HOME = "index";
     
     public static final String FILE_PROFILE = "profile";
+    
+    public static final String FILE_PERSONS = "persons";
+    public static final String FILE_PERSON = "person";
+    
     
     public static final String FILE_SIMPLECONTENT = "/content/simple_content";
     public static final String FILE_SIMPLECONTENT_FORM = "/content/simple_content_form";
