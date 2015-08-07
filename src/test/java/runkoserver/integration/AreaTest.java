@@ -118,9 +118,11 @@ public class AreaTest {
         String visibility = "testing1";
         Area area = createNewArea(areaName, visibility);
         
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("false"));
         
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         assertTrue(driver.getPageSource().contains(areaName));
+
     }
     
     @Test
