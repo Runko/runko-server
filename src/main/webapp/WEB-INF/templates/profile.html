@@ -24,14 +24,32 @@
 
             <h1>Profiili</h1>
 
+            <div class="topspace">
+                <img src="${person.urlToPhoto}"
+                     th:src="@{${person.urlToPhoto}}"
+                     alt="Profile picture" 
+                     style="width:128px;height:128px;"/>
+                
+                            
+            <table class="table table-striped col-sm-12" >
+                <tr>
+                    <td class="bold">Minä olen: </td>
+                    <td th:text="${person.description}"></td>
+                </tr>
+                <tr>
+                    <!-- bold is in layout.css -->
+                    <td class="bold">Nimi: </td>
+                    <td th:text="${person.name}"></td>
+                </tr>
+                <tr>
+                    <!-- bold is in layout.css -->
+                    <td class="bold">Käyttäjätunnus: </td>
+                    <td th:text="${person.username}"></td>
+                </tr>
+            </table>
+               
 
-
-
-            <text th:text="${person.description}">Minä olen</text>
-            <label>Nimi</label>
-            <p th:text="${person.name}"></p>
-            <label>Käyttäjätunnus</label>
-            <p th:text="${person.username}"></p>
+            </div>
 
             <h2>Omat sisällöt</h2>
             <table class="table table-striped col-sm-12">
@@ -52,5 +70,6 @@
                 </div>
             </form>
         </div>
+
     </body>
 </html>

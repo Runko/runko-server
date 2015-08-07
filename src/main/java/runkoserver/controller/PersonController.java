@@ -89,7 +89,7 @@ public class PersonController {
      * @return back to person's updated profile
      */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.POST)
-    public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
+    public String updatePersonProfile(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = false) String urlToPhoto,
             @RequestParam(required = false) String description) {
         personService.updatePerson(id, urlToPhoto, description);

@@ -21,10 +21,12 @@ public class RepositoryConfiguration {
         p.setUsername("testi");
         p.setPassword("testi");
         p.setDescription("Olen kova partiolainen!!! Matti Rocks!!!!!!!!!!!!!!!!");
+        p.setUrlToPhoto("http://giveitlove.com/wp-content/uploads/Pirate-Cat-Halloween-Costume.jpg");
         personRepository.save(p);
         p = new Person("Timo");
         p.setUsername("testi2");
         p.setPassword("testi2");
+        p.setUrlToPhoto(null);
         personRepository.save(p);
     }
 }

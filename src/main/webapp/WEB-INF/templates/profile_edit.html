@@ -22,32 +22,32 @@
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
         <!-- centered is in layout.css -->
-        <div class="centered" >
+        <div class="centered topspace" >
             <h2>Muokkaa profiilia</h2>
-<!-- Form updates profile -->
-            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
-                
+            <!-- Form updates profile -->
+            <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
+                <label>Kuva</label>
+                <input type="text" name="urlToPhoto" class="form-control" placeholder="lisää kuvalinkki tänne" th:value="${person.urlToPhoto}"/>
+                <label>Kuvaus</label>
+                <input type="text" name="description" class="form-control" placeholder="lisää kuvaus tänne" th:value="${person.description}"/>
+                <table class="table table-striped col-sm-12" >
+                    <tr>
+                        <!-- bold is in layout.css -->
+                        <td class="bold">Nimi: </td>
+                        <td th:text="${person.name}"></td>
+                    </tr>
+                    <tr>
+                        <!-- bold is in layout.css -->
+                        <td class="bold">Käyttäjätunnus: </td>
+                        <td th:text="${person.username}"></td>
+                    </tr>
+                </table>
 
-            <label>Nimi:</label>
-            
-            <table class="table table-striped col-sm-12" >
-                <tr>
-                    <!-- bold is in layout.css -->
-                    <td class="bold">Nimi: </td>
-                    <td th:text="${person.name}"></td>
-                </tr>
-                <tr>
-                    <!-- bold is in layout.css -->
-                    <td class="bold">Käyttäjätunnus: </td>
-                    <td th:text="${person.username}"></td>
-                </tr>
-            </table>
-            
                 <!-- topspace is in layout.css -->
                 <div  class="topspace">
                     <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
                 </div>
             </form>
         </div>
-</body>
+    </body>
 </html>
