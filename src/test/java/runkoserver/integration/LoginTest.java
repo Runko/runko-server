@@ -1,5 +1,7 @@
 package runkoserver.integration;
 
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.assertTrue;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -14,6 +16,7 @@ import runkoserver.Application;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.MESSAGE_LOGIN_DEFAULT;
+import runkoserver.service.PersonService;
 
 /**
  * Tests for basic application-interactions.
