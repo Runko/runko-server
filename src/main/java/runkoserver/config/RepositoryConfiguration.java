@@ -20,6 +20,7 @@ public class RepositoryConfiguration {
         Person p = new Person("Matti");
         p.setUsername("testi");
         p.setPassword("testi");
+        p.setUrlToPhoto("http://img05.deviantart.net/f6f8/i/2012/310/6/f/horizon__my_own_oc_pony__by_artpwny-d5k6dwk.png");
         personRepository.save(p);
         p = new Person("Timo");
         p.setUsername("testi2");

@@ -23,6 +23,8 @@ public class Person {
     private String username;
     
     private String password;
+    
+    private String urlToPhoto;
 
     @ManyToMany(mappedBy = "subscribers")
     private List<Area> subscriptions;
@@ -57,6 +59,10 @@ public class Person {
         return name;
     }
 
+    public String getUrlToPhoto(){
+        return urlToPhoto;
+    }
+    
     public void setUsername(String username) {
         this.username = username;
     }
@@ -69,6 +75,10 @@ public class Person {
         this.name = name;
     }
 
+    public void setUrlToPhoto(String urlToPhoto){
+        this.urlToPhoto = urlToPhoto;
+    }
+    
     public List<Area> getSubscriptions() {
         return subscriptions;
     }

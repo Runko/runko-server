@@ -8,7 +8,7 @@ public abstract class Links {
     public static final String REDIRECT_HOME = "redirect:/";
     
     public static final String LINK_HOME = "/";
-    
+    public static final String LINK_EDIT = "/edit";
     public static final String LINK_PROFILE = "/profile";
     public static final String LINK_PERSONS = "/persons";
     

@@ -63,5 +63,9 @@ public class PersonService implements RepoService{
     public void deleteAll() {
         repository.deleteAll();
     }
+
+    public void updatePerson(Long id, String urlToPhoto) {
+        repository.findById(id).setUrlToPhoto(urlToPhoto);
+    }
     
 }
