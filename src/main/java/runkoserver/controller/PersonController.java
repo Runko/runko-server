@@ -94,7 +94,9 @@ public class PersonController {
             @RequestParam(required = false) String description) {
         personService.updatePerson(id, urlToPhoto, description);
        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
-        return REDIRECT_HOME;
+       
+       
+        return REDIRECT+LINK_PERSONS+LINK_PROFILE;
     }
 
 }
