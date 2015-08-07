@@ -82,23 +82,6 @@ public class LoginTest {
         WebElement logoutButton = driver.findElement(By.name("Kirjautuminen"));
         logoutButton.click();
 
-        assertFalse(personService.userIsLoggedIn());
-    }
-
-    @Test
-    public void UserIsRedirectedToLoginPageAfterLogout() {
-        driver.get(LINK_LOCALHOST + LINK_LOGIN);
-
-        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
-        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
-
-        username.sendKeys(LOGIN_TEST);
-        password.sendKeys(PASSWORD_TEST);
-        password.submit();
-
-        WebElement logoutButton = driver.findElement(By.name("Kirjautuminen"));
-        logoutButton.click();
-
         assertTrue(driver.getPageSource().contains("Kirjaudu sisään"));
     }
 }
