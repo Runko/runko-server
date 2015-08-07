@@ -24,25 +24,15 @@
 
             <h1>Profiili</h1>
 
-         
-                
-                <img src="http://img05.deviantart.net/f6f8/i/2012/310/6/f/horizon__my_own_oc_pony__by_artpwny-d5k6dwk.png" 
-                    th:src="@{http://img05.deviantart.net/f6f8/i/2012/310/6/f/horizon__my_own_oc_pony__by_artpwny-d5k6dwk.png}" style="width:50px;height:50px;border:0">
-              
-               
-            
-            <table class="table table-striped col-sm-12" >
-                <tr>
-                    <!-- bold is in layout.css -->
-                    <td class="bold">Nimi: </td>
-                    <td th:text="${person.name}"></td>
-                </tr>
-                <tr>
-                    <!-- bold is in layout.css -->
-                    <td class="bold">Käyttäjätunnus: </td>
-                    <td th:text="${person.username}"></td>
-                </tr>
-            </table>
+
+
+
+            <text th:text="${person.description}">Minä olen</text>
+            <label>Nimi</label>
+            <p th:text="${person.name}"></p>
+            <label>Käyttäjätunnus</label>
+            <p th:text="${person.username}"></p>
+
             <h2>Omat sisällöt</h2>
             <table class="table table-striped col-sm-12">
                 <div th:unless="${#lists.isEmpty(contents)}">

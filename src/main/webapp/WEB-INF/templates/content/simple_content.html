@@ -53,7 +53,7 @@
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
                             <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
-                                <button type="submit" class="btn btn-danger">Poista</button>
+                                <button name="remove" type="submit" class="btn btn-danger">Poista</button>
                             </form>
                         </div>
                     </div>

@@ -24,6 +24,9 @@
         <!-- centered is in layout.css -->
         <div class="centered" >
             <h2>Muokkaa profiilia</h2>
+<!-- Form updates profile -->
+            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
+                
 
             <label>Nimi:</label>
             
@@ -39,8 +42,7 @@
                     <td th:text="${person.username}"></td>
                 </tr>
             </table>
-            <!-- Form makes new content -->
-            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
+            
                 <!-- topspace is in layout.css -->
                 <div  class="topspace">
                     <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          

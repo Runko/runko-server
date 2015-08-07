@@ -29,7 +29,7 @@ public class PersonController {
 
     @Autowired
     PersonService personService;
-    
+
     @Autowired
     ContentAreaService contentAreaService;
 
@@ -43,11 +43,12 @@ public class PersonController {
     public String addPerson(@ModelAttribute Person person) {
         personService.save(person);
 
-        return REDIRECT+LINK_PERSONS;
+        return REDIRECT + LINK_PERSONS;
     }
 
     /**
      * GET - method to open person's profile including owned contents
+     *
      * @param redirectAttributes
      * @param model
      * @param principal
@@ -55,15 +56,15 @@ public class PersonController {
      */
     @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
     public String getProfile(RedirectAttributes redirectAttributes, Model model, Principal principal) {
-       Person person =personService.findByUsername(principal.getName());
-       model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
-       model.addAttribute(ATTRIBUTE_PERSON, person);
-      
-       return LINK_PROFILE;
+        Person person = personService.findByUsername(principal.getName());
+        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_PERSON, person);
+
+        return LINK_PROFILE;
     }
-    
+
     /**
-     * 
+     *
      * @param redirectAttributes
      * @param model
      * @param principal
@@ -71,25 +72,29 @@ public class PersonController {
      */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.GET)
     public String getProfileEdit(RedirectAttributes redirectAttributes, Model model, Principal principal) {
-       Person person =personService.findByUsername(principal.getName());
-       model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
-       model.addAttribute(ATTRIBUTE_PERSON, person);
-       
-       return FILE_PROFILE_EDIT;
+        Person person = personService.findByUsername(principal.getName());
+        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_PERSON, person);
+
+        return FILE_PROFILE_EDIT;
     }
-    
-     /**
+
+    /**
      * POST-method to modify person's profile.
-     * @param id identifies  which content is modified
+     *
+     * @param id identifies which content is modified
      * @param redirectAttributes
      * @param urlToPhoto link to person's photo
+     * @param description
      * @return back to person's updated profile
      */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
-            @RequestParam(required = false) String urlToPhoto) {
-        personService.updatePerson(id, urlToPhoto);
+            @RequestParam(required = false) String urlToPhoto,
+            @RequestParam(required = false) String description) {
+        personService.updatePerson(id, urlToPhoto, description);
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
         return REDIRECT + LINK_PROFILE;
     }
+
 }
