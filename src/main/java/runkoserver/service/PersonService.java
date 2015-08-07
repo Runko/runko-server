@@ -68,6 +68,7 @@ public class PersonService implements RepoService{
         Person p = repository.findById(id);
         p.setUrlToPhoto(urlToPhoto);
         p.setDescription(description);
+        repository.save(p);
     }
     
 }

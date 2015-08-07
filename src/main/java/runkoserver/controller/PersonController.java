@@ -93,8 +93,8 @@ public class PersonController {
             @RequestParam(required = false) String urlToPhoto,
             @RequestParam(required = false) String description) {
         personService.updatePerson(id, urlToPhoto, description);
-        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
-        return REDIRECT + LINK_PROFILE;
+       redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
+        return REDIRECT_HOME;
     }
 
 }
