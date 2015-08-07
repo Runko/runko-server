@@ -44,10 +44,12 @@ public class PersonController {
 
     @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
     public String getProfile(RedirectAttributes redirectAttributes, Model model, Principal principal) {
-       Person person =personService.findByUsername(principal.getName());
+       Person person = personService.findByUsername(principal.getName());
        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
        model.addAttribute(ATTRIBUTE_PERSON, person);
       
        return LINK_PROFILE;
     }
+    
+    
 }

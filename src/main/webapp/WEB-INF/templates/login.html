@@ -23,11 +23,13 @@
             <h2>Kirjaudu sisään</h2>
 
             <!-- Errors -->
-            <div th:if="${param.error}" class="alert alert-danger">    
-                Invalid username and password.
+            <div th:if="${param.error != null}" class="alert alert-danger">    
+                Käyttäjätunnus tai salasana ei kelpaa.
             </div>
-            <div th:if="${param.logout}" class="alert alert-success"> 
-                You have been logged out.
+            
+            <!--If the user arrives to the login page because they logged out, "successful logout"-message is displayed-->
+            <div th:if="${logout}" class="alert alert-success"> 
+                Kirjauduit ulos onnistuneesti!
             </div>
 
             <!-- Log-in form -->
