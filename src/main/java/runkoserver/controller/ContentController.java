@@ -84,7 +84,7 @@ public class ContentController {
     }
 
     /**
-     * /**
+     *
      * GET-method for rendering the form to create new content.
      *
      * @param model object for spring to use
