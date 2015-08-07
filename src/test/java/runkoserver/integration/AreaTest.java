@@ -71,16 +71,15 @@ public class AreaTest {
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
-        
-        int areaId = area.getId();
+        WebElement areachoice = driver.findElement(By.name(area));
         
         String theName = contentName;
         name.sendKeys(theName);
         String text = tArea;
         textArea.sendKeys(text);
-        String areaName = area;
         
-        textArea.submit();
+        areachoice.click();
+        areachoice.submit();
         
         return contentAreaService.findContentByName(theName);
     }
@@ -88,24 +87,18 @@ public class AreaTest {
     @Test
     public void areaCanBeCreatedWithValidInformation() {
         String areaName = "Orange is new black!";
-        
         createNewArea(areaName);
-    }
-    
-    @Test
-    public void areaCannotBeCreatedWithInvalidInformation() {
-        String areaName = "av";
         
-        createNewArea(areaName);
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
     }
     
     @Test
     public void createdAreaCanBeFound() {
         String areaName = "Elämä on!";        
         
-        Area area = createNewArea(areaName);
+        createNewArea(areaName);
         
-        assertTrue(area != null);
+        assertTrue(driver.getPageSource().contains(areaName));
     }
     
     @Test
@@ -128,7 +121,9 @@ public class AreaTest {
         Area area = createNewArea(areaName);
         Content content = createNewSimpleContent(contentName, contentText, areaName);
         
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         
+        assertTrue(driver.getPageSource().contains(contentName));
         
     }
 }
