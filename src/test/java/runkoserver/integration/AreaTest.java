@@ -53,15 +53,16 @@ public class AreaTest {
         password.submit();
     }
     
-    private Area createNewArea(String areaName) {
+    private Area createNewArea(String areaName, String id) {
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
-        
+        WebElement publicity = driver.findElement(By.id(id));
+                
         String theName = areaName;
         name.sendKeys(theName);
-        
-        name.submit();
+        publicity.click();
+        publicity.submit();
         
         return contentAreaService.findAreaByName(theName);
     }
@@ -85,9 +86,19 @@ public class AreaTest {
     }
     
     @Test
+    public void areaCannotBeCreatedWithInvalidInformation() {
+        String areaName = "ue";
+        String visibility = "testing1";
+        createNewArea(areaName, visibility);
+
+        assertFalse(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
+    }
+    
+    @Test
     public void areaCanBeCreatedWithValidInformation() {
         String areaName = "Orange is new black!";
-        createNewArea(areaName);
+        String visibility = "testing1";
+        createNewArea(areaName, visibility);
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
     }
@@ -95,8 +106,8 @@ public class AreaTest {
     @Test
     public void createdAreaCanBeFound() {
         String areaName = "Elämä on!";        
-        
-        createNewArea(areaName);
+        String visibility = "testing1";
+        createNewArea(areaName, visibility);
         
         assertTrue(driver.getPageSource().contains(areaName));
     }
@@ -104,12 +115,14 @@ public class AreaTest {
     @Test
     public void createdAreaContainsAllGivenInformation() {
         String areaName = "Tämä on testi.";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
         
-        Area area = createNewArea(areaName);
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("false"));
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
-        
         assertTrue(driver.getPageSource().contains(areaName));
+
     }
     
     @Test
@@ -117,13 +130,23 @@ public class AreaTest {
         String areaName = "Uusi alue";
         String contentName = "Uusi sisältö";
         String contentText = "Lisätään sisältöä.";
+        String visibility = "testing1";
         
-        Area area = createNewArea(areaName);
+        Area area = createNewArea(areaName, visibility);
         Content content = createNewSimpleContent(contentName, contentText, areaName);
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         
         assertTrue(driver.getPageSource().contains(contentName));
+    }
+    
+    @Test
+    public void areaVisibilityCanChangeFromDefault(){
+        String areaName = "Näkyvyys vaihtuu";
+        String visibility = "testing2";
         
+        createNewArea(areaName, visibility);
+        
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("true"));
     }
 }

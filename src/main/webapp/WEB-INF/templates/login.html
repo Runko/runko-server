@@ -28,8 +28,8 @@
             </div>
             
             <!--If the user arrives to the login page because they logged out, "successful logout"-message is displayed-->
-            <div th:if="${param.logout != null}" class="alert alert-success"> 
-                Olet nyt kirjautunut ulos.
+            <div th:if="${logout}" class="alert alert-success"> 
+                Kirjauduit ulos onnistuneesti!
             </div>
 
             <!-- Log-in form -->
