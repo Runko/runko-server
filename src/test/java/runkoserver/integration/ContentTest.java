@@ -1,5 +1,6 @@
 package runkoserver.integration;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -60,6 +61,10 @@ public class ContentTest {
         return contentAreaService.findContentByName(theName);
     }
     
+    private String getViewContent(Content content) {
+        return LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId();
+    }
+    
     @Test
     public void contentCannotBeCreatedWithInvalidInformation() {
         String theName = "ba";
@@ -76,8 +81,6 @@ public class ContentTest {
         
         assertTrue(driver.getPageSource().contains(MESSAGE_CONTENT_SAVE_SUCCESS));
     }
-    
-    
     
     @Test
     public void createdContentCanBeFound() {
@@ -96,8 +99,46 @@ public class ContentTest {
         
         Content content = createNewSimpleContent(name, text);
         
-        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
+        driver.get(getViewContent(content));
         
         assertTrue(driver.getPageSource().contains(name) && driver.getPageSource().contains(text));
+    }
+    
+    @Test
+    public void contentOwnerCanDeleteContent() {
+        String name = "omistaja poistaa";
+        String text = "tulee olematon";
+        
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(getViewContent(content));
+        
+        WebElement delete = driver.findElement(By.name("remove"));
+        delete.click();
+        
+        driver.get(getViewContent(content));
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void contentCannotBeDeletedByOtherUser() {
+        String name = "älä edes yritä!";
+        String text = "Yritit kuitenkin";
+        
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_LOGIN);
+        
+        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
+        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
+        
+        username.sendKeys(LOGIN_TEST2);
+        password.sendKeys(PASSWORD_TEST2);
+        password.submit();
+        
+        driver.get(getViewContent(content));
+        
+        assertFalse(driver.getPageSource().contains("remove"));
     }
 }
