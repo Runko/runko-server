@@ -125,6 +125,10 @@ public class ContentAreaService {
     public Area findAreaById(Long id) {
         return areaRepository.findOne(id);
     }
+    
+    public Area findAreaByName(String name) {
+        return areaRepository.findByName(name);
+    }
 
     /**
      * Creates a new area.
