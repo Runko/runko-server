@@ -25,7 +25,7 @@ public class RepositoryConfiguration {
         p = new Person("Timo");
         p.setUsername("testi2");
         p.setPassword("testi2");
-        p.setUrlToPhoto("http://giveitlove.com/wp-content/uploads/Aviation-Cat-Halloween-Costume.jpg");
+        p.setUrlToPhoto(null);
         personRepository.save(p);
     }
 }
