@@ -2,6 +2,7 @@ package runkoserver.integration;
 
 import java.util.ArrayList;
 import java.util.List;
+import org.junit.Assert;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -27,7 +28,7 @@ import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
 
 /**
- * Integration tests for content-usage.
+ * Integration tests for person-usage.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -82,6 +83,7 @@ public class PersonTest {
     @Test
     public void userCanSeeOwnContents() {
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_PROFILE);
+        
         assertTrue(driver.getPageSource().contains(simpleContent.getName()));
     }
 
@@ -90,10 +92,25 @@ public class PersonTest {
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_PROFILE );
         WebElement element = driver.findElement(By.id("submit"));
         element.submit();
+        
         assertTrue(driver.getPageSource().contains("Muokkaa profiilia"));
     }
 
     @Test
-    public void userCanEditOwnProfile() {}
+    public void userCanEditOwnProfile() {
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_PROFILE );
+        WebElement element = driver.findElement(By.id("submit"));
+        element.submit();
+        
+        WebElement description = driver.findElement(By.name("description"));
+        description.sendKeys("Tämä tieto on muuttunut");
+        
+        element = driver.findElement(By.id("submit"));
+        element.submit();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_PROFILE );
+        
+        assertTrue(driver.getPageSource().contains("Tämä tieto on muuttunut"));
+    }
 
 }
