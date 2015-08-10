@@ -22,11 +22,19 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <div class="col-sm-12">
 
                 <!-- This makes contens name to heading -->
                 <h2 th:text="${content.name}"></h2>
-
+                <div style="font-size:8px; color:grey">
+                    <p>Luotu: <span th:text="${content.creationTime}"></span></p>
+                    <div th:if="${content.modifyTime != content.creationTime}">
+                        <p>Muokattu: <span th:text="${content.modifyTime}"></span></p>
+                    </div>
+                </div>
                 <!-- This tell content -->
                 <p th:text="${content.textArea}"></p>
 
@@ -37,7 +45,8 @@
                     <tr th:each="area : ${content.areas}">
                     <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
                     <tr></tr>
-                    </tr>          
+                    </tr> 
+
                 </table>
 
                 <div th:if="${person != null}" >
@@ -59,7 +68,9 @@
                     </div>
 
                 </div>
+
             </div>
+
         </div> 
     </body>
 </html>

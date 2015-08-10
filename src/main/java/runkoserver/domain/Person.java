@@ -29,7 +29,7 @@ public class Person {
     
     private String description;
 
-    @ManyToMany(mappedBy = "subscribers")
+    @ManyToMany(fetch=FetchType.EAGER, mappedBy="subscribers")
     private List<Area> subscriptions;
     
     @OneToMany(fetch=FetchType.EAGER,mappedBy = "owner")
