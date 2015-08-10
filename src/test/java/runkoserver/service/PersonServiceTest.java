@@ -2,6 +2,7 @@ package runkoserver.service;
 
 import org.junit.Test;
 import static org.junit.Assert.*;
+import org.junit.Before;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.SpringApplicationConfiguration;
@@ -21,10 +22,12 @@ public class PersonServiceTest {
     public PersonServiceTest() {
     }
 
-    public void personServiceSetup() {
+    @Before
+    public void setUp() {
         personService.deleteAll();
         personService.save(new Person("Matti"));
         personService.save(new Person("Timo"));
+
     }
 
     @Test
@@ -40,13 +43,12 @@ public class PersonServiceTest {
 
     @Test
     public void testListPersons() {
-        personServiceSetup();
+
         assertEquals(2, personService.findAll().size());
     }
 
     @Test
     public void testAddedPersonsAreFound() {
-        personServiceSetup();
 
         Person p = new Person("Julia");
         personService.save(p);
@@ -56,7 +58,6 @@ public class PersonServiceTest {
 
     @Test
     public void testUnAddedPersonsAreNotFound() {
-        personServiceSetup();
 
         Person p = new Person("Henna");
 
@@ -65,7 +66,6 @@ public class PersonServiceTest {
 
     @Test
     public void testPersonsCanBeFoundByName() {
-        personServiceSetup();
 
         Person p = personService.findByName("Matti").get(0);
 
@@ -74,7 +74,6 @@ public class PersonServiceTest {
 
     @Test
     public void testDeletedPersonsAreNotFound() {
-        personServiceSetup();
 
         Person p = personService.findByName("Timo").get(0);
         personService.delete(p.getId());
@@ -84,7 +83,7 @@ public class PersonServiceTest {
 
     @Test
     public void testPersonMustHaveName() {
-        personServiceSetup();
+
         personService.save(new Person("    "));
         personService.save(new Person(null));
         assertEquals(2, personService.findAll().size());

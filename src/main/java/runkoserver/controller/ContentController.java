@@ -55,11 +55,11 @@ public class ContentController {
 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
-            
+
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
             }
-            
+
             return FILE_SIMPLECONTENT;
         }
 
@@ -126,23 +126,31 @@ public class ContentController {
 
         return REDIRECT_HOME;
     }
+
     /**
      * POST-method to modify SimpleContents data.
-     * @param id identifies  which content is modified
+     *
+     * @param id identifies which content is modified
      * @param redirectAttributes
      * @param name content's title
      * @param textArea content's text area
      * @param areaIds list of areas where content is connected
+     * @param principal who is logged in
      * @return back to index
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
-            @RequestParam(required = false) List<Long> areaIds
-            ) {
-        contentAreaService.updateSimpleContent(id, name, textArea, areaIds);
-        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
+            @RequestParam(required = false) List<Long> areaIds,
+            Principal principal
+    ) {
+
+        if (contentAreaService.updateSimpleContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_FAIL);
+        }
         return REDIRECT_HOME;
     }
 
@@ -152,21 +160,21 @@ public class ContentController {
      * @param id the id of the Content to be deleted
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redi
+     * @param principal who is logged in
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
-            RedirectAttributes redirectAttributes) {
+            RedirectAttributes redirectAttributes, 
+            Principal principal){
 
         Content content = contentAreaService.findContentById(id);
 
-        if (contentAreaService.deleteContent(content.getId())) {
+        if (contentAreaService.deleteContent(content.getId(), personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
-
-            return REDIRECT_HOME;
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_FAIL);
         }
-
-        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_FAIL);
         return REDIRECT_HOME;
     }
 }
