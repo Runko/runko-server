@@ -171,4 +171,25 @@ public class ContentTest {
 
         assertTrue(driver.getPageSource().contains(name) && driver.getPageSource().contains(text));
     }
+    
+        @Test
+    public void contentCannotBeEditedByOtherUser() {
+        String name = "ääälä edes yritä!";
+        String text = "Yyyyritit kuitenkin";
+
+        Content content = createNewSimpleContent(name, text);
+
+        driver.get(LINK_LOCALHOST + LINK_LOGIN);
+
+        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
+        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
+
+        username.sendKeys(LOGIN_TEST2);
+        password.sendKeys(PASSWORD_TEST2);
+        password.submit();
+
+        driver.get(getViewContent(content));
+
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
+    }
 }
