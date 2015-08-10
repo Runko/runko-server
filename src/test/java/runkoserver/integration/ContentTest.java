@@ -28,12 +28,13 @@ import runkoserver.service.ContentAreaService;
 @WebIntegrationTest(value = "server.port=9000")
 @SeleniumTest(baseUrl = "http://localhost:9000")
 public class ContentTest {
+
     @Autowired
     private WebDriver driver;
-    
+
     @Autowired
     private ContentAreaService contentAreaService;
-    
+
     @Before
     public void userIsLoggedIn() {
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
@@ -45,100 +46,150 @@ public class ContentTest {
         password.sendKeys(PASSWORD_TEST);
         password.submit();
     }
-    
+
     private Content createNewSimpleContent(String contentName, String tArea) {
         driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
-        
+
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
-        
+
         String theName = contentName;
         name.sendKeys(theName);
         String text = tArea;
         textArea.sendKeys(text);
         textArea.submit();
-        
+
         return contentAreaService.findContentByName(theName);
     }
-    
+
     private String getViewContent(Content content) {
         return LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId();
     }
-    
+
     @Test
     public void contentCannotBeCreatedWithInvalidInformation() {
         String theName = "ba";
         createNewSimpleContent(theName, "");
-        
+
         assertFalse(driver.getPageSource().contains(MESSAGE_CONTENT_SAVE_SUCCESS));
     }
-    
+
     @Test
     public void simpleContentCanBeCreatedWithValidInformation() {
         String theName = "banjana";
         String text = "is jellow";
         createNewSimpleContent(theName, text);
-        
+
         assertTrue(driver.getPageSource().contains(MESSAGE_CONTENT_SAVE_SUCCESS));
     }
-    
+
     @Test
     public void createdContentCanBeFound() {
-        String theName = "mandoliini soi";        
-        String text = "ei itkeä saa";        
-        
+        String theName = "mandoliini soi";
+        String text = "ei itkeä saa";
+
         Content content = createNewSimpleContent(theName, text);
-        
+
         assertTrue(content != null);
     }
-    
+
     @Test
     public void createdContentContainsAllGivenInformation() {
         String name = "timo viheltää";
         String text = "en tunnista sävelmää";
-        
+
         Content content = createNewSimpleContent(name, text);
-        
+
         driver.get(getViewContent(content));
-        
+
         assertTrue(driver.getPageSource().contains(name) && driver.getPageSource().contains(text));
     }
-    
+
     @Test
     public void contentOwnerCanDeleteContent() {
         String name = "omistaja poistaa";
         String text = "tulee olematon";
-        
+
         Content content = createNewSimpleContent(name, text);
-        
+
         driver.get(getViewContent(content));
-        
-        WebElement delete = driver.findElement(By.name("remove"));
-        delete.click();
-        
+
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_DELETE));
+        deleteButton.click();
+
         driver.get(getViewContent(content));
-        
+
         assertFalse(driver.getPageSource().contains(name));
     }
-    
+
     @Test
     public void contentCannotBeDeletedByOtherUser() {
         String name = "älä edes yritä!";
         String text = "Yritit kuitenkin";
-        
+
         Content content = createNewSimpleContent(name, text);
-        
+
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
-        
+
         WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
         WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
-        
+
         username.sendKeys(LOGIN_TEST2);
         password.sendKeys(PASSWORD_TEST2);
         password.submit();
-        
+
+        driver.get(getViewContent(content));
+
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_DELETE));
+    }
+
+    @Test
+    public void contentCanBeEdited() {
+        String name = "kaka";
+        String text = "on ruskeaa";
+
+        Content content = createNewSimpleContent(name, text);
+
         driver.get(getViewContent(content));
         
-        assertFalse(driver.getPageSource().contains("remove"));
+        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        editButton.click();
+        
+        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
+        WebElement textField = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
+        
+        name = "Kakka";
+        nameField.clear();
+        nameField.sendKeys(name);
+        text = "On Ruskeaa.";
+        textField.clear();
+        textField.sendKeys(text);
+        
+        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        editButton.click();
+        driver.get(getViewContent(content));
+
+        assertTrue(driver.getPageSource().contains(name) && driver.getPageSource().contains(text));
+    }
+    
+        @Test
+    public void contentCannotBeEditedByOtherUser() {
+        String name = "ääälä edes yritä!";
+        String text = "Yyyyritit kuitenkin";
+
+        Content content = createNewSimpleContent(name, text);
+
+        driver.get(LINK_LOCALHOST + LINK_LOGIN);
+
+        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
+        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
+
+        username.sendKeys(LOGIN_TEST2);
+        password.sendKeys(PASSWORD_TEST2);
+        password.submit();
+
+        driver.get(getViewContent(content));
+
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
     }
 }

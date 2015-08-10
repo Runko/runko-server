@@ -46,7 +46,7 @@ public class ContentAreaService {
     public Content findContentById(Long id) {
         return contentRepository.findOne(id);
     }
-    
+
     public Content findContentByName(String name) {
         return contentRepository.findByName(name);
     }
@@ -57,12 +57,16 @@ public class ContentAreaService {
      * @param id content id
      * @return was delete successful
      */
-    public boolean deleteContent(Long id) {
+    public boolean deleteContent(Long id, Person whoIsLoggedIn) {
         if (contentRepository.exists(id)) {
+           
             Content content = contentRepository.findOne(id);
+            if(content.getOwner().getId()==whoIsLoggedIn.getId()){
             deleteContentFromAreas(content);
             contentRepository.delete(content.getId());
             return true;
+        }
+        return false;
         }
         return false;
     }
@@ -90,22 +94,28 @@ public class ContentAreaService {
 
         return content;
     }
- 
-    public SimpleContent updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds) {
+
+    public boolean updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds, Person whoIsLogged) {
+
         SimpleContent content = (SimpleContent) findContentById(contentId);
-        content.setName(name);
-        content.setTextArea(textArea);
-        deleteContentFromAreas(content);
-        content.setAreas(new ArrayList<>());
-        if (areaIds != null) {
-            for (Area area : findListedAreasById(areaIds)) {
-                content.addArea(area);
+        if (whoIsLogged.getId() == content.getOwner().getId()) {
+            content.setName(name);
+            content.setTextArea(textArea);
+            deleteContentFromAreas(content);
+            content.setAreas(new ArrayList<>());
+            if (areaIds != null) {
+                for (Area area : findListedAreasById(areaIds)) {
+                    content.addArea(area);
+                }
             }
+            contentRepository.save(content);
+            return true;
         }
-        contentRepository.save(content);
-        return content;
+        return false;
     }
+
     //Areas' repository interactions
+
     public boolean saveArea(Area area) {
         if (area != null) {
             areaRepository.save(area);
@@ -124,6 +134,10 @@ public class ContentAreaService {
 
     public Area findAreaById(Long id) {
         return areaRepository.findOne(id);
+    }
+
+    public Area findAreaByName(String name) {
+        return areaRepository.findByName(name);
     }
 
     /**
@@ -198,8 +212,9 @@ public class ContentAreaService {
         }
         return false;
     }
-    public List<Content> findByOwner(Person person){
-    return contentRepository.findByOwner(person);
+
+    public List<Content> findByOwner(Person person) {
+        return contentRepository.findByOwner(person);
     }
 
 }

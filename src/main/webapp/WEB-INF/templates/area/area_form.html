@@ -31,15 +31,16 @@
                     <div class="col-sm-12">
                         <label>Alueen nimi *</label>
                         <br />
-                        <input type="text" name="name" class="form-control" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ]+.{4,50}" placeholder="Nimen tulee olla 4-50 merkkiä." />
+                        <input type="text" name="name" class="form-control" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{2,48}" placeholder="Nimen tulee olla 4-50 merkkiä." />
                         <div class="topspace"> 
                             
                             <!-- This specify areas publicity -->
+                            <!-- ID's testing1 and testing2 are for testing only -->
                             <label>Julkisuusaste *</label>
                             <br />
-                            <input type="radio" name="visibility" value="false" checked="checked"/> Sisäänkirjautuneille
+                            <input type="radio" name="visibility" id="testing1" value="false" checked="checked"/> Sisäänkirjautuneille
                             <br />
-                            <input type="radio" name="visibility" value="true"/> Julkinen
+                            <input type="radio" name="visibility" id="testing2" value="true"/> Julkinen
                         </div>
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
