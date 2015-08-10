@@ -1,16 +1,22 @@
 package runkoserver.domain;
 
 import java.io.Serializable;
-import java.util.HashMap;
+import java.util.ArrayList;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.OneToMany;
 
 @Entity
 public class FancyContent extends Content implements Serializable {
 
-    //avaimena integer joka kertoo monesko elementti contentissa? tai sit tää 
-    //vois olla vaan lista, jossa täytyy pitää huoli että on oikeassa järjestyksessä
-    private HashMap<Integer, Element> elements;
-    
-    
-    
+    @OneToMany(mappedBy = "fancyContent", fetch=FetchType.EAGER)
+    private ArrayList<Element> elements; //vai hashmap?
+
+    public ArrayList<Element> getElements() {
+        return elements;
+    }
+
+    public void setElements(ArrayList<Element> elements) {
+        this.elements = elements;
+    }
 }
