@@ -11,11 +11,11 @@ public class PictureUrlElement extends Element implements Serializable{
     
     private String url;
     
-    public void setTextArea(String url){
+    public void setUrl(String url){
         this.url = url;
     }
     
-    public String getTextArea(){
+    public String getUrl(){
         return this.url;
     }
 }
