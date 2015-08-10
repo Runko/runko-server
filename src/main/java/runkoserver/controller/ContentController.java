@@ -63,7 +63,7 @@ public class ContentController {
             return FILE_SIMPLECONTENT;
         }
 
-        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_PAGE_NOT_AVAILABLE);
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PAGE_NOT_AVAILABLE);
         return REDIRECT_HOME;
     }
 
@@ -119,9 +119,9 @@ public class ContentController {
         SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
 
         if (contentAreaService.saveContent(simpleContent)) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_SUCCESS);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
         } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_SAVE_FAIL);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
         }
 
         return REDIRECT_HOME;
@@ -147,9 +147,9 @@ public class ContentController {
     ) {
 
         if (contentAreaService.updateSimpleContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
         } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_FAIL);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
         }
         return REDIRECT_HOME;
     }
@@ -171,9 +171,9 @@ public class ContentController {
         Content content = contentAreaService.findContentById(id);
 
         if (contentAreaService.deleteContent(content.getId(), personService.findByUsername(principal.getName()))) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
         } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_DELETE_FAIL);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
         return REDIRECT_HOME;
     }
