@@ -12,6 +12,7 @@ public abstract class Messages {
     public static final String MESSAGE_CONTENT_SAVE_SUCCESS = "Uutta sisältöä tallennettu!";
     public static final String MESSAGE_CONTENT_SAVE_FAIL = "Sisällön tallentaminen epäonnistui";
     public static final String MESSAGE_CONTENT_MODIFY_SUCCESS = "Sisällön muokkaaminen onnistui";
+    public static final String MESSAGE_CONTENT_MODIFY_FAIL = "Sinulla ei ole oikeuksia muokata sisältöä! Hyi Hyi.";
     public static final String MESSAGE_CONTENT_DELETE_SUCCESS = "Sisältö poistettu onnistuneesti: ";
     public static final String MESSAGE_CONTENT_DELETE_FAIL = "Sisällön poistaminen epäonnistui";
     
