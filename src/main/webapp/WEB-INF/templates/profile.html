@@ -23,7 +23,9 @@
         <div class="centered">
 
             <h1>Profiili</h1>
-            <p th:text="${message}"></p>
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <div class="topspace">
                 <img src="${person.urlToPhoto}"
                      th:src="@{${person.urlToPhoto}}"

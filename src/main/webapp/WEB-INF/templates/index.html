@@ -19,9 +19,10 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-            <p th:text="${message}"></p>
             <h1>Partio</h1>
-
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Here will be message if needed (like new content has created) -->
             
             <p>Partiolaiset hei!!</p>

@@ -78,9 +78,9 @@ public class AreaController {
         
         
         if (contentAreaService.saveArea(area)) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_AREA_SAVE_SUCCESS);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_SUCCESS);
         } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_AREA_SAVE_FAIL);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
         return REDIRECT_HOME;
     }

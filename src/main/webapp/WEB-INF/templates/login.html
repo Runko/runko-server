@@ -21,6 +21,8 @@
         <div class="centered">
 
             <h2>Kirjaudu sisään</h2>
+            
+            <div th:include="fragments/messages_template :: messages"></div>
 
             <!-- Errors -->
             <div th:if="${param.error != null}" class="alert alert-danger">    

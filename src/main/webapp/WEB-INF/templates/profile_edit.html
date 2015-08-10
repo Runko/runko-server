@@ -24,6 +24,9 @@
         <!-- centered is in layout.css -->
         <div class="centered topspace" >
             <h2>Muokkaa profiilia</h2>
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Form updates profile -->
             <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
                 <label>Kuva</label>
