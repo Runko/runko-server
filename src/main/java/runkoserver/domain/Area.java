@@ -27,7 +27,7 @@ public class Area {
     @ManyToOne
     private Person owner;
 
-    @ManyToMany
+    @ManyToMany(fetch=FetchType.EAGER)
     private List<Person> subscribers;
 
    @ManyToMany(fetch=FetchType.EAGER, mappedBy="areas")
