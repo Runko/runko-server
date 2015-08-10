@@ -1,5 +1,6 @@
-package runkoserver.domain;
+package runkoserver.domain.content;
 
+import runkoserver.domain.content.Content;
 import java.io.Serializable;
 import javax.persistence.Entity;
 /**

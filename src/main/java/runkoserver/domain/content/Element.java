@@ -1,5 +1,6 @@
-package runkoserver.domain;
+package runkoserver.domain.content;
 
+import runkoserver.domain.content.FancyContent;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

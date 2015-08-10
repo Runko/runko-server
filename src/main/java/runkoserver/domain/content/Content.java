@@ -1,4 +1,4 @@
-package runkoserver.domain;
+package runkoserver.domain.content;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -17,6 +17,8 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import runkoserver.domain.Area;
+import runkoserver.domain.Person;
 
 /**
  * Upper class for all content types.
