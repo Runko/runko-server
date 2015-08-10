@@ -1,6 +1,7 @@
 package runkoserver.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -86,6 +87,7 @@ public class ContentAreaService {
         content.setName(name);
         content.setTextArea(textArea);
         content.setOwner(owner);
+        content.setCreationTime();
         if (areaIds != null) {
             for (Area area : findListedAreasById(areaIds)) {
                 content.addArea(area);
@@ -103,6 +105,7 @@ public class ContentAreaService {
             content.setTextArea(textArea);
             deleteContentFromAreas(content);
             content.setAreas(new ArrayList<>());
+            content.setModifyTime();
             if (areaIds != null) {
                 for (Area area : findListedAreasById(areaIds)) {
                     content.addArea(area);
