@@ -6,9 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
-import runkoserver.domain.Content;
+import runkoserver.domain.content.Content;
 import runkoserver.domain.Person;
-import runkoserver.domain.SimpleContent;
+import runkoserver.domain.content.SimpleContent;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ContentRepository;
 

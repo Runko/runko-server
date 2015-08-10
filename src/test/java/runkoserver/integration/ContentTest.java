@@ -14,7 +14,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.Application;
-import runkoserver.domain.Content;
+import runkoserver.domain.content.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
