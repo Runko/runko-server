@@ -3,6 +3,7 @@ package runkoserver.domain;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -31,7 +32,7 @@ public class Person {
     @ManyToMany(mappedBy = "subscribers")
     private List<Area> subscriptions;
     
-    @OneToMany(mappedBy = "owner")
+    @OneToMany(fetch=FetchType.EAGER,mappedBy = "owner")
     private List<Area> ownedAreas;
     
     @OneToMany
