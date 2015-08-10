@@ -25,6 +25,8 @@
         <div class="centered">
             <h2>Luo sisältö</h2>
             
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Form makes new content -->
             <form method="post" action="/content/simpleform" id="contentform">
                 <div class="form-group">
