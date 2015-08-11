@@ -19,9 +19,10 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-            <p th:text="${message}"></p>
             <h1>Partio</h1>
-
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Here will be message if needed (like new content has created) -->
             
             <p>Partiolaiset hei!!</p>
@@ -33,7 +34,7 @@
             <div th:each="area : ${areas}">
                 <table class="topspace">
                     <tr><th>Nimi: </th><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                    <tr><th>Visibility: </th> <td th:text="${area.visibility}"></td></tr>
+                    <tr><th>Näkyvyys: </th> <td th:text="${area.visibilityText}"></td></tr>
 
                     <!-- List all contents related to area -->
                     <tr><th>Sisällöt</th></tr>

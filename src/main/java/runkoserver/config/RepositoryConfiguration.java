@@ -3,6 +3,7 @@ package runkoserver.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import runkoserver.controller.AreaController;
+import runkoserver.domain.Area;
 import runkoserver.domain.Person;
 import runkoserver.repository.AreaRepository;
 import runkoserver.service.ContentAreaService;
@@ -19,11 +20,13 @@ public class RepositoryConfiguration {
     PersonService personService;
     
      @Autowired
-     ContentAreaService contentAreaServise;
+     ContentAreaService contentAreaService;
     
+     private Person p;
+     
     @Autowired
     protected void addTestPerson() {
-        Person p = new Person("Matti");
+        p = new Person("Matti");
         p.setUsername("testi");
         p.setPassword("testi");
         p.setDescription("Olen kova partiolainen!!! Matti Rocks!!!!!!!!!!!!!!!!");
@@ -36,8 +39,4 @@ public class RepositoryConfiguration {
         personService.save(p);
     }
     
-    @Autowired
-    protected void addTestAreas(){
-        
-    }
 }

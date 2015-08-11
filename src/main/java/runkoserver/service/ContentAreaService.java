@@ -1,6 +1,7 @@
 package runkoserver.service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -59,14 +60,14 @@ public class ContentAreaService {
      */
     public boolean deleteContent(Long id, Person whoIsLoggedIn) {
         if (contentRepository.exists(id)) {
-           
+
             Content content = contentRepository.findOne(id);
-            if(content.getOwner().getId()==whoIsLoggedIn.getId()){
-            deleteContentFromAreas(content);
-            contentRepository.delete(content.getId());
-            return true;
-        }
-        return false;
+            if (content.getOwner().getId() == whoIsLoggedIn.getId()) {
+                deleteContentFromAreas(content);
+                contentRepository.delete(content.getId());
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -86,6 +87,7 @@ public class ContentAreaService {
         content.setName(name);
         content.setTextArea(textArea);
         content.setOwner(owner);
+        content.setCreationTime();
         if (areaIds != null) {
             for (Area area : findListedAreasById(areaIds)) {
                 content.addArea(area);
@@ -103,6 +105,7 @@ public class ContentAreaService {
             content.setTextArea(textArea);
             deleteContentFromAreas(content);
             content.setAreas(new ArrayList<>());
+            content.setModifyTime();
             if (areaIds != null) {
                 for (Area area : findListedAreasById(areaIds)) {
                     content.addArea(area);
@@ -115,7 +118,6 @@ public class ContentAreaService {
     }
 
     //Areas' repository interactions
-
     public boolean saveArea(Area area) {
         if (area != null) {
             areaRepository.save(area);
@@ -216,5 +218,20 @@ public class ContentAreaService {
     public List<Content> findByOwner(Person person) {
         return contentRepository.findByOwner(person);
     }
+
+    void addSubcriptions(Person person, Area area) {
+        List<Person> subscribers = area.getSubscribers();
+        subscribers.add(person);
+        area.setSubscribers(subscribers);
+        areaRepository.save(area);
+    }
+
+    void deleteSubcriptions(Person person, Area area) {
+        List<Person> subscribers = area.getSubscribers();
+        subscribers.remove(person);
+        area.setSubscribers(subscribers);
+        areaRepository.save(area);
+    }
+
 
 }
