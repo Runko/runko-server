@@ -1,6 +1,5 @@
 package runkoserver.domain;
 
-import runkoserver.domain.content.Content;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;

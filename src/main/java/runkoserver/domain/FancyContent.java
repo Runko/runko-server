@@ -1,7 +1,8 @@
-package runkoserver.domain.content;
+package runkoserver.domain;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.OneToMany;
@@ -10,13 +11,13 @@ import javax.persistence.OneToMany;
 public class FancyContent extends Content implements Serializable {
 
     @OneToMany(mappedBy = "fancyContent", fetch=FetchType.EAGER)
-    private ArrayList<Element> elements; //vai hashmap?
+    private List<Element> elements; //vai hashmap?
 
-    public ArrayList<Element> getElements() {
+    public List<Element> getElements() {
         return elements;
     }
 
-    public void setElements(ArrayList<Element> elements) {
+    public void setElements(List<Element> elements) {
         this.elements = elements;
     }
 }

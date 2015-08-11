@@ -1,4 +1,4 @@
-package runkoserver.domain.content;
+package runkoserver.domain;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -18,6 +18,8 @@ import org.hibernate.validator.constraints.NotBlank;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import runkoserver.domain.Area;
+import runkoserver.domain.Area;
+import runkoserver.domain.Person;
 import runkoserver.domain.Person;
 
 /**
