@@ -8,10 +8,14 @@
         <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+        <!-- jQuery file -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" 
+        th:src="@{/static/jquery.min.js}"></script>
 
-        <!-- Bootstrap (js-tiedosto) -->
-        <script src="js/bootstrap.min.js"></script>
+        <!-- Bootstrap (js-file) -->
+        <script src="/js/bootstrap.min.js" 
+        th:src="@{/static/js/bootstrap.min.js}"></script>
+
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />  
 
@@ -26,37 +30,54 @@
             <h2>Muokkaa sisältöä</h2>
 
             <!-- Form makes new content -->
+            <!-- topspace is in layout.css -->
             <form method="post" th:action="@{/content/edit/{id}(id=${content.id})}" id="contentform">
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <label>Sisällön nimi *</label>
-                        <br />
 
-                        <input type="text" name="name" class="form-control"  required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." th:value="${content.name}"/>
-                        <!-- topspace is in layout.css -->
-                        <div class="topspace">
-                            <label>Sisältö</label>
-                            <br />
-                            <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control" th:text="${content.textArea}" placeholder="lisää sisältöä"></textarea>
-                        </div>
+                <label>Sisällön otsikko *</label>
+                <input type="text" name="name" class="form-control topspace"  required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." th:value="${content.name}"/>
 
-                        <!-- This lists all areas on which user can choose right area or areas -->
-                        <!-- topspace is in layout.css -->
-                        <div class="topspace">
-                            <select name="areaIds" size="3" class="form-control" style="min-width: 30%" multiple="multiple">
-                                <span th:each="area : ${area}">
-                                    <option th:text="${area.name}" th:value="${area.id}"></option>
-                                </span>
-                            </select>                          
-                        </div>
+                <label class="topspace">Sisältö</label>
+                <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control topspace" th:text="${content.textArea}" placeholder="lisää sisältöä"></textarea>
 
-                        <!-- topspace is in layout.css -->
-                        <div  class="topspace">
 
-                            <button name="edit" type="submit" class="btn btn-danger">Tallenna</button>                          
+                <!-- This lists all areas on which user can choose right area or areas -->
+                <!-- could be refactored to show from fragment <div th:include ="fragments/area_modal :: area-modal">area-modal</div> -->
+                <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
+                    Valitse sisältöalueet</button>
+
+                <!-- Modal area modal -->
+                <div class="modal fade" id="alueModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Valitse sisältöalueet</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="checkbox" th:each="area : ${area}" style="border: none" >
+                                    <label th:if="${#lists.contains(content.areas, area)}">
+                                        <input type="checkbox" name="areaIds" th:value="${area.id}" checked="true" />
+                                        <p class="areaName" th:text="${area.name}"></p>
+                                    </label>
+                                    <label th:unless="${#lists.contains(content.areas, area)}">
+                                        <input type="checkbox" name="areaIds" th:value="${area.id}" />
+                                        <p class="areaName" th:text="${area.name}"></p>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Siirrä</button>
+                            </div>
 
                         </div>
                     </div>
+                </div>
+                <div>
+                    <button name="edit" type="submit" class="btn btn-danger topspace">Tallenna</button>   
                 </div>
             </form>
 
