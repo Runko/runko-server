@@ -17,17 +17,16 @@ import static runkoserver.libraries.Messages.*;
 import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
 
-
 /**
  * Controller class for HTTP requests related to Area objects.
  */
 @Controller
 @RequestMapping(LINK_AREA_INDEX)
 public class AreaController {
-    
+
     @Autowired
     ContentAreaService contentAreaService;
-    
+
     @Autowired
     PersonService personService;
 
@@ -42,15 +41,15 @@ public class AreaController {
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAreaById(id));
-        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()),contentAreaService.findAreaById(id)));
+        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), contentAreaService.findAreaById(id)));
         return FILE_AREA;
     }
 
     /**
      * GET-method for rendering the form to create new Areas.
      *
-     * @param model  model object for Spring to use
-     * @param principal tells who is logged in. 
+     * @param model model object for Spring to use
+     * @param principal tells who is logged in.
      * @return path to the area creation form html file
      */
     @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.GET)
@@ -59,13 +58,13 @@ public class AreaController {
         model.addAttribute(ATTRIBUTE_PERSON, person);
         return FILE_AREA_FORM;
     }
-    
+
     /**
      * POST-method to create a new Area.
      *
-     * @param redirectAttributes a Spring object to carry attributes from this method to
-     * the one that the user is next redirected to
-     * @param ownerId  tells who owns area
+     * @param redirectAttributes a Spring object to carry attributes from this
+     * method to the one that the user is next redirected to
+     * @param ownerId tells who owns area
      * @param name Area's title
      * @param visibility tells if area is public or not
      * @return the URL path that the user will be redirected to
@@ -74,11 +73,10 @@ public class AreaController {
     public String postAreaContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) Long ownerId,
             @RequestParam(required = true) String name,
-            @RequestParam(required = true) Boolean visibility){
-        
+            @RequestParam(required = true) Boolean visibility) {
+
         Area area = contentAreaService.createArea(name, personService.findById(ownerId), visibility);
-        
-        
+
         if (contentAreaService.saveArea(area)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_SUCCESS);
         } else {
@@ -86,4 +84,21 @@ public class AreaController {
         }
         return REDIRECT_HOME;
     }
+
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
+    public String subscriptArea(@PathVariable Long id,
+            Principal principal,
+            RedirectAttributes redirectAttributes
+    ) {
+        Person person = personService.findByUsername(principal.getName());
+        if (personService.addSubscribtion(person, contentAreaService.findAreaById(id))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_START);
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_STOP);
+        }
+
+        return REDIRECT+LINK_AREA_INDEX+LINK_VIEW_ID;
+    }
+
+
 }
