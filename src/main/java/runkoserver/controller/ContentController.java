@@ -177,4 +177,9 @@ public class ContentController {
         }
         return REDIRECT_HOME;
     }
+    
+    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
+    public String fancyContentForm(Model model) {
+        return FILE_FANCYCONTENT_FORM;
+    }
 }
