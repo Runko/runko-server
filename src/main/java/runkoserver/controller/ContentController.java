@@ -120,10 +120,11 @@ public class ContentController {
 
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
+            
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
+            
         }
-
         return REDIRECT_HOME;
     }
 
@@ -148,10 +149,12 @@ public class ContentController {
 
         if (contentAreaService.updateSimpleContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
+            return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
+            return REDIRECT_HOME;
         }
-        return REDIRECT_HOME;
+        
     }
 
     /**
@@ -165,8 +168,8 @@ public class ContentController {
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteContent(@PathVariable Long id,
-            RedirectAttributes redirectAttributes, 
-            Principal principal){
+            RedirectAttributes redirectAttributes,
+            Principal principal) {
 
         Content content = contentAreaService.findContentById(id);
 
