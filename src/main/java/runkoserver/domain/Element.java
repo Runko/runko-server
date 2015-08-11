@@ -23,4 +23,12 @@ public abstract class Element implements Serializable {
     public long getId() {
         return id;
     }
+
+    public FancyContent getFancyContent() {
+        return fancyContent;
+    }
+
+    public void setFancyContent(FancyContent fancyContent) {
+        this.fancyContent = fancyContent;
+    }
 }

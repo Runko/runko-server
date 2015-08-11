@@ -17,10 +17,6 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import runkoserver.domain.Area;
-import runkoserver.domain.Area;
-import runkoserver.domain.Person;
-import runkoserver.domain.Person;
 
 /**
  * Upper class for all content types.
