@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+
 /**
  * User information
  */
@@ -20,28 +21,27 @@ public class Person {
     private long id;
 
     private String name;
-    
+
     private String username;
-    
+
     private String password;
-    
+
     private String urlToPhoto;
-    
+
     private String description;
 
-    @ManyToMany(fetch=FetchType.EAGER, mappedBy="subscribers")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribers")
     private List<Area> subscriptions;
-    
-    @OneToMany(fetch=FetchType.EAGER,mappedBy = "owner")
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Area> ownedAreas;
-    
+
     @OneToMany
     private List<Content> ownedContents;
 
     protected Person() {
     }
 
-    
     public Person(String name) {
         this.name = name;
     }
@@ -62,14 +62,14 @@ public class Person {
         return name;
     }
 
-    public String getUrlToPhoto(){
+    public String getUrlToPhoto() {
         return urlToPhoto;
     }
-    
-    public String getDescription(){
+
+    public String getDescription() {
         return description;
     }
-    
+
     public void setUsername(String username) {
         this.username = username;
     }
@@ -82,14 +82,14 @@ public class Person {
         this.name = name;
     }
 
-    public void setUrlToPhoto(String urlToPhoto){
+    public void setUrlToPhoto(String urlToPhoto) {
         this.urlToPhoto = urlToPhoto;
     }
-    
+
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public List<Area> getSubscriptions() {
         return subscriptions;
     }
