@@ -23,7 +23,9 @@
         <div class="centered">
 
             <h1>Profiili</h1>
-            <p th:text="${message}"></p>
+
+            <div th:include="fragments/messages_template :: messages"></div>
+
             <div class="topspace">
                 <img src="${person.urlToPhoto}"
                      th:src="@{${person.urlToPhoto}}"
@@ -49,19 +51,6 @@
                 </table>
 
 
-            </div>
-
-            <h2>Omat sisällöt</h2>
-            <table class="table table-striped col-sm-12">
-                <div th:unless="${#lists.isEmpty(contents)}">
-                    <tr th:each="content : ${contents}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
-                    <tr></tr>
-                    </tr>    
-                </div>
-            </table>
-            <div th:if="${#lists.isEmpty(contents)}">
-                <p>Et ole luonu sisältöä!</p>
             </div>
             <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}">
                 <!-- topspace is in layout.css -->

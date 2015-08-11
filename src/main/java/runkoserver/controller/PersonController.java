@@ -60,7 +60,7 @@ public class PersonController {
         model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
-        return LINK_PROFILE;
+        return FILE_PROFILE;
     }
 
     /**
@@ -93,10 +93,17 @@ public class PersonController {
             @RequestParam(required = false) String urlToPhoto,
             @RequestParam(required = false) String description) {
         personService.updatePerson(id, urlToPhoto, description);
-       redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGE, MESSAGE_CONTENT_MODIFY_SUCCESS);
+       redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
        
        
         return REDIRECT+LINK_PERSONS+LINK_PROFILE;
     }
+@RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
+    public String getContentManager(RedirectAttributes redirectAttributes, Model model, Principal principal) {
+        Person person = personService.findByUsername(principal.getName());
+        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_PERSON, person);
 
+        return FILE_CONTENT_MANAGER;
+    }
 }
