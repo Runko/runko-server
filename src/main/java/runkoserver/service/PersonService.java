@@ -19,6 +19,9 @@ public class PersonService implements RepoService{
     @Autowired
     private PersonRepository repository;
     
+   @Autowired
+   private ContentAreaService contentAreaService;
+    
     public List<Person> findAll() {
         return repository.findAll();
     }
@@ -79,6 +82,23 @@ public class PersonService implements RepoService{
             }
         }      
        return false;
+    }
+
+    public boolean addSubscribtion(Person person, Area area) {
+       List<Area> subcriptions=person.getSubscriptions();
+        if(findIfSubscripted(person,area)){
+            subcriptions.remove(area);
+            person.setSubscriptions(subcriptions);
+            contentAreaService.deleteSubcriptions(person, area);
+            repository.save(person);
+            return false;
+        }
+      
+        subcriptions.add(area);
+        person.setSubscriptions(subcriptions);
+        contentAreaService.addSubcriptions(person, area);
+        repository.save(person);
+        return true;
     }
     
 }
