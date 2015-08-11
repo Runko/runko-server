@@ -17,20 +17,20 @@ public class Area {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotBlank
     @Length(min = 4, max = 50)
     private String name;
-    
+
     private boolean visibility;
 
     @ManyToOne
     private Person owner;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Person> subscribers;
 
-   @ManyToMany(fetch=FetchType.EAGER, mappedBy="areas")
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "areas")
     private List<Content> contents;
 
     public Long getId() {
@@ -72,7 +72,7 @@ public class Area {
         }
         return false;
     }
-    
+
     public boolean deleteContent(Content content) {
         if (contents.contains(content)) {
             contents.remove(content);
@@ -80,7 +80,7 @@ public class Area {
         }
         return false;
     }
-    
+
     public List<Content> getContents() {
         return contents;
     }
@@ -96,5 +96,12 @@ public class Area {
 
     public boolean getVisibility() {
         return visibility;
+    }
+
+    public String getVisibilityText() {
+        if (getVisibility() == false) {
+            return "Kirjautuneille";
+        }
+        return "Julkinen";
     }
 }

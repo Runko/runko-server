@@ -60,14 +60,14 @@ public class ContentAreaService {
      */
     public boolean deleteContent(Long id, Person whoIsLoggedIn) {
         if (contentRepository.exists(id)) {
-           
+
             Content content = contentRepository.findOne(id);
-            if(content.getOwner().getId()==whoIsLoggedIn.getId()){
-            deleteContentFromAreas(content);
-            contentRepository.delete(content.getId());
-            return true;
-        }
-        return false;
+            if (content.getOwner().getId() == whoIsLoggedIn.getId()) {
+                deleteContentFromAreas(content);
+                contentRepository.delete(content.getId());
+                return true;
+            }
+            return false;
         }
         return false;
     }
@@ -118,7 +118,6 @@ public class ContentAreaService {
     }
 
     //Areas' repository interactions
-
     public boolean saveArea(Area area) {
         if (area != null) {
             areaRepository.save(area);
@@ -219,5 +218,20 @@ public class ContentAreaService {
     public List<Content> findByOwner(Person person) {
         return contentRepository.findByOwner(person);
     }
+
+    void addSubcriptions(Person person, Area area) {
+        List<Person> subscribers = area.getSubscribers();
+        subscribers.add(person);
+        area.setSubscribers(subscribers);
+        areaRepository.save(area);
+    }
+
+    void deleteSubcriptions(Person person, Area area) {
+        List<Person> subscribers = area.getSubscribers();
+        subscribers.remove(person);
+        area.setSubscribers(subscribers);
+        areaRepository.save(area);
+    }
+
 
 }
