@@ -36,11 +36,13 @@ public class AreaController {
      *
      * @param id the id of the Area whose information will be shown
      * @param model model object for Spring to use
+     * @param principal
      * @return path to the html file that shows Area information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
-    public String getArea(@PathVariable Long id, Model model) {
+    public String getArea(@PathVariable Long id, Model model, Principal principal) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAreaById(id));
+        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()),contentAreaService.findAreaById(id)));
         return FILE_AREA;
     }
 
