@@ -151,28 +151,28 @@ public class ContentTest {
         Content content = createNewSimpleContent(name, text);
 
         driver.get(getViewContent(content));
-        
+
         WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
         editButton.click();
-        
+
         WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textField = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
-        
+
         name = "Kakka";
         nameField.clear();
         nameField.sendKeys(name);
         text = "On Ruskeaa.";
         textField.clear();
         textField.sendKeys(text);
-        
+
         editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
         editButton.click();
         driver.get(getViewContent(content));
 
         assertTrue(driver.getPageSource().contains(name) && driver.getPageSource().contains(text));
     }
-    
-        @Test
+
+    @Test
     public void contentCannotBeEditedByOtherUser() {
         String name = "ääälä edes yritä!";
         String text = "Yyyyritit kuitenkin";
@@ -191,5 +191,17 @@ public class ContentTest {
         driver.get(getViewContent(content));
 
         assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
+    }
+
+    @Test
+    public void ownedContentShowsUpInContentManager() {
+        String name = "Meitsin sisältö";
+        String text = "Tekstiä";
+
+        Content content = createNewSimpleContent(name, text);
+
+        driver.get(LINK_LOCALHOST + LINK_CONTENT_MANAGER);
+
+        assertFalse(driver.getPageSource().contains(name));
     }
 }
