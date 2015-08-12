@@ -182,10 +182,13 @@ public class ContentAreaService {
      */
     private void saveContentToAreas(Content content) {
         for (Area area : content.getAreas()) {
-            area.addContent(content);
-
+            
+            if (!area.getContents().contains(content)){
+                area.addContent(content);
+            }    
+            areaRepository.save(area);
         }
-
+        
     }
 
     /**
