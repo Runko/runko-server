@@ -125,7 +125,7 @@ public class ContentController {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
             
         }
-        return REDIRECT_HOME;
+        return REDIRECT+LINK_FRONTPAGE;
     }
 
     /**
@@ -152,7 +152,7 @@ public class ContentController {
             return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
-            return REDIRECT_HOME;
+            return REDIRECT+LINK_FRONTPAGE;
         }
         
     }
@@ -178,6 +178,18 @@ public class ContentController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
-        return REDIRECT_HOME;
+        return REDIRECT+LINK_FRONTPAGE;
+    }
+    
+    /**
+     * GET-method for rendering the form to create new content.
+     * 
+     * @param model object for spring to use
+     * @return path to the content creation form html file 
+     */
+    
+    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
+    public String fancyContentForm(Model model) {
+        return FILE_FANCY_CONTENT_FORM;
     }
 }

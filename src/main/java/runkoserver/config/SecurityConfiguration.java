@@ -24,23 +24,21 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
      */
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        // ei päästetä käyttäjää mihinkään sovelluksen resurssiin ilman
-        // kirjautumista
+        // don't let user in any applications resources without login
         http.authorizeRequests()
                 .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
-                .antMatchers(LINK_CONTENT + LINK_CONTENT_SIMPLEFORM).authenticated()
+                .antMatchers(LINK_CONTENT + LINK_CONTENT_SIMPLEFORM, LINK_CONTENT + LINK_CONTENT_FANCYFORM).authenticated()
                 .antMatchers(FOLDER_CSS, LINK_HOME, LINK_CONTENT + "/*").permitAll()
                 .anyRequest().authenticated();
 
         http.csrf().disable();
 
-        // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
-        // pääsy kirjautumissivulle
+        // offers chance to login and give everybody access to loginpage
         http.formLogin()
-                .defaultSuccessUrl(LINK_HOME, true)
+                .defaultSuccessUrl(LINK_FRONTPAGE, true)
                 .loginPage(LINK_LOGIN).permitAll();
 
-        // uloskirjautumisen asetukset
+        // configurations to logout
         http.logout()
 		.logoutSuccessUrl(LINK_LOGIN);
     }
@@ -64,7 +62,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         @Override
         public void init(AuthenticationManagerBuilder auth) throws Exception {
             auth.userDetailsService(personUserDetailsService);
-//            // käyttäjällä jack, jonka salasana on bauer, on rooli USER
+//            // user jack, which password is bauer, is role USER
 //            auth.inMemoryAuthentication()
 //                    .withUser("jack").password("bauer").roles("USER");
         }

@@ -109,7 +109,7 @@ public class AreaTest {
         String areaName = "Elämä on!";        
         String visibility = "testing1";
         createNewArea(areaName, visibility);
-        
+        driver.get(LINK_LOCALHOST);
         assertTrue(driver.getPageSource().contains(areaName));
     }
     
@@ -119,8 +119,9 @@ public class AreaTest {
         String visibility = "testing1";
         Area area = createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Julkinen"));
-        
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
+        driver.get(LINK_LOCALHOST);
+        assertTrue(driver.getPageSource().contains("Julkinen"));
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         assertTrue(driver.getPageSource().contains(areaName));
 
@@ -145,9 +146,38 @@ public class AreaTest {
     public void areaVisibilityCanChangeFromDefault(){
         String areaName = "Näkyvyys vaihtuu";
         String visibility = "testing2";
-        
+       
         createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Kirjautuneille"));
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) );
+        driver.get(LINK_LOCALHOST);
+        assertTrue(driver.getPageSource().contains("Kirjautuneille"));
+    }
+    
+    @Test
+    public void areaHasSubscriptionButtonWhenNotSubscribed() {
+        String areaName = "Elder Scrolls";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        assertTrue(driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                !driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
+    }
+    
+    @Test
+    public void areaHasUnsubscribeButtonWhenSubscribed() {
+        String areaName = "Praise the Sun!";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribe.click();
+        
+        assertTrue(!driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
     }
 }

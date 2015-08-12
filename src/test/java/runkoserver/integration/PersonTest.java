@@ -179,4 +179,54 @@ public class PersonTest {
         
         assertFalse(driver.getPageSource().contains(name));
     }
+    
+    private Area createArea(String name) {
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
+        
+        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
+        nameField.sendKeys(name);
+        nameField.submit();
+        
+        return contentAreaService.findAreaByName(name);
+    }
+    
+    @Test
+    public void subscribedContentIsShownAtContentManager() {
+        String name = "Futurama references";
+        
+        Area area = createArea(name);
+        driver.get(LINK_LOCALHOST);
+        WebElement areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertTrue(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void unsubscribedContentIsNotShownAtContentManager() {
+        String name = "IMMA FIRIN MAH'";
+        Area area = createArea(name);
+        driver.get(LINK_LOCALHOST);
+        WebElement areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST);
+        areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement unsubscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_UNSUBSCRIBE));
+        unsubscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
 }

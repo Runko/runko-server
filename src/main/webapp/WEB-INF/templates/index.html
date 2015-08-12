@@ -40,7 +40,7 @@
             <h3>Sisältöalueet</h3>
             <div th:each="area : ${areas}">
                 <table class="topspace">
-                    <tr><th>Nimi: </th><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
+                    <tr><th>Nimi: </th><th><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
                     <tr><th>Näkyvyys: </th> <td th:text="${area.visibilityText}"></td></tr>
 
                     <!-- List all contents related to area -->

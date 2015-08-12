@@ -1,11 +1,13 @@
 package runkoserver.controller;
 
 import java.security.Principal;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import runkoserver.domain.Content;
 import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
@@ -57,5 +59,14 @@ public class RunkoController {
         }
         
         return REDIRECT + LINK_LOGIN;
+    }
+    
+        @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
+    public String frontpage(Model model, Principal principal) {
+        Person person = personService.findByUsername(principal.getName());
+        List <Content> contents = contentAreaService.createListFromSubscripedContents(person);
+        model.addAttribute(ATTRIBUTE_CONTENTS, contents);
+        
+        return FILE_FRONTPAGE;
     }
 }
