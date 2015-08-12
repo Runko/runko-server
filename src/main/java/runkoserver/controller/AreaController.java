@@ -82,7 +82,7 @@ public class AreaController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
-        return REDIRECT_HOME;
+        return REDIRECT+LINK_FRONTPAGE;
     }
     /**
      * 
