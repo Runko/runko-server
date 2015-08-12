@@ -28,4 +28,6 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_LOGOUT = "logout";
     public static final String ATTRIBUTE_BUTTON_DELETE = "remove";
     public static final String ATTRIBUTE_BUTTON_EDIT = "edit";
+    public static final String ATTRIBUTE_BUTTON_SUBSCRIBE = "subscribe";
+    public static final String ATTRIBUTE_BUTTON_UNSUBSCRIBE = "unsubscribe";
 }
