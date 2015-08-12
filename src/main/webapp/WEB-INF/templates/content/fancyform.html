@@ -11,8 +11,8 @@
         <!-- jQuery file -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" th:src="@{/static/jquery.min.js}"></script>
 
-        <!-- Bootstrap-Markdown Editor-->
-        <script src="/bootstrap-markdown/bower.json" th:src="@{/static/bootstrap-markdown/bower.json}"></script>
+        <!-- CKeditor -->
+        <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
       
         <!-- Bootstrap (js-tiedosto) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
@@ -32,10 +32,12 @@
             <form>
                 <div class="form-group">
                     <div class="col-sm-12">
-                        <input name="title" class="form-control" type="text" placeholder="Otsikko" />
-                        <textarea name="content" class="form-control" data-provide="markdown" rows="10"></textarea>
-
-                        <button type="submit" class="btn btn-primary" value="Save">Submit</button>
+                        <textarea name="simple-editor" id="simple-editor" rows="10" cols="80">
+                            This is my textarea to be replaced with CKEditor.
+                        </textarea>
+                        <script>
+                            CKEDITOR.replace( 'simple-editor', {customConfig: 'ourconfig.js'});
+                        </script>
                     </div>
                 </div>
             </form> 
