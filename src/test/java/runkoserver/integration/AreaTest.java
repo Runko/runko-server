@@ -150,4 +150,31 @@ public class AreaTest {
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Kirjautuneille"));
     }
+    
+    @Test
+    public void areaHasSubscriptionButtonWhenNotSubscribed() {
+        String areaName = "Elder Scrolls";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        assertTrue(driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                !driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
+    }
+    
+    @Test
+    public void areaHasUnsubscribeButtonWhenSubscribed() {
+        String areaName = "Praise the Sun!";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribe.click();
+        
+        assertTrue(!driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
+    }
 }
