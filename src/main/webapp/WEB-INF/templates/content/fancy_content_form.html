@@ -29,16 +29,58 @@
         <div class="centered">
             <h2>Luo sisältö</h2>
 
-            <form>
-                <div class="form-group">
-                    <div class="col-sm-12">
-                        <textarea name="fancyeditor" id="fancyeditor" rows="10" cols="80">
-                            
-                        </textarea>
-                        <script>
-                            CKEDITOR.replace( 'fancyeditor', {customConfig: 'fancyconfig.js'});
-                        </script>
+            <!-- Form makes new content -->
+            <!-- topspace is in layout.css -->
+            <form method="" action="/content/fancyform">
+                <label>Sisällön otsikko *</label>
+                <input type="text" name="name" class="form-control topspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
+
+                <label class="topspace">Sisältö</label>
+                <textarea rows="10" cols="80" id ="fancycontent" name="textarea" class="form-control topspace" style="margin-bottom: 10px"></textarea>
+                
+                <script>
+                    CKEDITOR.replace( 'fancycontent', {customConfig: 'fancyconfig.js'});
+                </script>
+
+                
+                <!-- This lists all areas on which user can choose right area or areas -->
+                <!-- could be refactored to show from fragment <div th:include ="fragments/area_modal :: area-modal">area-modal</div> -->
+                <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
+                        Valitse sisältöalueet</button>
+                
+                <!-- Modal area modal -->
+                <div class="modal fade" id="alueModal" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span></button>
+                                <h4 class="modal-title">Valitse sisältöalueet</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="checkbox" th:each="area : ${area}" style="border: none" >
+                                    <label>
+                                        <input type="checkbox" name="areaIds" th:value="${area.id}"/>
+                                        <p class="areaName" th:text="${area.name}"></p>
+                                    </label>
+                                </div>
+                            </div>
+                            <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Siirrä</button>
+                            </div>
+
+                        </div>
                     </div>
+                </div>
+                <!-- suppose to show selected areas but could not make script's for loop work!!??!!??
+                <textarea id="textArea" rows="7" type="text" class="form-control" value=""></textarea> -->
+
+                <!-- topspace is in layout.css -->
+                <div  class="topspace">
+                    <button type="submit" class="btn btn-primary" value="Save">Tallenna</button>
                 </div>
             </form> 
 

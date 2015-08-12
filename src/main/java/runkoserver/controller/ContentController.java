@@ -178,7 +178,14 @@ public class ContentController {
         return REDIRECT_HOME;
     }
     
-    @RequestMapping(value = LINK_CONTENT_FANCY_CONTENT_FORM, method = RequestMethod.GET)
+    /**
+     * GET-method for rendering the form to create new content.
+     * 
+     * @param model object for spring to use
+     * @return path to the content creation form html file 
+     */
+    
+    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
     public String fancyContentForm(Model model) {
         return FILE_FANCY_CONTENT_FORM;
     }

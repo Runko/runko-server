@@ -21,7 +21,7 @@ public abstract class Links {
     
     public static final String LINK_CONTENT = "/content";
     public static final String LINK_CONTENT_SIMPLEFORM = "/simpleform";
-    public static final String LINK_CONTENT_FANCY_CONTENT_FORM = "/fancyform";
+    public static final String LINK_CONTENT_FANCYFORM = "/fancyform";
     
     public static final String LINK_LOGIN = "/login";
     public static final String LINK_LOGOUT = "/logout";
