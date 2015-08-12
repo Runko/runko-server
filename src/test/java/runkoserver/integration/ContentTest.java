@@ -193,15 +193,5 @@ public class ContentTest {
         assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
     }
 
-    @Test
-    public void ownedContentShowsUpInContentManager() {
-        String name = "Meitsin sisältö";
-        String text = "Tekstiä";
-
-        Content content = createNewSimpleContent(name, text);
-
-        driver.get(LINK_LOCALHOST + LINK_CONTENT_MANAGER);
-
-        assertFalse(driver.getPageSource().contains(name));
-    }
+    
 }
