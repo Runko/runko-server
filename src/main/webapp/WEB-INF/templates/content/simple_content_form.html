@@ -14,7 +14,7 @@
 
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" 
-            th:src="@{/static/js/bootstrap.min.js}"></script>
+            th:src="@{/static/js/bootstrap.min.js}"></script>         
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <meta charset="UTF-8" />  
@@ -61,21 +61,21 @@
                             <div class="modal-body">
                                 <div class="checkbox" th:each="area : ${area}" style="border: none" >
                                     <label>
-                                        <input type="checkbox" name="areaIds" th:value="${area.id}"/>
+                                        <input class="areaIds[]" type="checkbox" name="areaIds" th:value="${area.id}"/>
                                         <p class="areaName" th:text="${area.name}"></p>
                                     </label>
                                 </div>
                             </div>
                             <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Siirrä</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="toTextarea()">Siirrä</button>
                             </div>
 
                         </div>
                     </div>
                 </div>
-                <!-- suppose to show selected areas but could not make script's for loop work!!??!!??
-                <textarea id="textArea" rows="7" type="text" class="form-control" value=""></textarea> -->
+                <!-- suppose to show selected areas but could not make script's for loop work!!??!!??-->
+                <textarea id="textArea" rows="7" type="text" class="form-control" value=""></textarea> 
 
                 <!-- topspace is in layout.css -->
                 <div  class="topspace">
@@ -85,22 +85,19 @@
             </form>
         </div>
     </body>
-<!--
     <script>
-/*
         function toTextarea() {
             var areaBox = document.getElementsByName("areaIds");
             var areaName = document.getElementsByClassName("areaName");
             var txt = "";
             var i;
-            for (i = 0; i < areaBox.length; i++) {
+            for (i = areaBox.length; i > 0 ; i--) {
                 if (areaBox[i].checked) {
                     txt = txt + areaName[i].innerHTML + "\n";
                 }
             }
             document.getElementById("textArea").value = txt;
-        }*/
-    </script>
--->
+        }
+        </script>
 </html>
     
