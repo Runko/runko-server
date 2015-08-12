@@ -26,6 +26,7 @@
 
 
             <h2>Sisältösi</h2>
+           
             <div th:unless="${#lists.isEmpty(contents)}">
                 <table class="table table-hover col-sm-12">
 
@@ -64,6 +65,7 @@
                         </th>
                         <td>
                             <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
+                                 <input type="hidden" value="CM" name="whereICome" />
                                 <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
 
                             </form>

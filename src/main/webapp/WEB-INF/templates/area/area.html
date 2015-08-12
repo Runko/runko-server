@@ -22,15 +22,16 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-
+            
             <div th:include="fragments/messages_template :: messages"></div>
 
             <div class="col-sm-12">
 
                 <!-- This makes areas name to heading  -->
                 <h2 th:text="${area.name}"></h2>
-             
+
             </div>  
+
                <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
                     <div th:if="${subs} == false">
                         <button name="subscribe" type="submit" class="btn btn-primary" value="Order">Tilaa</button>
@@ -39,6 +40,7 @@
                         <button name="unsubscribe" type="submit" class="btn btn-primary" value="StopOrder">Lopeta tilaus</button>
                     </div>
                 </form>
+
             <tr></tr>
             <p>Omistaja: <span th:text="${area.owner.name}"></span></p>
 
