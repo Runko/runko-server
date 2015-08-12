@@ -17,6 +17,8 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_CONTENT_DELETE = "Poista";
     public static final String ATTRIBUTE_IS_SUBSCRIPTED = "subs";
     public static final String ATTRIBUTE_AREAIDS= "areaIds";
+    public static final String ATTRIBUTE_SUBSCRIPTION = "Tilaa";
+    public static final String ATTRIBUTE_UNSUBSCRIPTION = "Lopeta tilaus";
     
     public static final String TITLE_FRONTPAGE = "Partio";
     
