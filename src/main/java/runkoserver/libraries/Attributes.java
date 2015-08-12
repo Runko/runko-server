@@ -16,6 +16,7 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_TEXTAREA = "textArea";
     public static final String ATTRIBUTE_CONTENT_DELETE = "Poista";
     public static final String ATTRIBUTE_IS_SUBSCRIPTED = "subs";
+    public static final String ATTRIBUTE_AREAIDS= "areaIds";
     
     public static final String TITLE_FRONTPAGE = "Partio";
     
@@ -27,4 +28,6 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_LOGOUT = "logout";
     public static final String ATTRIBUTE_BUTTON_DELETE = "remove";
     public static final String ATTRIBUTE_BUTTON_EDIT = "edit";
+    public static final String ATTRIBUTE_BUTTON_SUBSCRIBE = "subscribe";
+    public static final String ATTRIBUTE_BUTTON_UNSUBSCRIBE = "unsubscribe";
 }

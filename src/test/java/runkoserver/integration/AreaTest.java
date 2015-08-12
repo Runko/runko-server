@@ -67,12 +67,12 @@ public class AreaTest {
         return contentAreaService.findAreaByName(theName);
     }
     
-    private Content createNewSimpleContent(String contentName, String tArea, String area) {
+    private Content createNewSimpleContent(String contentName, String tArea, Area area) {
         driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
-        WebElement areachoice = driver.findElement(By.name(area));
+        WebElement areachoice = driver.findElement(By.id(String.valueOf(area.getId())));
         
         String theName = contentName;
         name.sendKeys(theName);
@@ -80,8 +80,9 @@ public class AreaTest {
         textArea.sendKeys(text);
         
         areachoice.click();
-        areachoice.submit();
-        
+        driver.findElement(By.name("move")).click();
+       
+         driver.findElement(By.name("save")).click();
         return contentAreaService.findContentByName(theName);
     }
     
@@ -133,7 +134,7 @@ public class AreaTest {
         String visibility = "testing1";
         
         Area area = createNewArea(areaName, visibility);
-        Content content = createNewSimpleContent(contentName, contentText, areaName);
+        Content content = createNewSimpleContent(contentName, contentText, area);
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         
