@@ -15,6 +15,8 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 
 /**
  * Upper class for all content types.
@@ -27,8 +29,11 @@ public abstract class Content {
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
-    
+    private Date creationTime;
+
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date modifyTime;
+
     @NotBlank
     @Length(min = 3, max = 50)
     private String name;
@@ -36,7 +41,7 @@ public abstract class Content {
     @ManyToOne
     private Person owner;
 
-    @ManyToMany(fetch=FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER)
     private List<Area> areas;
 
     protected Content() {
@@ -54,12 +59,23 @@ public abstract class Content {
         this.name = name;
     }
 
-    public Date getTime() {
-        return time;
+    public String getCreationTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(creationTime);
     }
 
-    public void setTime(Date time) {
-        this.time = time;
+    public void setCreationTime() {
+        this.creationTime = new Date();
+        this.modifyTime = new Date();
+    }
+
+    public String getModifyTime() {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        return dateFormat.format(modifyTime);
+    }
+
+    public void setModifyTime() {
+        this.modifyTime = new Date();
     }
 
     public Person getOwner() {
@@ -91,7 +107,7 @@ public abstract class Content {
     }
 
     public void setAreas(List<Area> areas) {
-        this.areas= new ArrayList<>();
+        this.areas = new ArrayList<>();
         this.areas = areas;
     }
 

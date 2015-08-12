@@ -6,6 +6,7 @@ import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
+import runkoserver.domain.Area;
 import runkoserver.domain.Person;
 import runkoserver.repository.PersonRepository;
 
@@ -17,6 +18,9 @@ public class PersonService implements RepoService{
     
     @Autowired
     private PersonRepository repository;
+    
+   @Autowired
+   private ContentAreaService contentAreaService;
     
     public List<Person> findAll() {
         return repository.findAll();
@@ -69,6 +73,32 @@ public class PersonService implements RepoService{
         p.setUrlToPhoto(urlToPhoto);
         p.setDescription(description);
         repository.save(p);
+    }
+
+    public boolean findIfSubscripted(Person person, Area areaId) {
+        for (Area subs : person.getSubscriptions()) {
+            if(subs==areaId){
+            return true;
+            }
+        }      
+       return false;
+    }
+
+    public boolean addSubscribtion(Person person, Area area) {
+       List<Area> subcriptions=person.getSubscriptions();
+        if(findIfSubscripted(person,area)){
+            subcriptions.remove(area);
+            person.setSubscriptions(subcriptions);
+            contentAreaService.deleteSubcriptions(person, area);
+            repository.save(person);
+            return false;
+        }
+      
+        subcriptions.add(area);
+        person.setSubscriptions(subcriptions);
+        contentAreaService.addSubcriptions(person, area);
+        repository.save(person);
+        return true;
     }
     
 }

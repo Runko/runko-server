@@ -24,6 +24,8 @@
         <div class="centered">
             <h2>Luo uusi sisältöalue</h2>
             
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Form makes new area -->
             <form method="post" action="/area/areaform" id="contentform">
                 <input type="hidden" th:value="${person.id}" name="ownerId" />

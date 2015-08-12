@@ -15,6 +15,8 @@ public abstract class Messages {
     public static final String MESSAGE_CONTENT_MODIFY_FAIL = "Sinulla ei ole oikeuksia muokata sisältöä! Hyi Hyi.";
     public static final String MESSAGE_CONTENT_DELETE_SUCCESS = "Sisältö poistettu onnistuneesti: ";
     public static final String MESSAGE_CONTENT_DELETE_FAIL = "Sisällön poistaminen epäonnistui";
+    public static final String MESSAGE_AREA_SUBSCRIPTION_START = "Alueen tilaaminen onnistui!";
+    public static final String MESSAGE_AREA_SUBSCRIPTION_STOP = "Alueen tilaaminen lopetettu!";
     
     //is shown by Spring security by default. Used at least for testing.
     public static final String MESSAGE_LOGIN_DEFAULT = "Käyttäjätunnus tai salasana ei kelpaa.";

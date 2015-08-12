@@ -67,12 +67,12 @@ public class AreaTest {
         return contentAreaService.findAreaByName(theName);
     }
     
-    private Content createNewSimpleContent(String contentName, String tArea, String area) {
+    private Content createNewSimpleContent(String contentName, String tArea, Area area) {
         driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
-        WebElement areachoice = driver.findElement(By.name(area));
+        WebElement areachoice = driver.findElement(By.id(String.valueOf(area.getId())));
         
         String theName = contentName;
         name.sendKeys(theName);
@@ -80,8 +80,9 @@ public class AreaTest {
         textArea.sendKeys(text);
         
         areachoice.click();
-        areachoice.submit();
-        
+        driver.findElement(By.name("move")).click();
+       
+         driver.findElement(By.name("save")).click();
         return contentAreaService.findContentByName(theName);
     }
     
@@ -118,7 +119,7 @@ public class AreaTest {
         String visibility = "testing1";
         Area area = createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("false"));
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Julkinen"));
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         assertTrue(driver.getPageSource().contains(areaName));
@@ -133,7 +134,7 @@ public class AreaTest {
         String visibility = "testing1";
         
         Area area = createNewArea(areaName, visibility);
-        Content content = createNewSimpleContent(contentName, contentText, areaName);
+        Content content = createNewSimpleContent(contentName, contentText, area);
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         
@@ -147,6 +148,33 @@ public class AreaTest {
         
         createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("true"));
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Kirjautuneille"));
+    }
+    
+    @Test
+    public void areaHasSubscriptionButtonWhenNotSubscribed() {
+        String areaName = "Elder Scrolls";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        assertTrue(driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                !driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
+    }
+    
+    @Test
+    public void areaHasUnsubscribeButtonWhenSubscribed() {
+        String areaName = "Praise the Sun!";
+        String visibility = "testing1";
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribe.click();
+        
+        assertTrue(!driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
+                driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
     }
 }

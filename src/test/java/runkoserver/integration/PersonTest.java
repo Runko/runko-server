@@ -72,6 +72,21 @@ public class PersonTest {
         simpleContent = contentAreaService.createSimpleContent("content", "a lot of text", areas, user);
         contentAreaService.saveContent(simpleContent);
     }
+    
+    private Content createNewSimpleContent(String contentName, String tArea) {
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
+
+        WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
+        WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
+
+        String theName = contentName;
+        name.sendKeys(theName);
+        String text = tArea;
+        textArea.sendKeys(text);
+        textArea.submit();
+
+        return contentAreaService.findContentByName(theName);
+    }
 
     @Test
     public void userCanSeeOwnProfile() {
@@ -113,4 +128,105 @@ public class PersonTest {
         assertTrue(driver.getPageSource().contains("Tämä tieto on muuttunut"));
     }
 
+    @Test
+    public void ownedContentShowsUpInContentManager() {
+        String name = "Meitsin sisältö";
+        String text = "Tekstiä";
+
+        Content content = createNewSimpleContent(name, text);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+
+        assertTrue(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void otherPersonsContentDoesNotShowUpInContentManager() {
+        String name = "I used to be adventurer like you";
+        String text = "Until I took arrow to my knee";
+        
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_LOGIN_LOGOUT);
+        
+        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
+        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
+
+        username.sendKeys(LOGIN_TEST2);
+        password.sendKeys(PASSWORD_TEST2);
+        password.submit();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void deletedContentIsRemovedFromContentManager() {
+        contentAreaService.deleteAll();
+        
+        String name = "Dark Soul's most common screen";
+        String text = "YOU DIED";
+        
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        WebElement delete = driver.findElement(By.name(ATTRIBUTE_BUTTON_DELETE));
+        delete.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    private Area createArea(String name) {
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
+        
+        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
+        nameField.sendKeys(name);
+        nameField.submit();
+        
+        return contentAreaService.findAreaByName(name);
+    }
+    
+    @Test
+    public void subscribedContentIsShownAtContentManager() {
+        String name = "Futurama references";
+        
+        Area area = createArea(name);
+        
+        WebElement areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertTrue(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void unsubscribedContentIsNotShownAtContentManager() {
+        String name = "IMMA FIRIN MAH'";
+        Area area = createArea(name);
+        
+        WebElement areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST);
+        areaLink = driver.findElement(By.name(name));
+        areaLink.click();
+        
+        WebElement unsubscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_UNSUBSCRIBE));
+        unsubscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
 }
