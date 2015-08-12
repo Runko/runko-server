@@ -13,10 +13,12 @@ public abstract class Links {
     public static final String LINK_PROFILE = "/profile";
     public static final String LINK_PERSONS = "/persons";
     public static final String LINK_CONTENT_MANAGER = "/CM";
-    
+    public static final String LINK_FRONTPAGE = "/frontpage";
+
     public static final String LINK_VIEW_ID = "/{id}";
 
     public static final String LINK_AREA_INDEX = "/area";
+
     // You can access area-view for example like LINK_AREA_INDEX + LINK_VIEW_ID.
     //If index is already given, LINK_VIEW_ID is enough    
     public static final String LINK_AREA_FORM = "/areaform";
@@ -42,6 +44,7 @@ public abstract class Links {
     public static final String FILE_CONTENT_MANAGER = "person/content_manager";
     public static final String FILE_PERSONS = "persons";
     public static final String FILE_PERSON = "person";
+    public static final String FILE_FRONTPAGE = "frontpage";
 
     public static final String FILE_SIMPLECONTENT = "/content/simple_content";
     public static final String FILE_SIMPLECONTENT_FORM = "/content/simple_content_form";

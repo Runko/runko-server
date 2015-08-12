@@ -37,7 +37,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // tarjotaan mahdollisuus kirjautumiseen ja annetaan kaikille
         // pääsy kirjautumissivulle
         http.formLogin()
-                .defaultSuccessUrl(LINK_HOME, true)
+                .defaultSuccessUrl(LINK_FRONTPAGE, true)
                 .loginPage(LINK_LOGIN).permitAll();
 
         // uloskirjautumisen asetukset
