@@ -195,7 +195,7 @@ public class PersonTest {
         String name = "Futurama references";
         
         Area area = createArea(name);
-        
+        driver.get(LINK_LOCALHOST);
         WebElement areaLink = driver.findElement(By.name(name));
         areaLink.click();
         
@@ -211,7 +211,7 @@ public class PersonTest {
     public void unsubscribedContentIsNotShownAtContentManager() {
         String name = "IMMA FIRIN MAH'";
         Area area = createArea(name);
-        
+        driver.get(LINK_LOCALHOST);
         WebElement areaLink = driver.findElement(By.name(name));
         areaLink.click();
         
