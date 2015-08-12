@@ -61,14 +61,14 @@
                             <div class="modal-body">
                                 <div class="checkbox" th:each="area : ${area}" style="border: none" >
                                     <label>
-                                        <input class="areaIds[]" type="checkbox" name="areaIds" th:value="${area.id}"/>
+                                        <input class="areaIds" type="checkbox" name="areaIds" th:id="${area.id}" th:value="${area.id}"/>
                                         <p class="areaName" th:text="${area.name}"></p>
                                     </label>
                                 </div>
                             </div>
                             <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" onclick="toTextarea()">Siirrä</button>
+                                <button type="button" name="move" class="btn btn-primary"  data-dismiss="modal" onclick="toTextarea()">Siirrä</button>
                             </div>
 
                         </div>
@@ -79,7 +79,7 @@
 
                 <!-- topspace is in layout.css -->
                 <div  class="topspace">
-                    <button type="submit" class="btn btn-primary" value="Save">Tallenna</button>
+                    <button type="submit" name="save" class="btn btn-primary" value="Save">Tallenna</button>
                 </div>
 
             </form>
@@ -87,7 +87,7 @@
     </body>
     <script>
         function toTextarea() {
-            var areaBox = document.getElementsByName("areaIds");
+            var areaBox = document.getElementsByClassName("areaIds");
             var areaName = document.getElementsByClassName("areaName");
             var txt = "";
             var i;
