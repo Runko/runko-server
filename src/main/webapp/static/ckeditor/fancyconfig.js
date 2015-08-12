@@ -17,6 +17,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'tools' },
 		{ name: 'document',	   groups: [ 'mode', 'document', 'doctools' ] },
 		{ name: 'others' },
+                '/',
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
 		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
 		{ name: 'styles' },
@@ -26,7 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// Remove some buttons provided by the standard plugins, which are
 	// not needed in the Standard(s) toolbar.
-	config.removeButtons = 'Underline,Subscript,Superscript,Copy,Paste,PasteText,PasteFromWord,Cut,Undo,Redo,Scayt,Anchor,Table,HorizontalRule,SpecialChar,Maximize,Source,Strike,RemoveFormat,Indent,Outdent,Styles,Image';
+	config.removeButtons = 'Underline,Subscript,Superscript,Anchor,Image,SpecialChar,Maximize,Source,Strike';
 
 	// Set the most common block elements.
 	config.format_tags = 'p;h1;h2;h3;pre';
