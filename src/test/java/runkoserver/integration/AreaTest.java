@@ -109,7 +109,7 @@ public class AreaTest {
         String areaName = "Elämä on!";        
         String visibility = "testing1";
         createNewArea(areaName, visibility);
-        
+        driver.get(LINK_LOCALHOST);
         assertTrue(driver.getPageSource().contains(areaName));
     }
     
@@ -119,8 +119,9 @@ public class AreaTest {
         String visibility = "testing1";
         Area area = createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Julkinen"));
-        
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
+        driver.get(LINK_LOCALHOST);
+        assertTrue(driver.getPageSource().contains("Julkinen"));
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         assertTrue(driver.getPageSource().contains(areaName));
 
@@ -145,10 +146,12 @@ public class AreaTest {
     public void areaVisibilityCanChangeFromDefault(){
         String areaName = "Näkyvyys vaihtuu";
         String visibility = "testing2";
-        
+       
         createNewArea(areaName, visibility);
         
-        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) && driver.getPageSource().contains("Kirjautuneille"));
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) );
+        driver.get(LINK_LOCALHOST);
+        assertTrue(driver.getPageSource().contains("Kirjautuneille"));
     }
     
     @Test

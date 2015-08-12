@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
+
+    <head lang="en">
+        <!-- bootstrap.min.css is bootstraps own css -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
+
+        <!-- layout.css is Runkos css -->
+        <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta charset="UTF-8"/>  
+
+        <title>Pääkaupunkiseudun partiolaiset</title>
+
+    </head>
+    <body>
+        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+
+        <!-- centered is in layout.css -->
+        <div class="centered">
+            <h1>Partio</h1>
+
+            <div th:include="fragments/messages_template :: messages"></div>
+
+            <!-- Here will be message if needed (like new content has created) -->
+
+            <p>Mitä uutta tapahtunut!</p>
+            <tr th:each="content : ${contents}">
+            <table class="topspace">
+                <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a> </th>
+                
+                    <td style="font-size:12px;">  Alueet: </td>
+                    <td th:each="area: ${content.areas}">
+                    <td style="font-size:12px;"><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>, </td>
+                    </td>
+
+                    </tr>
+                    <tr><td th:text="${content.textArea}"></td></tr>
+                    <tr></tr>
+               
+            </table>
+        </tr>
+
+
+    </div> 
+</body>
+</html>

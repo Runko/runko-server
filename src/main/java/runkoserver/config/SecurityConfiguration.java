@@ -35,7 +35,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
 
         // offers chance to login and give everybody access to loginpage
         http.formLogin()
-                .defaultSuccessUrl(LINK_HOME, true)
+                .defaultSuccessUrl(LINK_FRONTPAGE, true)
                 .loginPage(LINK_LOGIN).permitAll();
 
         // configurations to logout

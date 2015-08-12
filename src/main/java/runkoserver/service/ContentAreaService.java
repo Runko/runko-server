@@ -233,5 +233,20 @@ public class ContentAreaService {
         areaRepository.save(area);
     }
 
+    public List<Content> createListFromSubscripedContents(Person person) {
+        List<Content> newList = new ArrayList<>();
+        person.getSubscriptions().stream().forEach((area) -> {
+            area.getContents().stream().filter((content)
+                    -> (!newList.contains(content))).forEach((content) -> {
+                        newList.add(content);
+                    });
+        });
+        
+        newList.sort((Content x, Content y) -> {
+            return y.getModifyTime().compareTo(x.getModifyTime());
+        });
+        
+        return newList;
+    }
 
 }
