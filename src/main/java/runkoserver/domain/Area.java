@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -58,7 +59,10 @@ public class Area {
     }
 
     public List<Person> getSubscribers() {
-        return subscribers;
+        if (subscribers != null) {
+            return subscribers;
+        }
+        return new ArrayList<>();
     }
 
     public void setSubscribers(List<Person> subscribers) {
@@ -82,7 +86,10 @@ public class Area {
     }
 
     public List<Content> getContents() {
-        return contents;
+        if (contents != null) {
+            return contents;
+        }
+        return new ArrayList<>();
     }
 
     public void setContents(List<Content> contents) {

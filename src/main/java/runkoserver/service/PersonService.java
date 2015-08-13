@@ -75,9 +75,9 @@ public class PersonService implements RepoService{
         repository.save(p);
     }
 
-    public boolean findIfSubscripted(Person person, Area areaId) {
-        for (Area subs : person.getSubscriptions()) {
-            if(subs==areaId){
+    public boolean findIfSubscripted(Person person, Area area) {
+        for (Area sub : person.getSubscriptions()) {
+            if(sub.getId() == area.getId()){
             return true;
             }
         }      

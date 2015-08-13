@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 import javax.persistence.Entity;
@@ -91,7 +92,10 @@ public class Person {
     }
 
     public List<Area> getSubscriptions() {
-        return subscriptions;
+        if (null != subscriptions) {
+            return subscriptions;
+        }
+        return new ArrayList<Area>();
     }
 
     public void setSubscriptions(List<Area> subscriptions) {

@@ -12,6 +12,7 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.Application;
 import runkoserver.domain.Area;
+import runkoserver.domain.Content;
 import runkoserver.domain.Person;
 import runkoserver.domain.SimpleContent;
 
@@ -40,9 +41,9 @@ public class ContentAreaServiceTest {
         contentAreaService.deleteAll();
         testSC = null;
         testArea = null;
-        testMan= new Person("Jenny");
+        testMan = new Person("Jenny");
         personService.save(testMan);
-        testMan2= new Person("Julia");
+        testMan2 = new Person("Julia");
         personService.save(testMan2);
 
     }
@@ -84,7 +85,7 @@ public class ContentAreaServiceTest {
         doNewSimpleContentAndSave("Test", "Delete", areaIDs, testMan);
         assertTrue(contentAreaService.deleteContent(testSC.getId(),testMan));
         assertFalse(contentAreaService.deleteContent(testSC.getId(),testMan));
-        assertNull(testArea.getContents());
+        assertEquals(0, testArea.getContents().size());        
     }
 
     //Test for areas
@@ -130,5 +131,40 @@ public class ContentAreaServiceTest {
         doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
         doNewSimpleContentAndSave("Life", "Is guut", null, testMan2);
         assertTrue(contentAreaService.deleteAll());
+    }
+    
+    @Test
+    public void testAreasCanBeSubscribed() {
+        testArea = contentAreaService.createArea("What's going on?", testMan, Boolean.TRUE);
+        personService.addSubscribtion(testMan, testArea);
+        
+        assertEquals(1, testMan.getSubscriptions().size());
+    }
+    
+    @Test
+    public void testCreateListFromSubscribedContentsReturnsSubscribedContent() {
+        testArea = contentAreaService.createArea("Dohvakin", testMan, Boolean.TRUE);
+        contentAreaService.saveArea(testArea);
+        personService.addSubscribtion(testMan, testArea);
+        
+        List<Long> areaIds = new ArrayList<>();
+        areaIds.add(testArea.getId());
+        
+        Content c1 = contentAreaService.createSimpleContent("Force", "FUS", areaIds, testMan);
+        contentAreaService.saveContent(c1);
+        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
+        contentAreaService.saveContent(c2);
+        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
+        contentAreaService.saveContent(c3);
+        
+        System.out.println("******************");
+        for (Content c : testArea.getContents()) {
+            System.out.println(c.getName());
+        }
+        System.out.println("++++++++++++++++++");
+        
+        List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
+        
+        assertEquals(3, subscribedContent.size());
     }
 }

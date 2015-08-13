@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.util.comparator.ComparableComparator;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
@@ -73,7 +74,7 @@ public class ContentAreaService {
     }
 
     /**
-     * Creation of simple-context.
+     * Creation of simple-context. Does NOT save created content to repository.
      *
      * @param name name of the context
      * @param textArea text area of the context
@@ -90,7 +91,7 @@ public class ContentAreaService {
         content.setCreationTime();
         if (areaIds != null) {
             for (Area area : findListedAreasById(areaIds)) {
-                content.addArea(area);
+                content.addArea(area);                
             }
         }
 
@@ -143,7 +144,7 @@ public class ContentAreaService {
     }
 
     /**
-     * Creates a new area.
+     * Creates a new area. Does NOT save the area to repository.
      *
      * @param name name of the area
      * @param person owner of the area
@@ -237,7 +238,7 @@ public class ContentAreaService {
     }
     /**
      * 
-     * @param person tells whos frontpage must be build
+     * @param person tells whose frontpage must be build
      * @return the content in chronological order
      */
     public List<Content> createListFromSubscripedContents(Person person) {
