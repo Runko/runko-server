@@ -235,16 +235,22 @@ public class ContentAreaService {
         area.setSubscribers(subscribers);
         areaRepository.save(area);
     }
-
+    /**
+     * 
+     * @param person tells whos frontpage must be build
+     * @return the content in chronological order
+     */
     public List<Content> createListFromSubscripedContents(Person person) {
         List<Content> newList = new ArrayList<>();
+        
+        // Builds new list without dublicates
         person.getSubscriptions().stream().forEach((area) -> {
             area.getContents().stream().filter((content)
                     -> (!newList.contains(content))).forEach((content) -> {
                         newList.add(content);
                     });
         });
-        
+        // sorts new list to chronological order. Newest first.
         newList.sort((Content x, Content y) -> {
             return y.getModifyTime().compareTo(x.getModifyTime());
         });

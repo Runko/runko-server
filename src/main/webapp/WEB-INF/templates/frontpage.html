@@ -19,26 +19,29 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-            <h1>Partio</h1>
+            <h1>--- RUNKO newsfeed ---</h1>
 
             <div th:include="fragments/messages_template :: messages"></div>
 
             <!-- Here will be message if needed (like new content has created) -->
 
-            <p>Mitä uutta tapahtunut!</p>
+
+
+            <p th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
+
             <tr th:each="content : ${contents}">
             <table class="topspace">
                 <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a> </th>
-                
+
                     <td style="font-size:12px;">  Alueet: </td>
                     <td th:each="area: ${content.areas}">
                     <td style="font-size:12px;"><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>, </td>
                     </td>
 
-                    </tr>
-                    <tr><td th:text="${content.textArea}"></td></tr>
-                    <tr></tr>
-               
+                </tr>
+                <tr><td th:text="${content.textArea}"></td></tr>
+                <tr></tr>
+
             </table>
         </tr>
 

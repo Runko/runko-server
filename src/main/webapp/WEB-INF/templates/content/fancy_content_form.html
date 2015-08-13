@@ -7,13 +7,13 @@
 
         <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
-        
+
         <!-- jQuery file -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" th:src="@{/static/jquery.min.js}"></script>
 
         <!-- CKeditor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
-      
+
         <!-- Bootstrap (js-tiedosto) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -37,17 +37,15 @@
 
                 <label class="topspace">Sisältö</label>
                 <textarea rows="10" cols="80" id ="fancycontent" name="textarea" class="form-control topspace" style="margin-bottom: 10px"></textarea>
-                
+
                 <script>
-                    CKEDITOR.replace( 'fancycontent', {customConfig: 'fancyconfig.js'});
+                    CKEDITOR.replace('fancycontent', {customConfig: 'fancyconfig.js'});
                 </script>
 
-                
-                <!-- This lists all areas on which user can choose right area or areas -->
-                <!-- could be refactored to show from fragment <div th:include ="fragments/area_modal :: area-modal">area-modal</div> -->
+                <!-- This lists all areas for user to choose right area or areas to be linked with content -->
                 <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
-                        Valitse sisältöalueet</button>
-                
+                    Valitse sisältöalueet</button>
+
                 <!-- Modal area modal -->
                 <div class="modal fade" id="alueModal" role="dialog">
                     <div class="modal-dialog">
@@ -60,30 +58,42 @@
                             </div>
 
                             <div class="modal-body">
+                                <input type="text" id="search" placeholder="Type to search" class="topspace" />
+
                                 <div class="checkbox" th:each="area : ${area}" style="border: none" >
                                     <label>
-                                        <input type="checkbox" name="areaIds" th:value="${area.id}"/>
+                                        <input type="checkbox" name="areaIds" th:name="areaIds" th:id="${area.id}" th:value="${area.id}"/>
                                         <p class="areaName" th:text="${area.name}"></p>
                                     </label>
                                 </div>
                             </div>
-                            <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Siirrä</button>
-                            </div>
 
+                            <div class="modal-footer">
+                                <button type="button" name="move" class="btn btn-primary"  data-dismiss="modal">Valitse</button>
+                            </div>
                         </div>
                     </div>
                 </div>
-                <!-- suppose to show selected areas but could not make script's for loop work!!??!!??
-                <textarea id="textArea" rows="7" type="text" class="form-control" value=""></textarea> -->
-
-                <!-- topspace is in layout.css -->
-                <div  class="topspace">
-                    <button type="submit" class="btn btn-primary" value="Save">Tallenna</button>
+                <div>
+                    <button type="submit" class="btn btn-primary topspace" value="Save">Tallenna</button>
                 </div>
             </form> 
 
         </div>
     </body>
+    <script>
+
+        $(function () {
+            var $areas = $('.checkbox label');
+            $("#search").keyup(function () {
+                var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
+                $areas.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, '').toLowerCase();
+                    return !~text.indexOf(inputText);
+                }).hide();
+
+            });
+        });
+
+    </script>
 </html>

@@ -20,7 +20,8 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_SUBSCRIPTION = "Tilaa";
     public static final String ATTRIBUTE_UNSUBSCRIPTION = "Lopeta tilaus";
     
-    public static final String TITLE_FRONTPAGE = "Partio";
+    public static final String TITLE_FRONTPAGE = "--- RUNKO newsfeed ---";
+     public static final String TITLE_STANDARD = "Partio";
     
     public static final String LOGIN_TEST = "testi";
     public static final String PASSWORD_TEST = "testi";

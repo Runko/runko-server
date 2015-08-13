@@ -61,8 +61,14 @@ public class RunkoController {
         return REDIRECT + LINK_LOGIN;
     }
     
-        @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
-    public String frontpage(Model model, Principal principal) {
+    /**
+     * This method is responsible for displaying the front page
+     * @param model object for spring to use
+     * @param principal Finds who is logged in 
+     * @return fronpage 
+     */
+    @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
+    public String frontPage(Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
         List <Content> contents = contentAreaService.createListFromSubscripedContents(person);
         model.addAttribute(ATTRIBUTE_CONTENTS, contents);
