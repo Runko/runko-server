@@ -14,6 +14,7 @@ import org.springframework.boot.test.SpringApplicationConfiguration;
 import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.Application;
+import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
@@ -60,6 +61,17 @@ public class ContentTest {
         textArea.submit();
 
         return contentAreaService.findContentByName(theName);
+    }
+
+    private Area createNewArea(String areaName){
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_AREA_FORM);
+        
+        WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
+
+        name.sendKeys(areaName);
+        name.submit();
+        
+        return contentAreaService.findAreaByName(areaName);
     }
 
     private String getViewContent(Content content) {
@@ -193,5 +205,4 @@ public class ContentTest {
         assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
     }
 
-    
 }

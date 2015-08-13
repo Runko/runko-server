@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
-    
+
     <head lang="en">
         <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
@@ -24,16 +24,34 @@
     <body>
         <!-- Navbar -->
         <div th:fragment="navbar">
-            <div class="navbarmenu">
-                <a th:href="@{/}" type="button" name="Runko" class="btn btn-default"><span class="glyphicon glyphicon-asterisk"></span> Runko</a>
-                <a href="#" name="Viestit" class="btn btn-default"><span class="glyphicon glyphicon-envelope"></span> Viestit</a>
-                <a href="#" name="Suosikit" class="btn btn-default"><span class="glyphicon glyphicon-star-empty"></span> Suosikit</a>
-                <a th:href="@{/area/areaform}" name="Luo_sisaltoalue" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Luo sisältöalue</a>
-                <a th:href="@{/content/simpleform}" name="Luo_sisalto" class="btn btn-default"><span class="glyphicon glyphicon-pencil"></span> Luo sisältöä</a>
-                <a th:href="@{/persons/profile}" name="Profiili" class="btn btn-default"><span class="glyphicon glyphicon-user"></span> Profiili</a>
-                <a th:href="@{/persons/CM}" name="Profiili" class="btn btn-default"><span class="glyphicon glyphicon-user"></span> CM</a>  
-                <a th:href="@{/login_logout}" name="Kirjautuminen" class="btn btn-default"><span class="glyphicon glyphicon-log-in"></span> Kirjautuminen</a>
-                <a th:href="@{/content/fancyform}" name="Editori" class="btn btn-default">Editor</a>
+            <div class="navbarmenu dropdown"> 
+                <a th:href="@{/frontpage}" type="button" class="btn btn-default" name="Runko">
+                    <span class="glyphicon glyphicon-asterisk"></span> Etusivu</a>
+                <div class="btn-group">
+                    <a class="dropdown-toggle btn btn-default" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" name="contents">
+                        <span class="glyphicon glyphicon-list-alt"></span> Sisällöt </a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/}">RUNKO sisältö</a></li>
+                        <li><a th:href="@{/persons/bookmarks}">Kirjainmerkit</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a class="dropdown-toggle btn btn-default" data-toggle="dropdown" type="button" name="managing">
+                        <span class="glyphicon glyphicon-pencil"></span> Hallinta</a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/persons/CM}">Sisällön hallinta</a></li>
+                        <li><a th:href="@{/area/areaform}">Luo sisältöalue</a></li>
+                        <li><a th:href="@{/content/fancyform}">Luo sisältö</a></li>
+                    </ul>
+                </div>
+                <div class="btn-group">
+                    <a class="dropdown-toggle btn btn-default" data-toggle="dropdown" type="button" name="account">
+                        <span class="glyphicon glyphicon-user"></span> Oma tili</a>
+                    <ul class="dropdown-menu">
+                        <li><a th:href="@{/login_logout}">Kirjautuminen</a></li>
+                        <li><a th:href="@{/persons/profile}">Profiili</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
