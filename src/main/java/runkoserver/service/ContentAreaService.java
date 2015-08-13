@@ -7,8 +7,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
+import runkoserver.domain.Element;
 import runkoserver.domain.Person;
 import runkoserver.domain.SimpleContent;
+import runkoserver.domain.FancyContent;
+import runkoserver.domain.TextElement;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ContentRepository;
 
@@ -115,6 +118,38 @@ public class ContentAreaService {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Creation of fancy-context.
+     *
+     * @param name name of the context
+     * @param textElement
+     * @param areaIds Id-numbers of the added areas
+     * @param owner creator of content
+     * @return created FancyContent
+     */
+    public FancyContent createFancyContent(String name, String textElement, List<Long> areaIds, Person owner) {
+        FancyContent content = new FancyContent();
+        
+        content.setName(name);
+        content.setOwner(owner);
+        content.setCreationTime();
+        
+        content.setAreas(new ArrayList<>());
+        if (areaIds != null) {
+            for (Area area : findListedAreasById(areaIds)) {
+                content.addArea(area);
+            }
+        }
+        
+        content.setElements(new ArrayList<>());
+        
+        TextElement text = new TextElement();
+        text.setTextArea(textElement);
+        content.getElements().add(text);
+
+        return content;
     }
 
     //Areas' repository interactions
