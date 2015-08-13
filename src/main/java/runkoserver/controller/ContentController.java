@@ -203,7 +203,7 @@ public class ContentController {
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redirected to
      * @param name Name of new content
-     * @param elements element of content
+     * @param textElement
      * @param areaIds List with ares where content is connected
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
@@ -211,12 +211,12 @@ public class ContentController {
     @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
     public String postFancyContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
-            @RequestParam(required = true) List<Element> elements,
+            @RequestParam(required = true) String textElement,
             @RequestParam(required = false) List<Long> areaIds,
             Principal principal) {
 
         Person p = personService.findByUsername(principal.getName());
-        FancyContent fancyContent = contentAreaService.createFancyContent(name, elements, areaIds, p);
+        FancyContent fancyContent = contentAreaService.createFancyContent(name, textElement, areaIds, p);
 
         if (contentAreaService.saveContent(fancyContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
