@@ -37,7 +37,7 @@ public class LoginTest {
     public void UserCanAccessHomePage() {
         driver.get(LINK_LOCALHOST);
 
-        assertTrue(driver.getPageSource().contains(TITLE_FRONTPAGE));
+        assertTrue(driver.getPageSource().contains(TITLE_STANDARD));
     }
 
     @Test
