@@ -17,7 +17,6 @@
         th:src="@{/static/js/bootstrap.min.js}"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charset="UTF-8" />  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
     </head>
@@ -28,7 +27,7 @@
         <!-- centered is in layout.css -->
         <div class="centered" >
             <h2>Muokkaa sisältöä</h2>
-            
+
             <div th:include="fragments/messages_template :: messages"></div>
 
             <!-- Form makes new content -->
@@ -41,9 +40,7 @@
                 <label class="topspace">Sisältö</label>
                 <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control topspace" th:text="${content.textArea}" placeholder="lisää sisältöä"></textarea>
 
-
                 <!-- This lists all areas on which user can choose right area or areas -->
-                <!-- could be refactored to show from fragment <div th:include ="fragments/area_modal :: area-modal">area-modal</div> -->
                 <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
                     Valitse sisältöalueet</button>
 
@@ -59,6 +56,8 @@
                             </div>
 
                             <div class="modal-body">
+                                <input type="text" id="search" placeholder="Type to search" class="topspace" />
+                                
                                 <div class="checkbox" th:each="area : ${area}" style="border: none" >
                                     <label th:if="${#lists.contains(content.areas, area)}">
                                         <input type="checkbox" name="areaIds" th:value="${area.id}" checked="true" />
@@ -70,11 +69,9 @@
                                     </label>
                                 </div>
                             </div>
-                            <!-- suppose to bring selected areas to textarea (bellow in comments) with onclick="toTextarea()" -->
                             <div class="modal-footer">
-                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Siirrä</button>
+                                <button type="button" class="btn btn-primary"  data-dismiss="modal" >Valitse</button>
                             </div>
-
                         </div>
                     </div>
                 </div>
@@ -82,7 +79,22 @@
                     <button name="edit" type="submit" class="btn btn-danger topspace">Tallenna</button>   
                 </div>
             </form>
-
         </div>
     </body>
+
+    <script>
+
+        $(function () {
+            var $areas = $('.checkbox label');
+            $("#search").keyup(function () {
+                var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
+                $areas.show().filter(function () {
+                    var text = $(this).text().replace(/\s+/g, '').toLowerCase();
+                    return !~text.indexOf(inputText);
+                }).hide();
+
+            });
+        });
+
+    </script>
 </html>
