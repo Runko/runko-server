@@ -5,13 +5,7 @@ import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import runkoserver.domain.Area;
-import runkoserver.domain.Content;
-import runkoserver.domain.Element;
-import runkoserver.domain.Person;
-import runkoserver.domain.SimpleContent;
-import runkoserver.domain.FancyContent;
-import runkoserver.domain.TextElement;
+import runkoserver.domain.*;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ContentRepository;
 
@@ -84,8 +78,8 @@ public class ContentAreaService {
      * @param owner creator of content
      * @return created SimpleContent
      */
-    public SimpleContent createSimpleContent(String name, String textArea, List<Long> areaIds, Person owner) {
-        SimpleContent content = new SimpleContent();
+    public Content createSimpleContent(String name, String textArea, List<Long> areaIds, Person owner) {
+        Content content = new Content();
         content.setAreas(new ArrayList<>());
         content.setName(name);
         content.setTextArea(textArea);
@@ -102,7 +96,7 @@ public class ContentAreaService {
 
     public boolean updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds, Person whoIsLogged) {
 
-        SimpleContent content = (SimpleContent) findContentById(contentId);
+        Content content =  findContentById(contentId);
         if (whoIsLogged.getId() == content.getOwner().getId()) {
             content.setName(name);
             content.setTextArea(textArea);
@@ -129,8 +123,8 @@ public class ContentAreaService {
      * @param owner creator of content
      * @return created FancyContent
      */
-    public FancyContent createFancyContent(String name, String textElement, List<Long> areaIds, Person owner) {
-        FancyContent content = new FancyContent();
+    public Content createFancyContent(String name, String textElement, List<Long> areaIds, Person owner) {
+        Content content = new Content();
         
         content.setName(name);
         content.setOwner(owner);

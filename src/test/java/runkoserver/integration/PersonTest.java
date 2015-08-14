@@ -19,7 +19,6 @@ import runkoserver.Application;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
-import runkoserver.domain.SimpleContent;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
@@ -46,7 +45,7 @@ public class PersonTest {
     private ContentAreaService contentAreaService;
 
     Person user;
-    SimpleContent simpleContent;
+    Content simpleContent;
 
     @Before
     public void userIsLoggedIn() {

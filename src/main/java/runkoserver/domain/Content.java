@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -17,12 +18,13 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.persistence.OneToMany;
 
 /**
  * Upper class for all content types.
  */
 @Entity
-public abstract class Content {
+public class Content implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -43,8 +45,11 @@ public abstract class Content {
 
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Area> areas;
+    
+    @OneToMany(mappedBy = "content", fetch = FetchType.EAGER)
+    private List<Element> elements; //vai hashmap?
 
-    protected Content() {
+    public Content() {
     }
 
     public Long getId() {
@@ -119,5 +124,22 @@ public abstract class Content {
         }
 
         return false;
+    }
+    private String textArea;
+
+    public void setTextArea(String textArea) {
+        this.textArea = textArea;
+    }
+
+    public String getTextArea() {
+        return this.textArea;
+    }
+
+    public List<Element> getElements() {
+        return elements;
+    }
+
+    public void setElements(List<Element> elements) {
+        this.elements = elements;
     }
 }

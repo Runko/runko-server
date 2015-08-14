@@ -12,8 +12,9 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import runkoserver.Application;
 import runkoserver.domain.Area;
+import runkoserver.domain.Content;
 import runkoserver.domain.Person;
-import runkoserver.domain.SimpleContent;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -26,7 +27,7 @@ public class ContentAreaServiceTest {
     @Autowired
     PersonService personService;
 
-    private SimpleContent testSC;
+    private Content testSC;
     private Area testArea;
     private List<Long> areaIDs;
     private Person testMan;
