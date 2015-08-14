@@ -3,6 +3,7 @@ package runkoserver.integration;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -27,7 +28,7 @@ import runkoserver.service.ContentAreaService;
 import runkoserver.service.PersonService;
 
 /**
- * Integration tests for person-usage.
+ * Integration tests for person-usage. Contains also Content-manager tests.
  */
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
@@ -190,7 +191,7 @@ public class PersonTest {
     }
     
     @Test
-    public void subscribedContentIsShownAtContentManager() {
+    public void subscribedAreaIsShownAtContentManager() {
         String name = "Futurama references";
         
         Area area = createArea(name);
@@ -207,7 +208,7 @@ public class PersonTest {
     }
     
     @Test
-    public void unsubscribedContentIsNotShownAtContentManager() {
+    public void unsubscribedAreaIsNotShownAtContentManager() {
         String name = "IMMA FIRIN MAH'";
         Area area = createArea(name);
         driver.get(LINK_LOCALHOST);
@@ -227,5 +228,48 @@ public class PersonTest {
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         
         assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void allSubscribedAreasAreShownAtContentManager() {
+        String name1 = "Epic Rap Battles of History";
+        Area area1 = createArea(name1);
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        String name2 = "Chuck Norris";
+        Area area2 = createArea(name2);
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
+        subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertTrue(driver.getPageSource().contains(name1) 
+                && driver.getPageSource().contains(name2));
+    }
+    
+    @Test
+    public void allSubscribedAreasAreShownOnceAtContentManager() {
+        String name1 = "Perjantai-rage";
+        Area area1 = createArea(name1);
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
+        WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        String name2 = "Matti Luukkainen";
+        Area area2 = createArea(name2);
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
+        subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribeButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        List<WebElement> area1Elements = driver.findElements(By.id(name1));
+        List<WebElement> area2Elements = driver.findElements(By.id(name2));
+        
+        assertEquals(1, area1Elements.size());
+        assertEquals(1, area2Elements.size());
     }
 }
