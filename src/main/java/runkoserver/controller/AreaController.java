@@ -82,10 +82,11 @@ public class AreaController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
-        return REDIRECT+LINK_FRONTPAGE;
+        return REDIRECT + LINK_FRONTPAGE;
     }
+
     /**
-     * 
+     *
      * @param id which area is subscripted or unsubscripted
      * @param whereICome tells which URL we should redirect
      * @param principal who is logged
@@ -93,7 +94,7 @@ public class AreaController {
      * @return url where we go
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
-    public String subscriptArea(@PathVariable Long id, 
+    public String subscriptArea(@PathVariable Long id,
             @RequestParam(required = false) String whereICome,
             Principal principal,
             RedirectAttributes redirectAttributes
@@ -103,8 +104,10 @@ public class AreaController {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_START);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_STOP);
-            if (whereICome.equals("CM")) {
-                return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
+            if (null != whereICome) {
+                if (whereICome.equals("CM")) {
+                    return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
+                }
             }
         }
 
