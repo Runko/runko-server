@@ -70,7 +70,7 @@ public class Area {
     }
 
     public boolean addContent(Content content) {
-        if (!contents.contains(content)) {
+        if (!getContents().contains(content)) {
             contents.add(content);
             return true;
         }
@@ -89,7 +89,8 @@ public class Area {
         if (contents != null) {
             return contents;
         }
-        return new ArrayList<>();
+        this.contents = new ArrayList<>();
+        return contents;
     }
 
     public void setContents(List<Content> contents) {

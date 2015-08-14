@@ -101,6 +101,7 @@ public class ContentAreaService {
     public boolean updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds, Person whoIsLogged) {
 
         SimpleContent content = (SimpleContent) findContentById(contentId);
+        
         if (whoIsLogged.getId() == content.getOwner().getId()) {
             content.setName(name);
             content.setTextArea(textArea);
