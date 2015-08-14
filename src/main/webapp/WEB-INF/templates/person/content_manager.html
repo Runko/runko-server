@@ -68,7 +68,7 @@
                 <table class="table table-hover col-sm-12">
 
                     <tr th:each="area : ${person.subscriptions}">
-                        <th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>
+                        <th><a th:id="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>
                         </th>
                         <td>
                             <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
