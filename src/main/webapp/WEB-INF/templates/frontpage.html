@@ -8,8 +8,15 @@
         <!-- layout.css is Runkos css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charset="UTF-8"/>  
+        <!-- jQuery file -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" 
+        th:src="@{/static/jquery.min.js}"></script>
+
+        <!-- Bootstrap (js-file) -->
+        <script src="/js/bootstrap.min.js" 
+        th:src="@{/static/js/bootstrap.min.js}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />  
 
         <title>Pääkaupunkiseudun partiolaiset</title>
 
@@ -17,16 +24,15 @@
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-        <!-- centered is in layout.css -->
+        <!-- centered and topspace are in layout.css -->
         <div class="centered">
-            <h1>--- RUNKO newsfeed ---</h1>
 
             <div th:include="fragments/messages_template :: messages"></div>
 
+            <h1>-- RUNKO newsfeed --</h1>
+
             <!-- Here will be message if needed (like new content has created) -->
-
-
-
+            
             <p th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
 
             <tr th:each="content : ${contents}">

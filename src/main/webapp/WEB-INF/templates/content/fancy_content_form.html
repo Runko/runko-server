@@ -29,14 +29,16 @@
         <div class="centered">
             <h2>Luo sisältö</h2>
 
+            <div th:include="fragments/messages_template :: messages"></div>
+            
             <!-- Form makes new content -->
             <!-- topspace is in layout.css -->
-            <form method="" action="/content/fancyform">
+            <form method="post" action="/content/fancyform">
                 <label>Sisällön otsikko *</label>
                 <input type="text" name="name" class="form-control topspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
 
                 <label class="topspace">Sisältö</label>
-                <textarea rows="10" cols="80" id ="fancycontent" name="textarea" class="form-control topspace" style="margin-bottom: 10px"></textarea>
+                <textarea rows="10" cols="80" id ="fancycontent" name="textElement" class="form-control topspace" style="margin-bottom: 10px"></textarea>
 
                 <script>
                     CKEDITOR.replace('fancycontent', {customConfig: 'fancyconfig.js'});

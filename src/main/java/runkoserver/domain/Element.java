@@ -18,17 +18,17 @@ public abstract class Element implements Serializable {
     private long id;
     
     @ManyToOne
-    private FancyContent fancyContent;
+    private Content content;
 
     public long getId() {
         return id;
     }
 
-    public FancyContent getFancyContent() {
-        return fancyContent;
+    public Content getContent() {
+        return content;
     }
 
-    public void setFancyContent(FancyContent fancyContent) {
-        this.fancyContent = fancyContent;
+    public void setContent(Content content) {
+        this.content = content;
     }
 }

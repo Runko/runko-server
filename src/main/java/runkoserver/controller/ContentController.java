@@ -13,8 +13,9 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Content;
+
 import runkoserver.domain.Person;
-import runkoserver.domain.SimpleContent;
+
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
@@ -116,7 +117,7 @@ public class ContentController {
             Principal principal) {
 
         Person p = personService.findByUsername(principal.getName());
-        SimpleContent simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
+        Content simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
 
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
@@ -190,6 +191,28 @@ public class ContentController {
     
     @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
     public String fancyContentForm(Model model) {
+        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+        
         return FILE_FANCY_CONTENT_FORM;
     }
+    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
+    public String postFancyContent(RedirectAttributes redirectAttributes,
+            @RequestParam(required = true) String name,
+            @RequestParam(required = true) String textElement,
+            @RequestParam(required = false) List<Long> areaIds,
+            Principal principal) {
+
+        Person p = personService.findByUsername(principal.getName());
+        Content fancyContent = contentAreaService.createFancyContent(name, textElement, areaIds, p);
+
+        if (contentAreaService.saveContent(fancyContent)) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
+            
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
+            
+        }
+        return REDIRECT+LINK_FRONTPAGE;
+    }
+
 }

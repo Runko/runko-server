@@ -79,7 +79,7 @@ public class LoginTest {
         password.sendKeys(PASSWORD_TEST);
         password.submit();
 
-        WebElement logoutButton = driver.findElement(By.name("Kirjautuminen"));
+        WebElement logoutButton = driver.findElement(By.name("logIn"));
         logoutButton.click();
 
         assertTrue(driver.getPageSource().contains("Kirjaudu sisään"));
