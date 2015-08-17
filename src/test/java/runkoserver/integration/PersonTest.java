@@ -68,8 +68,9 @@ public class PersonTest {
         Area area = contentAreaService.createArea("area", user, Boolean.TRUE);
         contentAreaService.saveArea(area);
         areas.add(area.getId());
-        
-        simpleContent = contentAreaService.createSimpleContent("content", "a lot of text", areas, user);
+        List<String> elements =new ArrayList<>();
+        elements.add("a lot of text");
+        simpleContent = contentAreaService.createSimpleContent("content", elements, areas, user);
         contentAreaService.saveContent(simpleContent);
     }
     

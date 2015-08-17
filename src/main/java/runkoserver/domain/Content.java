@@ -127,13 +127,7 @@ public class Content implements Serializable {
     }
     private String textArea;
 
-    public void setTextArea(String textArea) {
-        this.textArea = textArea;
-    }
 
-    public String getTextArea() {
-        return this.textArea;
-    }
 
     public List<Element> getElements() {
         return elements;
@@ -142,4 +136,5 @@ public class Content implements Serializable {
     public void setElements(List<Element> elements) {
         this.elements = elements;
     }
+
 }

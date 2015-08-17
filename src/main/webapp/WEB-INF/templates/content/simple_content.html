@@ -26,9 +26,9 @@
 
         <!-- centered is in layout.css -->
         <div class="centered">
-            
+
             <div th:include="fragments/messages_template :: messages"></div>
-            
+
             <div class="col-sm-12">
 
                 <!-- This makes contens name to heading -->
@@ -40,7 +40,10 @@
                     </div>
                 </div>
                 <!-- This tell content -->
-                <p th:text="${content.textArea}"></p>
+
+                <div th:each="elem : ${content.elements}">
+                    <p th:remove="tag" th:utext="${elem.textArea}" ></p>
+                </div>
 
                 <!-- This lists areas, where content belongs to -->
                 <!-- bold is in layout.css -->

@@ -19,16 +19,18 @@ public abstract class Element implements Serializable {
     
     @ManyToOne
     private Content content;
-
+    
+    public void setContent(Content content) {
+     this.content = content;
+    }
+     public void getContent(Content content) {
+     this.content = content;
+    }
+    private String text;
     public long getId() {
         return id;
     }
-
-    public Content getContent() {
-        return content;
-    }
-
-    public void setContent(Content content) {
-        this.content = content;
+    public String getText(){
+    return text;
     }
 }

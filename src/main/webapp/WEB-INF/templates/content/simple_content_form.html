@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 
@@ -10,6 +11,9 @@
 
         <!-- jQuery file -->
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" th:src="@{/static/jquery.min.js}"></script>
+       
+        <!-- CKeditor -->
+        <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
@@ -45,8 +49,12 @@
                 <input type="text" name="name" class="form-control topspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
 
                 <label class="topspace">Sisältö</label>
-                <textarea rows="7" name="textArea" type="text" form="contentform" class="form-control topspace" placeholder="lisää sisältöä" style="margin-bottom: 10px"></textarea>
-
+                <textarea name="elements" rows="10" cols="80" id ="fancycontent"  form="contentform" value="1" class="form-control topspace" placeholder="lisää sisältöä" style="margin-bottom: 10px"></textarea>
+                
+                <script>
+                    CKEDITOR.replace('fancycontent', {customConfig: 'fancyconfig.js'});
+                </script>
+                
                 <!-- This lists all areas for user to choose right area or areas to be linked with content -->
                 <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
                     Valitse sisältöalueet</button>

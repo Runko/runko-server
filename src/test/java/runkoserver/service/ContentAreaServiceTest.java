@@ -15,7 +15,6 @@ import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
 
-
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest({"server.port=0", "management.port=0"})
@@ -52,7 +51,9 @@ public class ContentAreaServiceTest {
     @Test
     public void testSaveContent() {
         assertFalse(contentAreaService.saveContent(testSC));
-        testSC = contentAreaService.createSimpleContent("Test", "Test", null, testMan);
+        List<String> element = new ArrayList<>();
+        element.add("Test");
+        testSC = contentAreaService.createSimpleContent("Test", element, null, testMan);
         assertTrue(contentAreaService.saveContent(testSC));
     }
 
@@ -122,7 +123,9 @@ public class ContentAreaServiceTest {
     }
 
     private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
-        testSC = contentAreaService.createSimpleContent(name, textArea, areaIDs, person);
+        List<String> element = new ArrayList<>();
+        element.add(textArea);
+        testSC = contentAreaService.createSimpleContent(name, element, areaIDs, person);
         contentAreaService.saveContent(testSC);
     }
 
@@ -149,12 +152,17 @@ public class ContentAreaServiceTest {
 
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
-
-        Content c1 = contentAreaService.createSimpleContent("Force", "FUS", areaIds, testMan);
+        List<String> element = new ArrayList<>();
+        element.add("FUS");
+        Content c1 = contentAreaService.createSimpleContent("Force", element, areaIds, testMan);
         testArea.addContent(c1);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
+        element = new ArrayList<>();
+        element.add("RO");
+        Content c2 = contentAreaService.createSimpleContent("Balance", element, areaIds, testMan);
         testArea.addContent(c2);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
+        element = new ArrayList<>();
+        element.add("DAH");
+        Content c3 = contentAreaService.createSimpleContent("Push", element, areaIds, testMan);
         testArea.addContent(c3);
 
         List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
@@ -170,14 +178,18 @@ public class ContentAreaServiceTest {
 
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
-
-        Content c1 = contentAreaService.createSimpleContent("Force", "FUS", areaIds, testMan);
+        List<String> element = new ArrayList<>();
+        element.add("FUS");
+        Content c1 = contentAreaService.createSimpleContent("Force", element, areaIds, testMan);
         testArea.addContent(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
-        testArea.addContent(c2);
+        element = new ArrayList<>();
+        element.add("RO");
+        Content c2 = contentAreaService.createSimpleContent("Balance", element, areaIds, testMan);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
+        element = new ArrayList<>();
+        element.add("DAH");
+        Content c3 = contentAreaService.createSimpleContent("Push", element, areaIds, testMan);
         testArea.addContent(c3);
 
         List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
@@ -190,30 +202,35 @@ public class ContentAreaServiceTest {
         testArea = contentAreaService.createArea("Dohvakin", testMan, Boolean.TRUE);
         contentAreaService.saveArea(testArea);
         personService.addSubscribtion(testMan, testArea);
-        
+
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
-        
+
         String c1Name = "Force";
         String c1Text = "FUS";
-        
-        Content c1 = contentAreaService.createSimpleContent(c1Name, "FUS", areaIds, testMan);
+        List<String> element = new ArrayList<>();
+        element.add("FUS");
+        Content c1 = contentAreaService.createSimpleContent(c1Name, element, areaIds, testMan);
         c1.setOwner(testMan);
         testArea.addContent(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
+        element = new ArrayList<>();
+        element.add("RO");
+        Content c2 = contentAreaService.createSimpleContent("Balance", element, areaIds, testMan);
         c2.setOwner(testMan);
         testArea.addContent(c2);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
+        element = new ArrayList<>();
+        element.add("DAH");
+        Content c3 = contentAreaService.createSimpleContent("Push", element, areaIds, testMan);
         testArea.addContent(c3);
         c3.setOwner(testMan);
-        
+
         Thread.sleep(1000l);
         c1.setModifyTime();
-        
+
         List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
-        
+
         assertEquals(c1.getName(), subscribedContent.get(0).getName());
     }
 }

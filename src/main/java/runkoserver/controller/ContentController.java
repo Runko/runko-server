@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Content;
+import runkoserver.domain.Element;
 
 import runkoserver.domain.Person;
 
@@ -53,7 +54,7 @@ public class ContentController {
             Principal principal) {
 
         Content content = contentAreaService.findContentById(id);
-
+ 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
 
@@ -93,6 +94,7 @@ public class ContentController {
      */
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.GET)
     public String simpleContentForm(Model model) {
+
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
 
         return FILE_SIMPLECONTENT_FORM;
@@ -104,6 +106,7 @@ public class ContentController {
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redirected to
      * @param name Name of new content
+     * @param elements
      * @param textArea textfield of content
      * @param areaIds List with ares where content is connected
      * @param principal To get who is logged in.
@@ -112,21 +115,21 @@ public class ContentController {
     @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
     public String postSimpleContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
-            @RequestParam(required = true) String textArea,
+            @RequestParam(required = true) List<String> elements,
             @RequestParam(required = false) List<Long> areaIds,
             Principal principal) {
 
         Person p = personService.findByUsername(principal.getName());
-        Content simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
+        Content simpleContent = contentAreaService.createSimpleContent(name, elements, areaIds, p);
 
         if (contentAreaService.saveContent(simpleContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
-            
+
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
-            
+
         }
-        return REDIRECT+LINK_FRONTPAGE;
+        return REDIRECT + LINK_FRONTPAGE;
     }
 
     /**
@@ -153,9 +156,9 @@ public class ContentController {
             return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
-            return REDIRECT+LINK_FRONTPAGE;
+            return REDIRECT + LINK_FRONTPAGE;
         }
-        
+
     }
 
     /**
@@ -179,22 +182,22 @@ public class ContentController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
-        return REDIRECT+LINK_FRONTPAGE;
+        return REDIRECT + LINK_FRONTPAGE;
     }
-    
+
     /**
      * GET-method for rendering the form to create new content.
-     * 
+     *
      * @param model object for spring to use
-     * @return path to the content creation form html file 
+     * @return path to the content creation form html file
      */
-    
     @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
     public String fancyContentForm(Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
-        
+
         return FILE_FANCY_CONTENT_FORM;
     }
+
     @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
     public String postFancyContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
@@ -207,12 +210,12 @@ public class ContentController {
 
         if (contentAreaService.saveContent(fancyContent)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
-            
+
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
-            
+
         }
-        return REDIRECT+LINK_FRONTPAGE;
+        return REDIRECT + LINK_FRONTPAGE;
     }
 
 }
