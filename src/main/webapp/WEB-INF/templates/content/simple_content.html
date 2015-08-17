@@ -34,7 +34,7 @@
                 <!-- This makes contens name to heading -->
                 <h2 th:text="${content.name}"></h2>
                 <div style="font-size:8px; color:grey">
-                    <p>Luotu: <span th:text="${content.creationTime}"></span></p>
+                    <p>Luotu: <span th:utext="${content.creationTime}"></span></p>
                     <div th:if="${content.modifyTime != content.creationTime}">
                         <p>Muokattu: <span th:text="${content.modifyTime}"></span></p>
                     </div>
