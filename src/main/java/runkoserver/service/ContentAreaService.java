@@ -3,6 +3,8 @@ package runkoserver.service;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.comparator.ComparableComparator;
@@ -94,6 +96,7 @@ public class ContentAreaService {
         content.setCreationTime();
         for (String elem : elements) {
             TextElement textElement = new TextElement();
+            elem = Jsoup.clean(elem, Whitelist.basic());
             textElement.setTextArea(elem);
             textElement.setContent(content);
             ele.add(textElement);
