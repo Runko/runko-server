@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Content;
+import runkoserver.domain.Element;
 
 import runkoserver.domain.Person;
 
@@ -35,6 +36,7 @@ public class ContentController {
 
     @Autowired
     PersonService personService;
+    
 
     /**
      * GET-method for rendering a view with the information of a specific
@@ -52,7 +54,7 @@ public class ContentController {
             Model model,
             Principal principal) {
 
-        Content content = contentAreaService.findContentById(id);
+        Element content = contentAreaService.findElementById(id);
 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
@@ -60,10 +62,8 @@ public class ContentController {
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
             }
-
             return FILE_SIMPLECONTENT;
         }
-
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PAGE_NOT_AVAILABLE);
         return REDIRECT_HOME;
     }
@@ -79,7 +79,7 @@ public class ContentController {
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
     public String simpleContentEditForm(@PathVariable Long id, Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
-        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findContentById(id));
+        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findElementById(id));
 
         return FILE_SIMPLECONTENT_EDIT;
     }
@@ -109,17 +109,17 @@ public class ContentController {
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.POST)
-    public String postSimpleContent(RedirectAttributes redirectAttributes,
+    @RequestMapping(value = {LINK_CONTENT_SIMPLEFORM, LINK_CONTENT_FANCYFORM}, method = RequestMethod.POST)
+    public String postContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds,
             Principal principal) {
 
         Person p = personService.findByUsername(principal.getName());
-        Content simpleContent = contentAreaService.createSimpleContent(name, textArea, areaIds, p);
+        Element content = contentAreaService.createContent(name, textArea, areaIds, p);
 
-        if (contentAreaService.saveContent(simpleContent)) {
+        if (contentAreaService.saveElement(content)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
             
         } else {
@@ -148,14 +148,13 @@ public class ContentController {
             Principal principal
     ) {
 
-        if (contentAreaService.updateSimpleContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
+        if (contentAreaService.updateContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
             return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
             return REDIRECT+LINK_FRONTPAGE;
         }
-        
     }
 
     /**
@@ -168,14 +167,14 @@ public class ContentController {
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
-    public String deleteContent(@PathVariable Long id,
+    public String deleteElement(@PathVariable Long id,
             RedirectAttributes redirectAttributes,
             Principal principal) {
 
-        Content content = contentAreaService.findContentById(id);
+        Element element = contentAreaService.findElementById(id);
 
-        if (contentAreaService.deleteContent(content.getId(), personService.findByUsername(principal.getName()))) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_SUCCESS + content.getName());
+        if (contentAreaService.deleteElement(element.getId(), personService.findByUsername(principal.getName()))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_SUCCESS + element.getName());
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
@@ -195,24 +194,25 @@ public class ContentController {
         
         return FILE_FANCY_CONTENT_FORM;
     }
-    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
-    public String postFancyContent(RedirectAttributes redirectAttributes,
-            @RequestParam(required = true) String name,
-            @RequestParam(required = true) String textElement,
-            @RequestParam(required = false) List<Long> areaIds,
-            Principal principal) {
-
-        Person p = personService.findByUsername(principal.getName());
-        Content fancyContent = contentAreaService.createFancyContent(name, textElement, areaIds, p);
-
-        if (contentAreaService.saveContent(fancyContent)) {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
-            
-        } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
-            
-        }
-        return REDIRECT+LINK_FRONTPAGE;
-    }
+    
+//    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
+//    public String postFancyContent(RedirectAttributes redirectAttributes,
+//            @RequestParam(required = true) String name,
+//            @RequestParam(required = true) String textElement,
+//            @RequestParam(required = false) List<Long> areaIds,
+//            Principal principal) {
+//
+//        Person p = personService.findByUsername(principal.getName());
+//        Content fancyContent = contentAreaService.createFancyContent(name, textElement, areaIds, p);
+//
+//        if (contentAreaService.saveContent(fancyContent)) {
+//            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
+//            
+//        } else {
+//            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
+//            
+//        }
+//        return REDIRECT+LINK_FRONTPAGE;
+//    }
 
 }

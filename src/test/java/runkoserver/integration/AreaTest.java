@@ -83,7 +83,7 @@ public class AreaTest {
         driver.findElement(By.name("move")).click();
        
          driver.findElement(By.name("save")).click();
-        return contentAreaService.findContentByName(theName);
+        return (Content) contentAreaService.findElementByName(theName);
     }
     
     @Test

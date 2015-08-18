@@ -60,7 +60,7 @@ public class ContentTest {
         textArea.sendKeys(text);
         textArea.submit();
 
-        return contentAreaService.findContentByName(theName);
+        return (Content)contentAreaService.findElementByName(theName);
     }
 
     private Area createNewArea(String areaName){

@@ -51,30 +51,30 @@ public class ContentAreaServiceTest {
     //Tests for content
     @Test
     public void testSaveContent() {
-        assertFalse(contentAreaService.saveContent(testSC));
-        testSC = contentAreaService.createSimpleContent("Test", "Test", null, testMan);
-        assertTrue(contentAreaService.saveContent(testSC));
+        assertFalse(contentAreaService.saveElement(testSC));
+        testSC = contentAreaService.createContent("Test", "Test", null, testMan);
+        assertTrue(contentAreaService.saveElement(testSC));
     }
 
     @Test
     public void testFindAllContent() {
         doNewSimpleContentAndSave("Test ", "Find", null, testMan);
         doNewSimpleContentAndSave("All", "Content", null, testMan);
-        assertEquals(2, contentAreaService.findAllContent().size());
+        assertEquals(2, contentAreaService.findAllElements().size());
     }
 
     @Test
     public void testFindContentById() {
         doNewSimpleContentAndSave("Test Find", "by Id", null, testMan);
-        assertEquals(testSC.getName(), contentAreaService.findContentById(testSC.getId()).getName());
+        assertEquals(testSC.getName(), contentAreaService.findElementById(testSC.getId()).getName());
     }
 
     @Test
     public void testDeleteContentWithOutAreas() {
         doNewSimpleContentAndSave("Test", "Delete", null, testMan);
-        assertFalse(contentAreaService.deleteContent(testSC.getId(), testMan2));
-        assertTrue(contentAreaService.deleteContent(testSC.getId(), testMan));
-        assertFalse(contentAreaService.deleteContent(testSC.getId(), testMan));
+        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan2));
+        assertTrue(contentAreaService.deleteElement(testSC.getId(), testMan));
+        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan));
     }
 
     @Test
@@ -83,9 +83,9 @@ public class ContentAreaServiceTest {
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         areaIDs.add(testArea.getId());
         doNewSimpleContentAndSave("Test", "Delete", areaIDs, testMan);
-        assertTrue(contentAreaService.deleteContent(testSC.getId(), testMan));
-        assertFalse(contentAreaService.deleteContent(testSC.getId(), testMan));
-        assertEquals(0, testArea.getContents().size());
+        assertTrue(contentAreaService.deleteElement(testSC.getId(), testMan));
+        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan));
+        assertEquals(0, testArea.getElements().size());
     }
 
     //Test for areas
@@ -122,8 +122,8 @@ public class ContentAreaServiceTest {
     }
 
     private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
-        testSC = contentAreaService.createSimpleContent(name, textArea, areaIDs, person);
-        contentAreaService.saveContent(testSC);
+        testSC = contentAreaService.createContent(name, textArea, areaIDs, person);
+        contentAreaService.saveElement(testSC);
     }
 
     @Test
@@ -150,12 +150,12 @@ public class ContentAreaServiceTest {
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
 
-        Content c1 = contentAreaService.createSimpleContent("Force", "FUS", areaIds, testMan);
-        testArea.addContent(c1);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
-        testArea.addContent(c2);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
-        testArea.addContent(c3);
+        Content c1 = contentAreaService.createContent("Force", "FUS", areaIds, testMan);
+        testArea.addElements(c1);
+        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
+        testArea.addElements(c2);
+        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        testArea.addElements(c3);
 
         List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
 
@@ -171,14 +171,14 @@ public class ContentAreaServiceTest {
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
 
-        Content c1 = contentAreaService.createSimpleContent("Force", "FUS", areaIds, testMan);
-        testArea.addContent(c1);
+        Content c1 = contentAreaService.createContent("Force", "FUS", areaIds, testMan);
+        testArea.addElements(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
-        testArea.addContent(c2);
+        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
+        testArea.addElements(c2);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
-        testArea.addContent(c3);
+        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        testArea.addElements(c3);
 
         List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
 
@@ -197,16 +197,16 @@ public class ContentAreaServiceTest {
         String c1Name = "Force";
         String c1Text = "FUS";
         
-        Content c1 = contentAreaService.createSimpleContent(c1Name, "FUS", areaIds, testMan);
+        Content c1 = contentAreaService.createContent(c1Name, "FUS", areaIds, testMan);
         c1.setOwner(testMan);
-        testArea.addContent(c1);
+        testArea.addElements(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createSimpleContent("Balance", "RO", areaIds, testMan);
+        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
         c2.setOwner(testMan);
-        testArea.addContent(c2);
+        testArea.addElements(c2);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createSimpleContent("Push", "DAH", areaIds, testMan);
-        testArea.addContent(c3);
+        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        testArea.addElements(c3);
         c3.setOwner(testMan);
         
         Thread.sleep(1000l);

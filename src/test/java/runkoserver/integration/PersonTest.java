@@ -69,8 +69,8 @@ public class PersonTest {
         contentAreaService.saveArea(area);
         areas.add(area.getId());
         
-        simpleContent = contentAreaService.createSimpleContent("content", "a lot of text", areas, user);
-        contentAreaService.saveContent(simpleContent);
+        simpleContent = contentAreaService.createContent("content", "a lot of text", areas, user);
+        contentAreaService.saveElement(simpleContent);
     }
     
     private Content createNewSimpleContent(String contentName, String tArea) {
@@ -85,7 +85,7 @@ public class PersonTest {
         textArea.sendKeys(text);
         textArea.submit();
 
-        return contentAreaService.findContentByName(theName);
+        return (Content) contentAreaService.findElementByName(theName);
     }
 
     @Test
