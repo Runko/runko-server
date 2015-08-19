@@ -47,12 +47,14 @@ and open the template in the editor.
     font-style: oblique;
 }
 
-.mobileform{
-    display: none;
+/* @media is for browser */
+@media only screen and (min-device-width: 1024px){
+    .mobileform{
+        display: none;
+    }    
 }
 
 /* @media is for mobile */
-
 @media only screen and (max-device-width: 1024px){
     .centered {
         margin: 0%;

@@ -15,7 +15,7 @@ CKEDITOR.editorConfig = function( config ) {
 		{ name: 'editing',     groups: [ 'find', 'selection', 'spellchecker' ] },
 		{ name: 'forms' },
 		{ name: 'basicstyles', groups: [ 'basicstyles', 'cleanup' ] },
-		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align', 'bidi' ] },
+		{ name: 'paragraph',   groups: [ 'list', 'indent', 'blocks', 'align'] },
 		{ name: 'links' },
 		{ name: 'insert' },
 		{ name: 'styles' },
@@ -27,7 +27,7 @@ CKEDITOR.editorConfig = function( config ) {
 
 	// The default plugins included in the basic setup define some buttons that
 	// are not needed in a basic editor. They are removed here.
-	config.removeButtons = 'Cut,Copy,Paste,Undo,Redo,Anchor,Strike,Subscript,Superscript,BGColor';
+	config.removeButtons = 'Source,Print,Preview,Cut,Copy,Paste,Undo,Redo,Anchor,Footnotes,Strike,Subscript,Superscript,Table,BGColor,Font,FontSize';
 
 	// Dialog windows are also simplified.
 	config.removeDialogTabs = 'link:advanced';
