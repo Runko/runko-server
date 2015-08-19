@@ -1,0 +1,70 @@
+/*
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+*/
+/* 
+    Created on : 23-Jul-2015, 10:51:58
+    Author     : warva
+*/
+
+/*!
+ * Bootstrap v3.3.5 (http://getbootstrap.com)
+ * Copyright 2011-2015 Twitter, Inc.
+ * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
+ */
+
+/* Menu */
+
+/* .navbarmenu makes menu to be center of the page */
+.navbarmenu {
+    position: relative;
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: -30%;
+    border-radius:0;
+}
+
+/* Others */
+
+/* .centered makes content to be center of the page */
+.centered {
+    position: absolute;
+    margin-top: 40px;
+    margin-left: 30%;
+    margin-right: -30%;
+}
+
+/* .topspace makes space */
+
+.topspace {
+    margin-top: 15px;
+}
+
+/* Bold makes text bold  */
+
+.bold {
+    font-style: oblique;
+}
+
+/* @media is for browser */
+@media only screen and (min-device-width: 1024px){
+    .mobileform{
+        display: none;
+    }    
+}
+
+/* @media is for mobile */
+@media only screen and (max-device-width: 1024px){
+    .centered {
+        margin: 0%;
+    }
+
+    .navbarmenu {
+        display: none;
+    }
+
+    .browserform{
+        display: none;
+    }
+}

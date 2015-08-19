@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
+
+    <head lang="en">
+        <!-- bootstrap.min.css is bootstraps own css -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
+
+        <!-- layout.css is Runkos css -->
+        <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
+
+        <!-- jQuery file -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" 
+        th:src="@{/static/jquery.min.js}"></script>
+
+        <!-- Bootstrap (js-file) -->
+        <script src="/js/bootstrap.min.js" 
+        th:src="@{/static/js/bootstrap.min.js}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Pääkaupunkiseudun partiolaiset</title>
+
+    </head>
+    <body>
+        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+
+        <!-- centered is in layout.css -->
+        <div class="centered">
+
+            <h2>Kirjaudu sisään</h2>
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+
+            <!-- Errors -->
+            <div th:if="${param.error != null}" class="alert alert-danger">    
+                Käyttäjätunnus tai salasana ei kelpaa.
+            </div>
+            
+            <!--If the user arrives to the login page because they logged out, "successful logout"-message is displayed-->
+            <div th:if="${logout}" class="alert alert-success"> 
+                Kirjauduit ulos onnistuneesti!
+            </div>
+
+            <!-- Log-in form -->
+            <form method="post" th:action="@{/login}" id="contentform">
+                <div class="form-group">
+                    <div class="col-sm-12">
+
+                        <label for="username">Käyttäjätunnus</label>
+                        <br />
+                        <input type="text" id="username" name="username" class="form-control" required="required" />
+                        
+                        <!-- topspace is in layout.css -->
+                        <div class="topspace">
+                            <label for="password">Salasana</label>
+                            <br />
+                            <input type="password" id="password" name="password" class="form-control" required="required" />
+                        </div>
+
+                        <!-- topspace is in layout.css -->
+                        <div class="topspace">
+                            <button type="submit" name="login-but" class="btn btn-primary">Kirjaudu</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div> 
+    </body>
+</html>

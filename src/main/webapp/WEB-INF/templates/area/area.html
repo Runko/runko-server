@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
+
+    <head lang="en">
+        <!-- bootstrap.min.css is bootstraps own css -->
+        <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
+
+        <!-- layout.css is Runkos css -->
+        <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
+
+        <!-- jQuery file -->
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" 
+        th:src="@{/static/jquery.min.js}"></script>
+
+        <!-- Bootstrap (js-file) -->
+        <script src="/js/bootstrap.min.js" 
+        th:src="@{/static/js/bootstrap.min.js}"></script>
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
+
+        <title>Pääkaupunkiseudun partiolaiset</title>
+    </head>
+
+    <body>
+        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+
+        <!-- centered is in layout.css -->
+        <div class="centered">
+            
+            <div th:include="fragments/messages_template :: messages"></div>
+
+            <div class="col-sm-12">
+
+                <!-- This makes areas name to heading  -->
+                <h2 th:text="${area.name}"></h2>
+
+            </div>  
+
+               <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
+                    <div th:if="${subs} == false">
+                        <button name="subscribe" type="submit" class="btn btn-primary" value="Order">Tilaa</button>
+                    </div>
+                    <div th:if="${subs}  == true">
+                        <button name="unsubscribe" type="submit" class="btn btn-primary" value="StopOrder">Lopeta tilaus</button>
+                    </div>
+                </form>
+
+            <tr></tr>
+            <p>Omistaja: <span th:text="${area.owner.name}"></span></p>
+
+            <!-- This lists contents, which include to area -->
+            <!-- bold is in layout.css -->
+            <table>
+                <h3>Sisällöt</h3>
+                <tr th:each="content : ${area.elements}">
+                <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" class="bold"></a></th></tr>
+                <tr><td th:text="${content.textArea}"></td></tr>
+                </tr>
+            </table>
+        </div>
+
+    </body>
+</html>
