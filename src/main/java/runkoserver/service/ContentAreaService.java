@@ -266,7 +266,7 @@ public class ContentAreaService {
     
     void addBookmarks(Person person, Content content) {
         List<Person> bookmarkers = content.getBookmarkers();
-        bookmarkers.remove(person);
+        bookmarkers.add(person);
         content.setBookmarkers(bookmarkers);
         elementRepository.save(content);
     }

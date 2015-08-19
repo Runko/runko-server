@@ -36,7 +36,7 @@
         <div th:unless="${#lists.isEmpty(person.bookmarks)}">
             <table class="table table-hover col-sm-12">
 
-                <tr th:each="area : ${person.bookmarks}">
+                <tr th:each="content : ${person.bookmarks}">
                     <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
                     </th>
                     <td>

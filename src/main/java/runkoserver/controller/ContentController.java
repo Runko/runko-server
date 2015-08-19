@@ -55,9 +55,10 @@ public class ContentController {
 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
-
+                        
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
+                model.addAttribute(ATTRIBUTE_IS_BOOKMARKED, personService.findIfBookmarked(personService.findByUsername(principal.getName()), (Content) contentAreaService.findElementById(id)));
             }
             return FILE_CONTENT;
         }
@@ -191,6 +192,15 @@ public class ContentController {
 //        return FILE_FANCY_CONTENT_FORM;
 //    }
     
+    /**
+     * 
+     *
+     * @param id which area is subscripted or unsubscripted
+     * @param whereICome tells which URL we should redirect
+     * @param principal who is logged
+     * @param redirectAttributes message
+     * @return url where we go
+     */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
     public String bookmarkedContent(@PathVariable Long id,
             @RequestParam(required = false) String whereICome,
@@ -209,7 +219,7 @@ public class ContentController {
             }
         }
 
-        return REDIRECT + LINK_AREA_INDEX + LINK_VIEW_ID;
+        return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
     }
     
 //    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
