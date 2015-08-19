@@ -73,7 +73,7 @@ public class ContentController {
      * @return path to the content creation form html file
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
-    public String simpleContentEditForm(@PathVariable Long id, Model model) {
+    public String contentEditForm(@PathVariable Long id, Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
         model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findElementById(id));
 
@@ -88,7 +88,7 @@ public class ContentController {
      * @return path to the content creation form html file
      */
     @RequestMapping(value = LINK_CONTENT_FORM, method = RequestMethod.GET)
-    public String contentForm(Model model) {
+    public String contentNewForm(Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
 
         return FILE_CONTENT_FORM;
@@ -126,7 +126,7 @@ public class ContentController {
     }
 
     /**
-     * POST-method to modify SimpleContents data.
+     * POST-method to modify Contents data.
      *
      * @param id identifies which content is modified
      * @param redirectAttributes

@@ -25,8 +25,6 @@ public abstract class Links {
 
     public static final String LINK_CONTENT = "/content";
     public static final String LINK_CONTENT_FORM = "/contentform";
-//    public static final String LINK_CONTENT_SIMPLEFORM = "/simpleform";
-//    public static final String LINK_CONTENT_FANCYFORM = "/fancyform";
 
     public static final String LINK_LOGIN = "/login";
     public static final String LINK_LOGOUT = "/logout";
@@ -51,7 +49,6 @@ public abstract class Links {
     public static final String FILE_CONTENT = "/content/content_view";
     public static final String FILE_CONTENT_FORM = "/content/content_form";
     public static final String FILE_CONTENT_EDIT = "/content/content_edit";
-//    public static final String FILE_FANCY_CONTENT_FORM = "/content/fancy_content_form";
 
     public static final String FILE_LOGIN = "login";
 

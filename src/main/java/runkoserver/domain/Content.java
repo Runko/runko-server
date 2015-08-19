@@ -7,6 +7,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.persistence.Lob;
 
 /**
  * Upper class for all content types.
@@ -20,6 +21,7 @@ public class Content extends Element implements Serializable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifyTime;
 
+    @Lob
     private String textArea;
 
     public Content() {
