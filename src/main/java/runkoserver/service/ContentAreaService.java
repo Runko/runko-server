@@ -264,6 +264,20 @@ public class ContentAreaService {
         areaRepository.save(area);
     }
     
+    void addBookmarks(Person person, Content content) {
+        List<Person> bookmarkers = content.getBookmarkers();
+        bookmarkers.remove(person);
+        content.setBookmarkers(bookmarkers);
+        elementRepository.save(content);
+    }
+    
+    void deleteBookmarks(Person person, Content content) {
+        List<Person> bookmarkers = content.getBookmarkers();
+        bookmarkers.remove(person);
+        content.setBookmarkers(bookmarkers);
+        elementRepository.save(content);
+    }
+    
     /**
      * 
      * @param person tells whose frontpage must be build
