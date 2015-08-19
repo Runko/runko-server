@@ -37,7 +37,7 @@
                 <input type="text" name="name" class="form-control topspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
 
                 <!-- Text editor shown on computer's browser -->
-                <div class="browserform">
+                <div class="browserform" id='browser'>
                     <label class="topspace">Sisältö</label>
                     <textarea rows="10" cols="80" id ="browsercontent" name="textArea" class="form-control topspace" style="margin-bottom: 10px" placeholder="for browser"></textarea>
 
@@ -46,7 +46,7 @@
                     </script>
                 </div>
                 <!-- Text editor shown on mobile device -->
-                <div class="mobileform">
+                <div class="mobileform" id='mobile'>
                     <label class="topspace">Sisältö</label>
                     <textarea rows="10" cols="80" id ="mobilecontent" name="textArea" class="form-control topspace" style="margin-bottom: 10px" placeholder="for mobile"></textarea>
 
@@ -107,6 +107,13 @@
 
             });
         });
-
+        
+        if ($('#mobile').css('display') === 'none')
+        {
+            document.getElementById("mobilecontent").setAttribute("name", "non");
+        }
+        else {
+            document.getElementById("browsercontent").setAttribute("name", "non");
+        }
     </script>
 </html>
