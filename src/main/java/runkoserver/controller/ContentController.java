@@ -1,6 +1,5 @@
 package runkoserver.controller;
 
-import static com.sun.corba.se.spi.presentation.rmi.StubAdapter.request;
 import java.security.Principal;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -12,11 +11,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import runkoserver.domain.Content;
 import runkoserver.domain.Element;
-
 import runkoserver.domain.Person;
-
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
@@ -62,7 +58,7 @@ public class ContentController {
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
             }
-            return FILE_SIMPLECONTENT;
+            return FILE_CONTENT;
         }
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PAGE_NOT_AVAILABLE);
         return REDIRECT_HOME;
@@ -81,7 +77,7 @@ public class ContentController {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
         model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findElementById(id));
 
-        return FILE_SIMPLECONTENT_EDIT;
+        return FILE_CONTENT_EDIT;
     }
 
     /**
@@ -91,11 +87,11 @@ public class ContentController {
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
-    @RequestMapping(value = LINK_CONTENT_SIMPLEFORM, method = RequestMethod.GET)
-    public String simpleContentForm(Model model) {
+    @RequestMapping(value = LINK_CONTENT_FORM, method = RequestMethod.GET)
+    public String contentForm(Model model) {
         model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
 
-        return FILE_SIMPLECONTENT_FORM;
+        return FILE_CONTENT_FORM;
     }
 
     /**
@@ -109,7 +105,7 @@ public class ContentController {
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
      */
-    @RequestMapping(value = {LINK_CONTENT_SIMPLEFORM, LINK_CONTENT_FANCYFORM}, method = RequestMethod.POST)
+    @RequestMapping(value = LINK_CONTENT_FORM, method = RequestMethod.POST)
     public String postContent(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
@@ -158,9 +154,9 @@ public class ContentController {
     }
 
     /**
-     * Deletes a Content and any possible references to it.
+     * Deletes an Element and any possible references to it.
      *
-     * @param id the id of the Content to be deleted
+     * @param id the id of the Element to be deleted
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redi
      * @param principal who is logged in
@@ -181,19 +177,18 @@ public class ContentController {
         return REDIRECT+LINK_FRONTPAGE;
     }
     
-    /**
-     * GET-method for rendering the form to create new content.
-     * 
-     * @param model object for spring to use
-     * @return path to the content creation form html file 
-     */
-    
-    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
-    public String fancyContentForm(Model model) {
-        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
-        
-        return FILE_FANCY_CONTENT_FORM;
-    }
+//    /**
+//     * GET-method for rendering the form to create new content.
+//     * 
+//     * @param model object for spring to use
+//     * @return path to the content creation form html file 
+//     */
+//    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
+//    public String fancyContentForm(Model model) {
+//        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+//        
+//        return FILE_FANCY_CONTENT_FORM;
+//    }
     
 //    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
 //    public String postFancyContent(RedirectAttributes redirectAttributes,
