@@ -42,7 +42,7 @@
                 <!-- This tell content -->
                 <p th:text="${content.textArea}"></p>
 
-                <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="areaform">
+                <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
                     <div th:if="${book} == false">
                         <button name="bookmark" type="submit" class="btn btn-primary" value="Order">Lisää kirjanmerkkeihin</button>
                     </div>

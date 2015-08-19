@@ -195,6 +195,27 @@ public class ContentController {
         return FILE_FANCY_CONTENT_FORM;
     }
     
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
+    public String bookmarkedContent(@PathVariable Long id,
+            @RequestParam(required = false) String whereICome,
+            Principal principal,
+            RedirectAttributes redirectAttributes
+    ) {
+        Person person = personService.findByUsername(principal.getName());
+        if (personService.addBookmark(person, (Content) contentAreaService.findElementById(id))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_BOOKMARKED);
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_UNBOOKMARKED);
+            if (null != whereICome) {
+                if (whereICome.equals("CM")) {
+                    return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
+                }
+            }
+        }
+
+        return REDIRECT + LINK_AREA_INDEX + LINK_VIEW_ID;
+    }
+    
 //    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
 //    public String postFancyContent(RedirectAttributes redirectAttributes,
 //            @RequestParam(required = true) String name,

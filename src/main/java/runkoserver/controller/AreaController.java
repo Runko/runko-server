@@ -112,6 +112,5 @@ public class AreaController {
         }
 
         return REDIRECT + LINK_AREA_INDEX + LINK_VIEW_ID;
-    }
-
+    } 
 }
