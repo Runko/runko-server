@@ -46,7 +46,7 @@
                     <!-- List all contents related to area -->
                     <tr><th>Sisällöt</th></tr>
 
-                    <tr th:each="content : ${area.contents}">
+                    <tr th:each="content : ${area.elements}">
                     <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
                     <tr><td th:text="${content.textArea}"></td></tr>
                     <tr></tr>

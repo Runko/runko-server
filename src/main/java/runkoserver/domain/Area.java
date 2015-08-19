@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
+import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
@@ -32,7 +33,7 @@ public class Area {
     private List<Person> subscribers;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "areas")
-    private List<Content> contents;
+    private List<Element> elements;
 
     public Long getId() {
         return id;
@@ -69,32 +70,32 @@ public class Area {
         this.subscribers = subscribers;
     }
 
-    public boolean addContent(Content content) {
-        if (!getContents().contains(content)) {
-            contents.add(content);
+    public boolean addElements(Element element) {
+        if (!getElements().contains(element)) {
+            elements.add(element);
             return true;
         }
         return false;
     }
 
-    public boolean deleteContent(Content content) {
-        if (contents.contains(content)) {
-            contents.remove(content);
+    public boolean deleteElement(Element element) {
+        if (elements.contains(element)) {
+            elements.remove(element);
             return true;
         }
         return false;
     }
 
-    public List<Content> getContents() {
-        if (contents != null) {
-            return contents;
+    public List<Element> getElements() {
+        if (elements != null) {
+            return elements;
         }
-        this.contents = new ArrayList<>();
-        return contents;
+        this.elements = new ArrayList<>();
+        return elements;
     }
 
-    public void setContents(List<Content> contents) {
-        this.contents = contents;
+    public void setElements(List<Element> elements) {
+        this.elements = elements;
     }
 
     public void setVisibility(boolean visibility) {

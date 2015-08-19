@@ -1,24 +1,21 @@
 package runkoserver.service;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.util.comparator.ComparableComparator;
-
 import runkoserver.domain.*;
 import runkoserver.repository.AreaRepository;
-import runkoserver.repository.ContentRepository;
+import runkoserver.repository.ElementRepository;
 
 /**
  * Class for repository-interactions of Areas and Content.
  */
 @Service
 public class ContentAreaService {
-
+ 
     @Autowired
-    ContentRepository contentRepository;
+    ElementRepository elementRepository;
 
     @Autowired
     AreaRepository areaRepository;
@@ -27,43 +24,45 @@ public class ContentAreaService {
     /**
      * Saves new content and adds connections to corresponding areas.
      *
-     * @param content content to be added
+     * @param element
      * @return was save successful
      */
-    public boolean saveContent(Content content) {
-        if (content != null) {
-            contentRepository.save(content);
-            saveContentToAreas(content);
+    public boolean saveElement(Element element) {
+        if (element != null) {
+            elementRepository.save(element);
+            saveContentToAreas(element);
             return true;
         }
         return false;
     }
 
-    public List<Content> findAllContent() {
-        return contentRepository.findAll();
+    public List<Element> findAllElements() {
+        return elementRepository.findAll();
     }
 
-    public Content findContentById(Long id) {
-        return contentRepository.findOne(id);
+    public Element findElementById(Long id) {
+        return elementRepository.findOne(id);
     }
 
-    public Content findContentByName(String name) {
-        return contentRepository.findByName(name);
+    public Element findElementByName(String name) {
+        return elementRepository.findByName(name);
     }
 
     /**
      * Deletes content and removes any connections with its areas.
      *
      * @param id content id
+     * @param whoIsLoggedIn current logged user
      * @return was delete successful
      */
-    public boolean deleteContent(Long id, Person whoIsLoggedIn) {
-        if (contentRepository.exists(id)) {
+    public boolean deleteElement(Long id, Person whoIsLoggedIn) {
+        
+        if (elementRepository.exists(id)) {
 
-            Content content = contentRepository.findOne(id);
-            if (content.getOwner().getId() == whoIsLoggedIn.getId()) {
-                deleteContentFromAreas(content);
-                contentRepository.delete(content.getId());
+            Element element = elementRepository.findOne(id);
+            if (element.getOwner().getId() == whoIsLoggedIn.getId()) {
+                deleteElementFromAreas(element);
+                elementRepository.delete(element.getId());
                 return true;
             }
             return false;
@@ -72,7 +71,7 @@ public class ContentAreaService {
     }
 
     /**
-     * Creation of simple-context. Does NOT save created content to repository.
+     * Creation of context. Does NOT save created content to repository.
      *
      * @param name name of the context
      * @param textArea text area of the context
@@ -80,7 +79,7 @@ public class ContentAreaService {
      * @param owner creator of content
      * @return created SimpleContent
      */
-    public Content createSimpleContent(String name, String textArea, List<Long> areaIds, Person owner) {
+    public Content createContent(String name, String textArea, List<Long> areaIds, Person owner) {
         Content content = new Content();
         content.setAreas(new ArrayList<>());
         content.setName(name);
@@ -96,12 +95,12 @@ public class ContentAreaService {
         return content;
     }
 
-    public boolean updateSimpleContent(Long contentId, String name, String textArea, List<Long> areaIds, Person whoIsLogged) {
-        Content content =  findContentById(contentId);
+    public boolean updateContent(Long elementId, String name, String textArea, List<Long> areaIds, Person whoIsLogged) {
+        Content content =  (Content)findElementById(elementId);
         if (whoIsLogged.getId() == content.getOwner().getId()) {
             content.setName(name);
             content.setTextArea(textArea);
-            deleteContentFromAreas(content);
+            deleteElementFromAreas(content);
             content.setAreas(new ArrayList<>());
             content.setModifyTime();
             if (areaIds != null) {
@@ -109,43 +108,43 @@ public class ContentAreaService {
                     content.addArea(area);
                 }
             }
-            contentRepository.save(content);
+            elementRepository.save(content);
             return true;
         }
         return false;
     }
-    
-    /**
-     * Creation of fancy-context.
-     *
-     * @param name name of the context
-     * @param textElement
-     * @param areaIds Id-numbers of the added areas
-     * @param owner creator of content
-     * @return created FancyContent
-     */
-    public Content createFancyContent(String name, String textElement, List<Long> areaIds, Person owner) {
-        Content content = new Content();
-        
-        content.setName(name);
-        content.setOwner(owner);
-        content.setCreationTime();
-        
-        content.setAreas(new ArrayList<>());
-        if (areaIds != null) {
-            for (Area area : findListedAreasById(areaIds)) {
-                content.addArea(area);
-            }
-        }
-        
-        content.setElements(new ArrayList<>());
-        
-        TextElement text = new TextElement();
-        text.setTextArea(textElement);
-        content.getElements().add(text);
-
-        return content;
-    }
+//    
+//    /**
+//     * Creation of fancy-context.
+//     *
+//     * @param name name of the context
+//     * @param textElement
+//     * @param areaIds Id-numbers of the added areas
+//     * @param owner creator of content
+//     * @return created FancyContent
+//     */
+//    public Content createFancyContent(String name, String textElement, List<Long> areaIds, Person owner) {
+//        Content content = new Content();
+//        
+//        content.setName(name);
+//        content.setOwner(owner);
+//        content.setCreationTime();
+//        
+//        content.setAreas(new ArrayList<>());
+//        if (areaIds != null) {
+//            for (Area area : findListedAreasById(areaIds)) {
+//                content.addArea(area);
+//            }
+//        }
+//        
+//        content.setElements(new ArrayList<>());
+//        
+//        TextElement text = new TextElement();
+//        text.setTextArea(textElement);
+//        content.getElements().add(text);
+//
+//        return content;
+//    }
 
     //Areas' repository interactions
     public boolean saveArea(Area area) {
@@ -210,15 +209,14 @@ public class ContentAreaService {
      *
      * @param content on which the connections are wanted
      */
-    private void saveContentToAreas(Content content) {
-        for (Area area : content.getAreas()) {
+    private void saveContentToAreas(Element element) {
+        for (Area area : element.getAreas()) {
             
-            if (!area.getContents().contains(content)){
-                area.addContent(content);
+            if (!area.getElements().contains(element)){
+                area.addElements(element);
             }    
             areaRepository.save(area);
         }
-        
     }
 
     /**
@@ -226,9 +224,9 @@ public class ContentAreaService {
      *
      * @param content on which connections are disabled
      */
-    private void deleteContentFromAreas(Content content) {
-        for (Area area : content.getAreas()) {
-            area.deleteContent(content);
+    private void deleteElementFromAreas(Element element) {
+        for (Area area : element.getAreas()) {
+            area.deleteElement(element);
             areaRepository.save(area);
         }
     }
@@ -240,16 +238,16 @@ public class ContentAreaService {
      * @return was repositories emptied.
      */
     public boolean deleteAll() {
-        contentRepository.deleteAll();
+        elementRepository.deleteAll();
         areaRepository.deleteAll();
-        if (findAllAreas().isEmpty() && findAllContent().isEmpty()) {
+        if (findAllAreas().isEmpty() && findAllElements().isEmpty()) {
             return true;
         }
         return false;
     }
 
-    public List<Content> findByOwner(Person person) {
-        return contentRepository.findByOwner(person);
+    public List<Element> findByOwner(Person person) {
+        return elementRepository.findByOwner(person);
     }
 
     void addSubcriptions(Person person, Area area) {
@@ -265,6 +263,7 @@ public class ContentAreaService {
         area.setSubscribers(subscribers);
         areaRepository.save(area);
     }
+    
     /**
      * 
      * @param person tells whose frontpage must be build
@@ -275,9 +274,9 @@ public class ContentAreaService {
         
         // Builds new list without dublicates
         person.getSubscriptions().stream().forEach((area) -> {
-            area.getContents().stream().filter((content)
+            area.getElements().stream().filter((content)
                     -> (!newList.contains(content))).forEach((content) -> {
-                        newList.add(content);
+                        newList.add((Content) content);
                     });
         });
         // sorts new list to chronological order. Newest first.
