@@ -11,6 +11,8 @@ import javax.persistence.ManyToMany;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import javax.persistence.FetchType;
+import javax.persistence.Lob;
+
 
 /**
  * Upper class for all content types.
@@ -27,6 +29,7 @@ public class Content extends Element implements Serializable {
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Person> bookmarkers;
 
+    @Lob
     private String textArea;
 
     public Content() {

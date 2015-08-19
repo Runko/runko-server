@@ -49,7 +49,7 @@ public class ContentTest {
     }
 
     private Content createNewSimpleContent(String contentName, String tArea) {
-        driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_SIMPLEFORM);
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_FORM);
 
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
         WebElement textArea = driver.findElement(By.name(ATTRIBUTE_TEXTAREA));
