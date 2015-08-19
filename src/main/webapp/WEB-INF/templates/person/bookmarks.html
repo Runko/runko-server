@@ -29,27 +29,30 @@
         <!-- centered is in layout.css -->
         <div class="centered">
 
-        <h2>Kirjanmerkkisi</h2>
-            <div th:unless="${#lists.isEmpty(person.bookmarks)}">
-                <table class="table table-hover col-sm-12">
+        <h1>Kirjanmerkkisi</h1>
+        
+        <div th:include="fragments/messages_template :: messages"></div>
+        
+        <div th:unless="${#lists.isEmpty(person.bookmarks)}">
+            <table class="table table-hover col-sm-12">
 
-                    <tr th:each="area : ${person.bookmarks}">
-                        <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
-                        </th>
-                        <td>
-                            <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
-                                 <input type="hidden" value="CM" name="whereICome" />
-                                <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
+                <tr th:each="area : ${person.bookmarks}">
+                    <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
+                    </th>
+                    <td>
+                        <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
+                            <input type="hidden" value="CM" name="whereICome" />
+                            <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
 
-                            </form>
-                        </td>
+                        </form>
+                    </td>
 
-                    </tr>
-                </table>
-            </div>
-            <div th:if="${#lists.isEmpty(person.bookmarks)}">
-                <p>Et ole tilannut sisältöä!</p>
-            </div>
+                </tr>
+            </table>
+        </div>
+        <div th:if="${#lists.isEmpty(person.bookmarks)}">
+            <p>Et ole tilannut sisältöä!</p>
+        </div>
         </div>
 
     </body>

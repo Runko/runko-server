@@ -13,7 +13,9 @@ public abstract class Links {
     public static final String LINK_PROFILE = "/profile";
     public static final String LINK_PERSONS = "/persons";
     public static final String LINK_CONTENT_MANAGER = "/CM";
+    public static final String LINK_BOOKMARK = "/bookmarks";
     public static final String LINK_FRONTPAGE = "/frontpage";
+    
 
     public static final String LINK_VIEW_ID = "/{id}";
 
@@ -43,6 +45,7 @@ public abstract class Links {
     public static final String FILE_PROFILE = "person/profile";
     public static final String FILE_PROFILE_EDIT = "person/profile_edit";
     public static final String FILE_CONTENT_MANAGER = "person/content_manager";
+    public static final String FILE_BOOKMARK= "person/bookmarks";
     public static final String FILE_PERSONS = "persons";
     public static final String FILE_PERSON = "person";
     public static final String FILE_FRONTPAGE = "frontpage";
