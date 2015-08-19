@@ -13,7 +13,7 @@
 
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
-        
+
         <!-- CK Editor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
@@ -25,12 +25,11 @@
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-        <!-- centered is in layout.css -->
+        <!-- classes centered and topspace are in layout.css -->
         <div class="centered">
             <h2>Luo sisältö</h2>
 
             <!-- Form makes new content -->
-            <!-- topspace is in layout.css -->
             <form method="post" action="/content/contentform" id="contentform">
 
                 <label>Sisällön otsikko *</label>
@@ -107,7 +106,7 @@
 
             });
         });
-        
+
         if ($('#mobile').css('display') === 'none')
         {
             document.getElementById("mobilecontent").setAttribute("name", "non");
