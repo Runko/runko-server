@@ -52,7 +52,7 @@
             <!-- bold is in layout.css -->
             <table>
                 <h3>Sisällöt</h3>
-                <tr th:each="content : ${area.contents}">
+                <tr th:each="content : ${area.elements}">
                 <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" class="bold"></a></th></tr>
                 <tr><td th:text="${content.textArea}"></td></tr>
                 </tr>
