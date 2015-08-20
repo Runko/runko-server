@@ -273,6 +273,7 @@ public class PersonTest {
         assertEquals(1, area2Elements.size());
     }
     
+
     @Test
     public void bookmarkedContentIsShownAtContentManager() {
         String name = "Hello space!";
@@ -342,4 +343,5 @@ public class PersonTest {
         assertEquals(1, conten1Elements.size());
         assertEquals(1, conten2Elements.size());
     }
+
 }
