@@ -7,7 +7,9 @@ import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import org.hibernate.validator.constraints.NotBlank;
 
 /**
  * Runko's user information based on Kuksa.
@@ -20,11 +22,15 @@ public class Person {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     
+    @NotBlank
     private String username;
     
     private String urlToPhoto;
     
     private String description;
+    
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribers")
+    private List<Area> subscriptions;
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Element> ownElements;
@@ -67,11 +73,22 @@ public class Person {
         this.description = description;
     }
     
+    public void setSubscriptions(List<Area> subscriptions) {
+        this.subscriptions = new ArrayList<>();
+    }
+    
     public List<Element> getOwnContent() {
         if (this.ownElements == null) {
             ownElements = new ArrayList<>();
         }
         return ownElements;
+    }
+    
+    public List<Area> getSubscriptions() {
+        if (subscriptions == null) {
+            setSubscriptions(new ArrayList<>());
+        }
+        return subscriptions;
     }
     
     public void setOwnContent(List<Element> ownElements) {

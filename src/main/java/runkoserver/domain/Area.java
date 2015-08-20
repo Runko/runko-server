@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -28,7 +29,8 @@ public class Area {
     @ManyToOne
     private Person owner;
     
-    //TODO subscriptions
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Person> subscribers;
     
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "areas")
     private List<Element> elements;
@@ -68,6 +70,17 @@ public class Area {
     public void setElements(List<Element> elements) {
         this.elements = elements;
     }    
+    
+    public void setSubscribers(List<Person> subscribers) {
+        this.subscribers = subscribers;
+    }
+    
+    public List<Person> getSubscribers() {
+        if (this.subscribers == null) {
+            setSubscribers(new ArrayList<>());
+        }
+        return this.subscribers;
+    }
     
     public String getVisibilityText() {
         if (getVisibility() == false) {
