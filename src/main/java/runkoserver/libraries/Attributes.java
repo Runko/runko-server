@@ -36,4 +36,6 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_BUTTON_EDIT = "edit";
     public static final String ATTRIBUTE_BUTTON_SUBSCRIBE = "subscribe";
     public static final String ATTRIBUTE_BUTTON_UNSUBSCRIBE = "unsubscribe";
+    public static final String ATTRIBUTE_BUTTON_BOOKMARK = "bookmark";
+    public static final String ATTRIBUTE_BUTTON_UNBOOKMARK = "unbookmark";
 }
