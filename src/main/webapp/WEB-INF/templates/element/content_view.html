@@ -40,10 +40,12 @@
                     </div>
                 </div>
                 <!-- This tell content -->
-                <p th:utext="${content.textArea}"></p>
+                <p th:utext="${content.element}"></p>
 
                 <!-- This lists areas, where content belongs to -->
                 <!-- bold is in layout.css -->
+                
+                <!--
                 <table>
                     <h3>Sisältöalueet</h3>
                     <tr th:each="area : ${content.areas}">
@@ -52,20 +54,22 @@
                     </tr> 
 
                 </table>
+                
+                -->
 
                 <div th:if="${person != null}" >
                     <div th:if="${person.id == content.owner.id}">
                         <!-- Shows buttons only if user who is logged in is owner -->
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
-                            <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
+                            <form th:method="get" th:action="@{/element/edit/{id}(id=${content.id})}" >
                                 <button name="edit" type="submit" class="btn btn-primary">Muokkaa</button>
                             </form>
                         </div>  
 
                         <!-- topspace is in layout.css -->
                         <div class="topspace">
-                            <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
+                            <form th:method="delete" th:action="@{/element/{id}(id=${content.id})}">
                                 <button name="remove" type="submit" class="btn btn-danger">Poista</button>
                             </form>
                         </div>

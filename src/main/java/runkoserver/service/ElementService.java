@@ -3,6 +3,7 @@ package runkoserver.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Element;
 import runkoserver.domain.Person;
@@ -18,8 +19,7 @@ public class ElementService {
     ElementRepository elementReposiory;
 
     public boolean saveElement(Element element) {
-        if (element != null) {
-            //TODO add element-area connection
+        if (element != null) {            
             elementReposiory.save(element);
             return true;
         }
@@ -51,13 +51,13 @@ public class ElementService {
     }
 
     //TODO add areaIds
-    public Content createContent(String name, String textArea, Person owner) {
+    public Content createContent(String name, String textArea, Person owner, List<Area> areas) {
         Content content = new Content();
         content.setName(name);
-        content.setElement(name);
+        content.setElement(textArea);
         content.setOwner(owner);
         content.setCreationTime();
-        //set areas
+        content.setAreas(areas);
         return content;
     }
 }

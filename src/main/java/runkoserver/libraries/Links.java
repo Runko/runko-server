@@ -46,10 +46,11 @@ public abstract class Links {
     public static final String FILE_PERSON = "person";
     public static final String FILE_FRONTPAGE = "frontpage";
 
-    public static final String FILE_SIMPLECONTENT = "/content/simple_content";
-    public static final String FILE_CONTENTFORM = "/content/content_form";
-    public static final String FILE_SIMPLECONTENT_EDIT = "/content/simple_content_edit";
-    public static final String FILE_FANCY_CONTENT_FORM = "/content/fancy_content_form";
+    
+    public static final String FILE_CONTENT = "/element/content_view";
+    public static final String FILE_CONTENTFORM = "/element/content_form";
+    public static final String FILE_SIMPLECONTENT_EDIT = "/element/simple_content_edit";
+    public static final String FILE_FANCY_CONTENT_FORM = "/element/fancy_content_form";
 
     public static final String FILE_LOGIN = "login";
 

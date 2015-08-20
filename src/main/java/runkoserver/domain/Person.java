@@ -27,7 +27,10 @@ public class Person {
     private String description;
     
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
-    private List<Element> ownElements;;
+    private List<Element> ownElements;
+    
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
+    private List<Area> ownAreas;
     
     protected Person() {
     }

@@ -4,10 +4,13 @@ import java.io.Serializable;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -30,6 +33,9 @@ public abstract class Element implements Serializable {
     
     @ManyToOne
     private Person owner;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Area> areas;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
@@ -75,6 +81,14 @@ public abstract class Element implements Serializable {
     public void setOwner(Person owner) {
         this.owner = owner;
     }
+
+    public List<Area> getAreas() {
+        return areas;
+    }
+
+    public void setAreas(List<Area> areas) {
+        this.areas = areas;
+    }        
     
     public abstract String getElement();
     

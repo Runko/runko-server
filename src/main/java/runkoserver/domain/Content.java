@@ -11,17 +11,20 @@ import javax.persistence.Lob;
 @Entity
 public class Content extends Element implements Serializable{
 
+    /**
+     * Content's element is a text-area
+     */
     @Lob
-    private String textArea;
+    private String element;
     
     @Override
     public String getElement() {
-        return this.textArea;
+        return this.element;
     }
 
     @Override
     public void setElement(String element) {
-        this.textArea = element;
+        this.element = element;
     }
     
 }
