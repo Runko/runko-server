@@ -2,12 +2,17 @@ package runkoserver.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.ManyToMany;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import javax.persistence.FetchType;
 import javax.persistence.Lob;
+
 
 /**
  * Upper class for all content types.
@@ -20,6 +25,9 @@ public class Content extends Element implements Serializable {
 
     @Temporal(TemporalType.TIMESTAMP)
     private Date modifyTime;
+    
+    @ManyToMany(fetch = FetchType.EAGER)
+    private List<Person> bookmarkers;
 
     @Lob
     private String textArea;
@@ -52,5 +60,16 @@ public class Content extends Element implements Serializable {
 
     public String getTextArea() {
         return this.textArea;
+    }
+    
+     public List<Person> getBookmarkers() {
+        if (bookmarkers != null) {
+            return bookmarkers;
+        }
+        return new ArrayList<>();
+    }
+     
+    public void setBookmarkers(List<Person> bookmarkers) {
+        this.bookmarkers = bookmarkers;
     }
 }

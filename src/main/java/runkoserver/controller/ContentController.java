@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Element;
 import runkoserver.domain.Person;
+import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
@@ -54,9 +55,10 @@ public class ContentController {
 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
-
+                        
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
+                model.addAttribute(ATTRIBUTE_IS_BOOKMARKED, personService.findIfBookmarked(personService.findByUsername(principal.getName()), (Content) contentAreaService.findElementById(id)));
             }
             return FILE_CONTENT;
         }
@@ -189,6 +191,36 @@ public class ContentController {
 //        
 //        return FILE_FANCY_CONTENT_FORM;
 //    }
+    
+    /**
+     * 
+     *
+     * @param id which area is subscripted or unsubscripted
+     * @param whereICome tells which URL we should redirect
+     * @param principal who is logged
+     * @param redirectAttributes message
+     * @return url where we go
+     */
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
+    public String bookmarkedContent(@PathVariable Long id,
+            @RequestParam(required = false) String whereICome,
+            Principal principal,
+            RedirectAttributes redirectAttributes
+    ) {
+        Person person = personService.findByUsername(principal.getName());
+        if (personService.addBookmark(person, (Content) contentAreaService.findElementById(id))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_BOOKMARKED);
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_UNBOOKMARKED);
+            if (null != whereICome) {
+                if (whereICome.equals("CM")) {
+                    return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
+                }
+            }
+        }
+
+        return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
+    }
     
 //    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
 //    public String postFancyContent(RedirectAttributes redirectAttributes,
