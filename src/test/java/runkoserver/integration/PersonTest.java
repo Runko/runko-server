@@ -273,25 +273,25 @@ public class PersonTest {
         assertEquals(1, area2Elements.size());
     }
     
-
+    
     @Test
     public void bookmarkedContentIsShownAtContentManager() {
         String name = "Hello space!";
         String text = "Jihaa";
         
-        Content conten = createNewSimpleContent(name, text);
-        driver.get(LINK_LOCALHOST);
+        Content content = createNewSimpleContent(name, text);
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         WebElement contentLink = driver.findElement(By.name(name));
         contentLink.click();
         
         WebElement bookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
         bookmarkButton.click();
         
-        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_BOOKMARK);
         
         assertTrue(driver.getPageSource().contains(name));
     }
-    
+    /*
     @Test
     public void unbookmarkedContentIsNotShownAtContentManager() {
         String name = "Back to the future";
@@ -315,6 +315,30 @@ public class PersonTest {
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         
         assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void allBookmarkedContentsAreShownAtContentManager() {
+        String name1 = "Larping is everything";
+        String text1 = "You are right";
+        
+        Content content1 = createNewSimpleContent(name1, text1);
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content1.getId());
+        WebElement bookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        bookmarkButton.click();
+        
+        String name2 = "Kerola";
+        String text2 = "is HEAD";
+        
+        Content content2 = createNewSimpleContent(name2, text2);
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content2.getId());
+        bookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        bookmarkButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertTrue(driver.getPageSource().contains(name1) 
+                && driver.getPageSource().contains(name2));
     }
     
     @Test
@@ -343,5 +367,5 @@ public class PersonTest {
         assertEquals(1, conten1Elements.size());
         assertEquals(1, conten2Elements.size());
     }
-
+    */
 }

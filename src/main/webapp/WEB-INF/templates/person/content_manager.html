@@ -38,7 +38,7 @@
                 <table class="table table-hover col-sm-12">
 
                     <tr th:each="content : ${contents}">
-                        <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
+                        <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
                         </th>
                         <td>
                             <!-- Shows buttons only if user who is logged in is owner -->
