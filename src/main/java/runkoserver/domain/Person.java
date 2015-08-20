@@ -39,7 +39,10 @@ public class Person {
 
     @OneToMany
     private List<Content> ownedContents;
-
+    
+    @ManyToMany(fetch = FetchType.EAGER, mappedBy = "bookmarkers")
+    private List<Content> bookmarks;
+    
     protected Person() {
     }
 
@@ -100,6 +103,17 @@ public class Person {
 
     public void setSubscriptions(List<Area> subscriptions) {
         this.subscriptions = subscriptions;
+    }
+    
+    public void setBookmarks(List<Content> bookmarks){
+        this.bookmarks = bookmarks;
+    }
+    
+    public List<Content> getBookmarks(){
+        if (null != bookmarks){
+            return bookmarks;
+        }
+        return new ArrayList<Content>();
     }
 
     public List<Area> getOwnedAreas() {

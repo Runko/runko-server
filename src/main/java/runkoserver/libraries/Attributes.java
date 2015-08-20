@@ -18,7 +18,10 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_IS_SUBSCRIPTED = "subs";
     public static final String ATTRIBUTE_AREAIDS= "areaIds";
     public static final String ATTRIBUTE_SUBSCRIPTION = "Tilaa";
-    public static final String ATTRIBUTE_UNSUBSCRIPTION = "Lopeta tilaus";
+    public static final String ATTRIBUTE_UNSUBSCRIPTION = "Lopeta tilaus";   
+    public static final String ATTRIBUTE_IS_BOOKMARKED = "book";
+    public static final String ATTRIBUTE_BOOKMARK = "Lisää kirjanmerkiksi";
+    public static final String ATTRIBUTE_UNBOOKMARK = "Poista kirjanmerkki";
     
     public static final String TITLE_FRONTPAGE = "-- RUNKO newsfeed --";
      public static final String TITLE_STANDARD = "Partio";

@@ -8,6 +8,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
 import runkoserver.domain.Person;
+import runkoserver.domain.Content;
 import runkoserver.repository.PersonRepository;
 
 /**
@@ -19,8 +20,8 @@ public class PersonService implements RepoService{
     @Autowired
     private PersonRepository repository;
     
-   @Autowired
-   private ContentAreaService contentAreaService;
+    @Autowired
+    private ContentAreaService contentAreaService;
     
     public List<Person> findAll() {
         return repository.findAll();
@@ -85,7 +86,7 @@ public class PersonService implements RepoService{
     }
 
     public boolean addSubscribtion(Person person, Area area) {
-       List<Area> subcriptions=person.getSubscriptions();
+        List<Area> subcriptions=person.getSubscriptions();
         if(findIfSubscripted(person,area)){
             subcriptions.remove(area);
             person.setSubscriptions(subcriptions);
@@ -97,6 +98,32 @@ public class PersonService implements RepoService{
         subcriptions.add(area);
         person.setSubscriptions(subcriptions);
         contentAreaService.addSubcriptions(person, area);
+        repository.save(person);
+        return true;
+    }
+    
+    public boolean findIfBookmarked(Person person, Content content) {
+        for (Content book : person.getBookmarks()) {
+            if(book.getId() == content.getId()){
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public boolean addBookmark(Person person, Content content) {
+        List<Content> bookmarks = person.getBookmarks();
+        if(findIfBookmarked(person, content)){
+            bookmarks.remove(content);
+            person.setBookmarks(bookmarks);
+            contentAreaService.deleteBookmarks(person, content);
+            repository.save(person);
+            return false;
+        }
+        
+        bookmarks.add(content);
+        person.setBookmarks(bookmarks);
+        contentAreaService.addBookmarks(person, content);
         repository.save(person);
         return true;
     }

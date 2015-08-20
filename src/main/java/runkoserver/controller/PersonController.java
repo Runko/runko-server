@@ -98,12 +98,22 @@ public class PersonController {
        
         return REDIRECT+LINK_PERSONS+LINK_PROFILE;
     }
-@RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
+    
+    @RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
     public String getContentManager(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
         model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
         return FILE_CONTENT_MANAGER;
+    }
+    
+    @RequestMapping(value = LINK_BOOKMARK, method = RequestMethod.GET)
+    public String getBookmarks(RedirectAttributes redirectAttributes, Model model, Principal principal) {
+        Person person = personService.findByUsername(principal.getName());
+        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_PERSON, person);
+        
+        return FILE_BOOKMARK;
     }
 }

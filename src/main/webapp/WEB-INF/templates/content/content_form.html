@@ -13,7 +13,7 @@
 
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
-        
+
         <!-- CK Editor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
@@ -25,19 +25,18 @@
     <body>
         <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-        <!-- centered is in layout.css -->
+        <!-- classes centered and topspace are in layout.css -->
         <div class="centered">
             <h2>Luo sisältö</h2>
 
             <!-- Form makes new content -->
-            <!-- topspace is in layout.css -->
             <form method="post" action="/content/contentform" id="contentform">
 
                 <label>Sisällön otsikko *</label>
                 <input type="text" name="name" class="form-control topspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." />
 
                 <!-- Text editor shown on computer's browser -->
-                <div class="browserform">
+                <div class="browserform" id='browser'>
                     <label class="topspace">Sisältö</label>
                     <textarea rows="10" cols="80" id ="browsercontent" name="textArea" class="form-control topspace" style="margin-bottom: 10px" placeholder="for browser"></textarea>
 
@@ -46,7 +45,7 @@
                     </script>
                 </div>
                 <!-- Text editor shown on mobile device -->
-                <div class="mobileform">
+                <div class="mobileform" id='mobile'>
                     <label class="topspace">Sisältö</label>
                     <textarea rows="10" cols="80" id ="mobilecontent" name="textArea" class="form-control topspace" style="margin-bottom: 10px" placeholder="for mobile"></textarea>
 
@@ -108,5 +107,12 @@
             });
         });
 
+        if ($('#mobile').css('display') === 'none')
+        {
+            document.getElementById("mobilecontent").setAttribute("name", "non");
+        }
+        else {
+            document.getElementById("browsercontent").setAttribute("name", "non");
+        }
     </script>
 </html>
