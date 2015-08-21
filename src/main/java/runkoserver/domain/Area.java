@@ -94,6 +94,21 @@ public class Area {
         }
         return false;
     }
+    
+    /**
+     * Removes connection between Area and subscriber.
+     * @param subscriber subscriber to be removed
+     * @return returns false if person is null or not found in subscribers.
+     */
+    public boolean removeSubscriber(Person subscriber) {
+        if (subscriber != null) {
+            if (getSubscribers().contains(subscriber)) {
+                getSubscribers().remove(subscriber);
+                return true;
+            }
+        }
+        return false;
+    }
 
     public String getVisibilityText() {
         if (getVisibility() == false) {

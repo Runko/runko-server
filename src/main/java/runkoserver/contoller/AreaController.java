@@ -3,6 +3,7 @@ package runkoserver.contoller;
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -10,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import runkoserver.domain.Area;
+import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
@@ -22,6 +24,7 @@ import runkoserver.service.PersonService;
  */
 @Controller
 @RequestMapping(LINK_AREA_INDEX)
+@Transactional
 public class AreaController {
     
     @Autowired
@@ -45,8 +48,12 @@ public class AreaController {
     public String viewArea(Model model,
             @PathVariable Long id,
             Principal principal) {
-        model.addAttribute(ATTRIBUTE_AREA, areaService.findAreaById(id));
-        //Subscription
+        Area area = areaService.findAreaById(id);
+        model.addAttribute(ATTRIBUTE_AREA, area);
+        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, 
+                personService
+                .findByUsername(principal.getName())
+                                            .isSubscribedToArea(area));
         
         return FILE_AREA;
     }
@@ -79,5 +86,25 @@ public class AreaController {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
         return REDIRECT + LINK_FRONTPAGE;
+    }
+    
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
+    public String subscribeArea(@PathVariable Long id,
+            Principal principal,
+            RedirectAttributes redirectAttributes) {
+        Person person = personService.findByUsername(principal.getName());
+        Area area = areaService.findAreaById(id);
+        
+        if (person.isSubscribedToArea(area)) {
+            person.removeSubscription(area);
+            area.removeSubscriber(person);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_STOP);
+        } else {
+            person.addSubscription(area);
+            area.addSubscriber(person);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_START);
+        }
+        
+        return REDIRECT + LINK_AREA_INDEX + LINK_VIEW_ID;
     }
 }

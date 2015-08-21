@@ -92,7 +92,7 @@ public class Person {
 
     /**
      * Add connection between Person and Subscribption
-     * @param subscription are to be subscibed
+     * @param subscription is to be subscibed
      * @return true if subscription was added
      */
     public boolean addSubscription(Area subscription) {
@@ -101,6 +101,25 @@ public class Person {
             return true;
         }
         return false;
+    }
+    
+    /**
+     * Removes connection between Person and Subscription
+     * @param subscription is to be removed
+     * @return false if is null or is not found in subscriptions
+     */
+    public boolean removeSubscription(Area subscription) {
+        if (subscription != null) {
+            if (getSubscriptions().contains(subscription)) {
+                getSubscriptions().remove(subscription);
+                return true;
+            }
+        }        
+        return false;
+    }
+    
+    public boolean isSubscribedToArea(Area area) {
+        return getSubscriptions().contains(area);
     }
 
     public void setOwnContent(List<Element> ownElements) {
