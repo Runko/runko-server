@@ -37,7 +37,7 @@
             <table class="table table-hover col-sm-12">
 
                 <tr th:each="content : ${person.bookmarks}">
-                    <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
+                    <th><a th:name="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
                     </th>
                     <td>
                         <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
