@@ -2,7 +2,7 @@
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 
     <head lang="en">
-       <!-- bootstrap.min.css is bootstraps own css -->
+        <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
 
         <!-- layout.css is Runkos css -->
@@ -13,47 +13,43 @@
         th:src="@{/static/jquery.min.js}"></script>
 
         <!-- Bootstrap (js-file) -->
-        <script src="/js/bootstrap.min.js" 
-        th:src="@{/static/js/bootstrap.min.js}"></script>
+        <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        
+
         <title>Pääkaupunkiseudun partiolaiset</title>
     </head>
 
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
 
-        <!-- centered is in layout.css -->
-        <div class="centered topspace" >
-            <h2>Muokkaa profiilia</h2>
-            
-            <div th:include="fragments/messages_template :: messages"></div>
-            
-            <!-- Form updates profile -->
-            <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
-                <label>Kuva</label>
-                <input type="text" name="urlToPhoto" class="form-control" placeholder="lisää kuvalinkki tänne" th:value="${person.urlToPhoto}"/>
-                <label>Kuvaus</label>
-                <input type="text" name="description" class="form-control" placeholder="lisää kuvaus tänne" th:value="${person.description}"/>
-                <table class="table table-striped col-sm-12" >
-                    <tr>
-                        <!-- bold is in layout.css -->
-                        <td class="bold">Nimi: </td>
-                        <td th:text="${person.name}"></td>
-                    </tr>
-                    <tr>
-                        <!-- bold is in layout.css -->
-                        <td class="bold">Käyttäjätunnus: </td>
-                        <td th:text="${person.username}"></td>
-                    </tr>
-                </table>
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-                <!-- topspace is in layout.css -->
-                <div  class="topspace">
-                    <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
-                </div>
-            </form>
+            <div class="centered" >
+                <h2>Muokkaa profiilia</h2>
+
+                <div th:include="fragments/messages_template :: messages"></div>
+
+                <!-- Form updates profile -->
+                <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
+
+                    <label class="topspace">Nimi</label>
+                    <p th:text="${person.name}"></p>
+                    <label>Käyttäjätunnus:</label>
+                    <p th:text="${person.username}"></p>
+
+                    <label>Kuva</label>
+                    <input type="text" name="urlToPhoto" class="form-control" placeholder="lisää kuvalinkki tänne" th:value="${person.urlToPhoto}"/>
+                    <label>Kuvaus</label>
+                    <input type="text" name="description" class="form-control" placeholder="lisää kuvaus tänne" th:value="${person.description}"/>
+
+
+                    <div  class="aroundspace">
+                        <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
+                    </div>
+                </form>
+            </div>
         </div>
     </body>
 </html>

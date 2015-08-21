@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- View for viewing current user's profile -->
+
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 
     <head lang="en">
@@ -22,88 +22,64 @@
         <title>Profiili</title>
 
     </head>
+    
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <!-- Navigation-bar -->
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
+            <!-- Navigation-bar -->
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-        <!-- centered is in layout.css -->
-        <div class="centered">
+            <!-- centered is in layout.css -->
+            <div class="centered">
 
-            <h1>Content manager</h1>
+                <h1>Content manager</h1>
 
 
-            <h2>Sisältösi</h2>
-           
-            <div th:unless="${#lists.isEmpty(contents)}">
-                <table class="table table-hover col-sm-12">
+                <h2>Sisältösi</h2>
 
-                    <tr th:each="content : ${contents}">
-                        <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
-                        </th>
-                        <td>
+                <div th:unless="${#lists.isEmpty(contents)}">
+                    <table class="table table-hover col-sm-12">
+
+                        <tr th:each="content : ${contents}">
+                            <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th>
                             <!-- Shows buttons only if user who is logged in is owner -->
-                            <!-- topspace is in layout.css -->
+                            <td>
+                                <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
+                                    <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
+                                    <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
 
-                            <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
-                                <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
-                            </form>
+                <div th:if="${#lists.isEmpty(contents)}">
+                    <p>Et ole luonu sisältöä!</p>
+                </div>
 
-                        </td>
-                        <td>
-                            <!-- topspace is in layout.css -->
+                <h2>Tilatut alueesi</h2>
+                <div th:unless="${#lists.isEmpty(person.subscriptions)}">
+                    <table class="table table-hover col-sm-12">
 
-                            <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
-                                <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
-                            </form>
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div th:if="${#lists.isEmpty(contents)}">
-                <p>Et ole luonu sisältöä!</p>
-            </div>
-            <h2>Tilatut alueesi</h2>
-            <div th:unless="${#lists.isEmpty(person.subscriptions)}">
-                <table class="table table-hover col-sm-12">
-
-                    <tr th:each="area : ${person.subscriptions}">
-                        <th><a th:id="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>
-                        </th>
-                        <td>
-                            <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
-                                 <input type="hidden" value="CM" name="whereICome" />
-                                <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
-
-                            </form>
-                        </td>
-
-                    </tr>
-                </table>
-            </div>
-            <div th:if="${#lists.isEmpty(person.subscriptions)}">
-                <p>Et ole tilannut sisältöä!</p>
-            </div>
-        
-        <h2>Kirjanmerkkisi</h2>
-            <div th:unless="${#lists.isEmpty(person.bookmarks)}">
-                <table class="table table-hover col-sm-12">
-
-                    <tr th:each="content : ${person.bookmarks}">
-                        <th><a th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
-                        </th>
-                        <td>
-                            <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
-                                 <input type="hidden" value="CM" name="whereICome" />
-                                <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
-
-                            </form>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-            <div th:if="${#lists.isEmpty(person.bookmarks)}">
-                <p>Et ole tilannut sisältöä!</p>
+                        <tr th:each="area : ${person.subscriptions}">
+                            <th><a th:id="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th>
+                            <td>
+                                <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
+                                    <input type="hidden" value="CM" name="whereICome" />
+                                    <button type="submit" class="btn btn-xs" value="StopOrder">Lopeta tilaus</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div th:if="${#lists.isEmpty(person.subscriptions)}">
+                    <p>Et ole tilannut sisältöä!</p>
+                </div>
             </div>
         </div>
     </body>

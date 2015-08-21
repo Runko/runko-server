@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<!-- View for viewing current user's profile -->
+
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
 
     <head lang="en">
@@ -22,50 +22,50 @@
         <title>Profiili</title>
 
     </head>
+    
+    <!-- View for viewing current user's profile -->
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <!-- Navigation-bar -->
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
 
-        <!-- centered is in layout.css -->
-        <div class="centered">
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-            <h1>Profiili</h1>
+            <div class="centered">
 
-            <div th:include="fragments/messages_template :: messages"></div>
+                <h1>Profiili</h1>
 
-            <div class="topspace">
-                <img src="${person.urlToPhoto}"
-                     th:src="@{${person.urlToPhoto}}"
-                     alt="Profile picture" 
-                     style="width:128px;height:128px;"/>
+                <div th:include="fragments/messages_template :: messages"></div>
 
-
-                <table class="table table-striped col-sm-12" >
-                    <tr>
-                        <td class="bold">Minä olen: </td>
-                        <td th:text="${person.description}"></td>
-                    </tr>
-                    <tr>
-                        <!-- bold is in layout.css -->
-                        <td class="bold">Nimi: </td>
-                        <td th:text="${person.name}"></td>
-                    </tr>
-                    <tr>
-                        <!-- bold is in layout.css -->
-                        <td class="bold">Käyttäjätunnus: </td>
-                        <td th:text="${person.username}"></td>
-                    </tr>
-                </table>
+                <div>
+                    <img class="aroundspace"
+                         src="${person.urlToPhoto}"
+                         th:src="@{${person.urlToPhoto}}"
+                         alt="Profile picture" 
+                         style="width:128px;height:128px;"/>
 
 
-            </div>
-            <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}">
-                <!-- topspace is in layout.css -->
-                <div  class="topspace">
-                    <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
+                    <table class="table table-striped col-sm-12" >
+                        <tr>
+                            <td class="bold">Minä olen: </td>
+                            <td th:text="${person.description}"></td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Nimi: </td>
+                            <td th:text="${person.name}"></td>
+                        </tr>
+                        <tr>
+                            <td class="bold">Käyttäjätunnus: </td>
+                            <td th:text="${person.username}"></td>
+                        </tr>
+                    </table>
                 </div>
-            </form>
-        </div>
 
+                <form method="get" th:action="@{/persons/profile/edit/{id}(id=${person.id})}">
+                    <div  class="topspace">
+                        <button type="submit" id="submit" class="btn btn-default">Muokkaa</button>                          
+                    </div>
+                </form>
+            </div>
+        </div>
     </body>
 </html>

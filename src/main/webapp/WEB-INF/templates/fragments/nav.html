@@ -16,53 +16,49 @@
         <script src="/js/bootstrap.min.js" 
         th:src="@{/static/js/bootstrap.min.js}"></script>
 
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" /> 
 
         <title>navbar_template></title>
-    </head>
 
+    </head>
     <body>
         <!-- Navbar -->
-        <div th:fragment="navbar">
-            <div class="navbarmenu dropdown"> 
-                <div class="col-xs-12">
-                    <div class="col-xs-3">
-                        <a th:href="@{/frontpage}" type="button" class="btn btn-default nav-btn" name="Runko">
-                            <span class="glyphicon glyphicon-asterisk"></span> Etusivu</a>
-                    </div>
-                    <div class="col-xs-3">
-                        <div class="btn-group">
-                            <a class="dropdown-toggle btn btn-default nav-btn" data-toggle="dropdown" type="button" aria-haspopup="true" aria-expanded="false" name="contents">
-                                <span class="glyphicon glyphicon-list-alt"></span> Sisällöt </a>
+        <div th:fragment="nav">
+        <nav class="navbar">
+            <div class="container-fluid">
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a th:href="@{/frontpage}" name="Runko">
+                                <span class="glyphicon glyphicon-asterisk"></span> Etusivu</a></li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                                <span class="glyphicon glyphicon-list-alt"></span> Sisällöt</a>
                             <ul class="dropdown-menu">
                                 <li><a th:href="@{/}">RUNKO sisältö</a></li>
-                                <li><a th:href="@{/persons/bookmarks}">Kirjainmerkit</a></li>
+                                <li><a th:href="@{/persons/bookmarks}">Kirjainmerkit</a></li> 
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <div class="btn-group">
-                            <a class="dropdown-toggle btn btn-default nav-btn" data-toggle="dropdown" type="button" name="managing">
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <span class="glyphicon glyphicon-pencil"></span> Hallinta</a>
                             <ul class="dropdown-menu">
                                 <li><a th:href="@{/persons/CM}">Sisällön hallinta</a></li>
                                 <li><a th:href="@{/area/areaform}">Luo sisältöalue</a></li>
-                                <li><a th:href="@{/content/contentform}">Luo sisältö</a></li>
+                                <li><a th:href="@{/content/contentform}">Luo sisältö</a></li> 
                             </ul>
-                        </div>
-                    </div>
-                    <div class="col-xs-3">
-                        <div class="btn-group">
-                            <a class="dropdown-toggle btn btn-default nav-btn" data-toggle="dropdown" type="button" name="account">
+                        </li>
+                        <li class="dropdown">
+                            <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                                 <span class="glyphicon glyphicon-user"></span> Oma tili</a>
                             <ul class="dropdown-menu">
                                 <li><a th:href="@{/login_logout}" name="logIn">Kirjautuminen</a></li>
                                 <li><a th:href="@{/persons/profile}">Profiili</a></li>
                             </ul>
-                        </div>
-                    </div>
+                        </li>
+                    </ul>
                 </div>
             </div>
-        </div>
+        </nav>
+            </div>
     </body>
 </html>

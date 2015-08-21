@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
-    
     <head lang="en">
         <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
@@ -21,39 +20,40 @@
         <title>Pääkaupunkiseudun partiolaiset</title>
 
     </head>
+
+    <!-- centered, topspace, is in layout.css -->
     <body>
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
 
-        <!-- centered is in layout.css -->
-        <div class="centered">
-            <h1>Partio</h1>
-            
-            <div th:include="fragments/messages_template :: messages"></div>
-            
-            <!-- Here will be message if needed (like new content has created) -->
-            
-            <p>Partiolaiset hei!!</p>
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
+            <div class="centered">
 
-            <!-- Form lists all areas -->
-            <!-- topspace is in layout.css -->
-            <h3>Sisältöalueet</h3>
-            <div th:each="area : ${areas}">
-                <table class="topspace">
-                    <tr><th>Nimi: </th><th><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                    <tr><th>Näkyvyys: </th> <td th:text="${area.visibilityText}"></td></tr>
+                <h1>Partio</h1>
 
-                    <!-- List all contents related to area -->
-                    <tr><th>Sisällöt</th></tr>
+                <div th:include="fragments/messages_template :: messages"></div>
 
-                    <tr th:each="content : ${area.elements}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
-                    <tr><td th:text="${content.textArea}"></td></tr>
-                    <tr></tr>
-                    </tr>
-                </table>
+                <!-- Here will be message if needed (like new content has created) -->
+                <p>Partiolaiset hei!!</p>
+
+                <!-- Form lists all areas -->
+                <h3>Sisältöalueet</h3>
+                <div th:each="area : ${areas}">
+                    <table class="topspace">
+                        <tr><th>Nimi: </th><th><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
+                        <tr><th>Näkyvyys: </th> <td th:text="${area.visibilityText}"></td></tr>
+
+                        <!-- List all contents related to area -->
+                        <tr><th>Sisällöt</th></tr>
+
+                        <tr th:each="content : ${area.elements}">
+                        <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
+                        <tr><td th:utext="${content.textArea}"></td></tr>
+                        <tr></tr>
+                        </tr>
+                    </table>
+                </div>
             </div>
-
         </div> 
     </body>
 </html>

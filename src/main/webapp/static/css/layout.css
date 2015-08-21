@@ -18,40 +18,68 @@ and open the template in the editor.
 
 /* .navbarmenu makes menu to be center of the page */
 .navbarmenu {
-    position: relative;
-    margin-top: 40px;
-    margin-left: 30%;
-    margin-right: -30%;
+    position: absolute;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    min-width: 600px;
+    margin-left: 5%;
+    margin-right: -5%;
+    background-color: transparent;
     border-radius:0;
+}
+
+/* invisible buttons*/
+.nav-btn {
+    border: none; 
+    background: lavender;
 }
 
 /* Others */
 
-/* .centered makes content to be center of the page */
-.centered {
+/* center and color layout*/
+#background {
     position: absolute;
-    margin-top: 40px;
-    margin-left: 30%;
-    margin-right: -30%;
+    margin-left: 25%;
+    margin-right: -25%;
+    min-width: 700px;
+    min-height: 100%;
+    background-color: lavender;
 }
 
-/* .topspace makes space */
+/* content of pages */
+.centered {
+    position: absolute;
+    margin-top: 80px;
+    min-width: 600px;
+    margin-left: 5%;
+    margin-right: -5%;
+    background-color: transparent;
+}
 
 .topspace {
     margin-top: 15px;
 }
 
-/* Bold makes text bold  */
+.aroundspace {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
 
+/* Bold makes text bold  */
 .bold {
     font-style: oblique;
+}
+
+h1 {
+    padding-left: 0px;
+    text-align: center;
 }
 
 /* @media is for browser */
 @media only screen and (min-device-width: 1024px){
     .mobileform{
         display: none;
-    }    
+    }   
 }
 
 /* @media is for mobile */

@@ -21,37 +21,35 @@
         <title>Pääkaupunkiseudun partiolaiset</title>
 
     </head>
+
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
 
-        <!-- centered and topspace are in layout.css -->
-        <div class="centered">
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-            <div th:include="fragments/messages_template :: messages"></div>
+            <div class="centered">
 
-            <h1>-- RUNKO newsfeed --</h1>
+                <div th:include="fragments/messages_template :: messages"></div>
 
-            <!-- Here will be message if needed (like new content has created) -->
-            
-            <p th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
+                <h1>-- RUNKO newsfeed --</h1>
 
-            <tr th:each="content : ${contents}">
-            <table class="topspace">
-                <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a> </th>
+                <!-- Here will be message if needed (like new content has created) -->
+                <p th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
 
-                    <td style="font-size:12px;">  Alueet: </td>
-                    <td th:each="area: ${content.areas}">
-                    <td style="font-size:12px;"><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>, </td>
-                    </td>
-
+                <tr th:each="content : ${contents}">
+                <table class="topspace">
+                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a> </th>
+                        <td style="font-size:12px;">  Alueet: </td>
+                        <td th:each="area: ${content.areas}">
+                        <td style="font-size:12px;"><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>, </td>
+                        </td>
+                    </tr>
+                    <tr><td th:text="${content.textArea}"></td></tr>
+                    <tr></tr>
+                </table>
                 </tr>
-                <tr><td th:text="${content.textArea}"></td></tr>
-                <tr></tr>
-
-            </table>
-        </tr>
-
-
-    </div> 
-</body>
+            </div>
+        </div> 
+    </body>
 </html>

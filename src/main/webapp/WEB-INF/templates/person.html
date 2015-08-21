@@ -21,31 +21,33 @@
         <title>Tietokantatesti</title>    
     </head>
 
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
-        
-        <!-- centered is in layout.css -->
-        <div class="centered">
-            <h1>Henkilön tietokantatesti</h1>
-            
-            <div th:include="fragments/messages_template :: messages"></div>
+        <div id="background">
 
-            <!-- Form makes new user -->
-            <form action="/persons" method="POST">
-                <p>Nimi:</p>
-                <input type="text" name="name" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ].{1,}" placeholder="Nimi ei saa olla tyhjä."/>
-                <input type="submit" value="Lisää" />
-            </form>
-        
-            <h3>Käyttäjät</h3>
-            
-            <!-- Table lists usernames -->
-            <table>
-                <tr th:each="person : ${persons}">
-                    <td><li th:text="${person.name}" class="bold"></li></td>
-                </tr>
-            </table>
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+
+            <div class="centered">
+                <h1>Henkilön tietokantatesti</h1>
+
+                <div th:include="fragments/messages_template :: messages"></div>
+
+                <!-- Form makes new user -->
+                <form action="/persons" method="POST">
+                    <p>Nimi:</p>
+                    <input type="text" name="name" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 ].{1,}" placeholder="Nimi ei saa olla tyhjä."/>
+                    <input type="submit" value="Lisää" />
+                </form>
+
+                <h3>Käyttäjät</h3>
+
+                <!-- Table lists usernames -->
+                <table>
+                    <tr th:each="person : ${persons}">
+                        <td><li th:text="${person.name}" class="bold"></li></td>
+                    </tr>
+                </table>
+            </div>
         </div>
     </body>
-
 </html>

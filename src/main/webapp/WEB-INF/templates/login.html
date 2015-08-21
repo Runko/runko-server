@@ -20,49 +20,48 @@
         <title>Pääkaupunkiseudun partiolaiset</title>
 
     </head>
+
+    <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
-        <div th:include ="fragments/navbar_template :: navbar">navbar</div>
+        <div id="background">
 
-        <!-- centered is in layout.css -->
-        <div class="centered">
+            <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
-            <h2>Kirjaudu sisään</h2>
-            
-            <div th:include="fragments/messages_template :: messages"></div>
+            <div class="centered">
 
-            <!-- Errors -->
-            <div th:if="${param.error != null}" class="alert alert-danger">    
-                Käyttäjätunnus tai salasana ei kelpaa.
-            </div>
-            
-            <!--If the user arrives to the login page because they logged out, "successful logout"-message is displayed-->
-            <div th:if="${logout}" class="alert alert-success"> 
-                Kirjauduit ulos onnistuneesti!
-            </div>
+                <h2>Kirjaudu sisään</h2>
 
-            <!-- Log-in form -->
-            <form method="post" th:action="@{/login}" id="contentform">
-                <div class="form-group">
-                    <div class="col-sm-12">
+                <div th:include="fragments/messages_template :: messages"></div>
 
-                        <label for="username">Käyttäjätunnus</label>
-                        <br />
-                        <input type="text" id="username" name="username" class="form-control" required="required" />
-                        
-                        <!-- topspace is in layout.css -->
-                        <div class="topspace">
-                            <label for="password">Salasana</label>
-                            <br />
-                            <input type="password" id="password" name="password" class="form-control" required="required" />
-                        </div>
+                <!-- Errors -->
+                <div th:if="${param.error != null}" class="alert alert-danger">    
+                    Käyttäjätunnus tai salasana ei kelpaa.
+                </div>
 
-                        <!-- topspace is in layout.css -->
-                        <div class="topspace">
-                            <button type="submit" name="login-but" class="btn btn-primary">Kirjaudu</button>
+                <!--If the user arrives to the login page because they logged out, "successful logout"-message is displayed-->
+                <div th:if="${logout}" class="alert alert-success"> 
+                    Kirjauduit ulos onnistuneesti!
+                </div>
+
+                <!-- Log-in form -->
+                <form method="post" th:action="@{/login}" id="contentform">
+                    <div class="form-group">
+                        <div class="col-sm-12">
+                            <label for="username">Käyttäjätunnus</label>
+                            <input type="text" id="username" name="username" class="form-control topspace" required="required" />
+
+                            <div class="topspace">
+                                <label for="password">Salasana</label>
+                                <input type="password" id="password" name="password" class="form-control topspace" required="required" />
+                            </div>
+
+                            <div class="topspace">
+                                <button type="submit" name="login-but" class="btn btn-primary">Kirjaudu</button>
+                            </div>
                         </div>
                     </div>
-                </div>
-            </form>
-        </div> 
+                </form>
+            </div> 
+        </div>
     </body>
 </html>
