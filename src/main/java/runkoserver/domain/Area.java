@@ -15,23 +15,23 @@ import static runkoserver.libraries.Messages.*;
 
 @Entity
 public class Area {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @NotBlank
     @Length(min = 4, max = 50)
     private String name;
-    
+
     private boolean visibility;
-    
+
     @ManyToOne
     private Person owner;
-    
+
     @ManyToMany(fetch = FetchType.EAGER)
     private List<Person> subscribers;
-    
+
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "areas")
     private List<Element> elements;
 
@@ -50,7 +50,7 @@ public class Area {
     public List<Element> getElements() {
         return elements;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -69,19 +69,32 @@ public class Area {
 
     public void setElements(List<Element> elements) {
         this.elements = elements;
-    }    
-    
+    }
+
     public void setSubscribers(List<Person> subscribers) {
         this.subscribers = subscribers;
     }
-    
+
     public List<Person> getSubscribers() {
         if (this.subscribers == null) {
             setSubscribers(new ArrayList<>());
         }
         return this.subscribers;
     }
-    
+
+    /**
+     * Add connection between Area and subscriber
+     * @param subscriber subscriber to be added
+     * @return true if subscriber was added
+     */
+    public boolean addSubscriber(Person subscriber) {
+        if (subscriber != null) {
+            getSubscribers().add(subscriber);
+            return true;
+        }
+        return false;
+    }
+
     public String getVisibilityText() {
         if (getVisibility() == false) {
             return MESSAGE_PRIVATE_ELEMENT;
