@@ -14,30 +14,29 @@ import org.hibernate.validator.constraints.NotBlank;
 /**
  * Runko's user information based on Kuksa.
  */
-
 @Entity
 public class Person {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    
+
     @NotBlank
     private String username;
-    
+
     private String urlToPhoto;
-    
+
     private String description;
-    
+
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "subscribers")
     private List<Area> subscriptions;
-    
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Element> ownElements;
-    
+
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "owner")
     private List<Area> ownAreas;
-    
+
     protected Person() {
     }
 
@@ -52,7 +51,7 @@ public class Person {
     public long getId() {
         return id;
     }
-    
+
     public String getUrlToPhoto() {
         return urlToPhoto;
     }
@@ -64,7 +63,7 @@ public class Person {
     public void setUsername(String username) {
         this.username = username;
     }
-    
+
     public void setUrlToPhoto(String urlToPhoto) {
         this.urlToPhoto = urlToPhoto;
     }
@@ -72,25 +71,57 @@ public class Person {
     public void setDescription(String description) {
         this.description = description;
     }
-    
+
     public void setSubscriptions(List<Area> subscriptions) {
         this.subscriptions = new ArrayList<>();
     }
-    
+
     public List<Element> getOwnContent() {
         if (this.ownElements == null) {
             ownElements = new ArrayList<>();
         }
         return ownElements;
     }
-    
+
     public List<Area> getSubscriptions() {
         if (subscriptions == null) {
             setSubscriptions(new ArrayList<>());
         }
         return subscriptions;
     }
+
+    /**
+     * Add connection between Person and Subscribption
+     * @param subscription is to be subscibed
+     * @return true if subscription was added
+     */
+    public boolean addSubscription(Area subscription) {
+        if (subscription != null) {
+            getSubscriptions().add(subscription);
+            return true;
+        }
+        return false;
+    }
     
+    /**
+     * Removes connection between Person and Subscription
+     * @param subscription is to be removed
+     * @return false if is null or is not found in subscriptions
+     */
+    public boolean removeSubscription(Area subscription) {
+        if (subscription != null) {
+            if (getSubscriptions().contains(subscription)) {
+                getSubscriptions().remove(subscription);
+                return true;
+            }
+        }        
+        return false;
+    }
+    
+    public boolean isSubscribedToArea(Area area) {
+        return getSubscriptions().contains(area);
+    }
+
     public void setOwnContent(List<Element> ownElements) {
         this.ownElements = ownElements;
     }
