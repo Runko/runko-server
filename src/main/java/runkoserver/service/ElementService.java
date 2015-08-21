@@ -18,6 +18,12 @@ public class ElementService {
     @Autowired
     ElementRepository elementReposiory;
 
+    /**
+     * Saves an element to the database.
+     * 
+     * @param element element to be saved
+     * @return true if save is successful, otherwise false
+     */
     public boolean saveElement(Element element) {
         if (element != null) {            
             elementReposiory.save(element);

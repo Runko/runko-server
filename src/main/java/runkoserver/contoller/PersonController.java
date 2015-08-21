@@ -27,6 +27,13 @@ public class PersonController {
     @Autowired
     PersonService personService;
 
+    /**
+     * GET-method to view the currently logged in user's profile.
+     *
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return path to HTML file for profile view
+     */
     @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
     public String getProfile(Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
@@ -35,30 +42,53 @@ public class PersonController {
         return FILE_PROFILE;
     }
 
+    /**
+     * GET-method to view the profile editing form.
+     *
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return path to the HTML file for profile editing form if user is logged
+     * in, otherwise redirect URL to the front page
+     */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT, method = RequestMethod.GET)
     public String getProfileEditForm(RedirectAttributes redirectAttributes,
             Model model, Principal principal) {
+
         if (personService.isUserLoggedIn()) {
             Person person = personService.findByUsername(principal.getName());
             model.addAttribute(ATTRIBUTE_PERSON, person);
 
             return FILE_PROFILE_EDIT;
         }
+
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_NOT_LOGGEDIN);
         return REDIRECT_HOME;
     }
 
+    /**
+     * POST-method to update the user's profile.
+     *
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @param principal Spring object that knows who is logged in
+     * @param urlToPhoto URL of user photo for profile
+     * @param description user's profile description
+     * @return redirect URL to the profile page is user is logged in, otherwise
+     * redirect URL to the front page
+     */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT, method = RequestMethod.POST)
     public String updateProfile(RedirectAttributes redirectAttributes,
             Principal principal,
             @RequestParam(required = false) String urlToPhoto,
             @RequestParam(required = false) String description) {
+
         if (personService.isUserLoggedIn()) {
             personService.updatePerson(principal.getName(), urlToPhoto, description);
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PERSON_MODIFY_SUCCESS);
-            
+
             return REDIRECT + LINK_PROFILE;
         }
+
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_NOT_LOGGEDIN);
         return REDIRECT_HOME;
     }

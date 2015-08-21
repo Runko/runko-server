@@ -43,6 +43,11 @@ public class PersonService {
         return person;
     }
     
+    /**
+     * Tells you if the current user on the web site is logged in or not.
+     * 
+     * @return true if logged in, false if not
+     */
     public boolean isUserLoggedIn() {
         return !(SecurityContextHolder.getContext().getAuthentication() instanceof AnonymousAuthenticationToken);
     }
@@ -53,6 +58,13 @@ public class PersonService {
         }
     }
     
+    /**
+     * Update existing Person profile with new data.
+     * 
+     * @param username
+     * @param urlToPhoto
+     * @param description 
+     */
     public void updatePerson(String username, String urlToPhoto, String description) {
         Person person = personRepository.findByUsername(username);
         person.setUrlToPhoto(urlToPhoto);
