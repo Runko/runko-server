@@ -42,7 +42,7 @@
                     <td>
                         <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
                             <input type="hidden" value="bookmarks" name="whereICome" />
-                            <button type="submit" class="btn btn-default btn-xs" value="StopOrder"><span class="glyphicon glyphicon-star"></span></button>
+                            <button name="unbookmark" type="submit" class="btn btn-default btn-xs" value="StopOrder"><span class="glyphicon glyphicon-star"></span></button>
                         </form>
                     </td>
 
