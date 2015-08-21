@@ -272,4 +272,49 @@ public class PersonTest {
         assertEquals(1, area1Elements.size());
         assertEquals(1, area2Elements.size());
     }
+    
+    
+    @Test
+    public void bookmarkedContentIsShownAtBookmarks() {
+        String name = "Hello space!";
+        String text = "Jihaa";
+        
+        Content content = createNewSimpleContent(name, text);
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        WebElement contentLink = driver.findElement(By.name(name));
+        contentLink.click();
+        
+        WebElement bookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        bookmarkButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_BOOKMARK);
+        
+        assertTrue(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void unbookmarkedContentIsNotShownAtBookmarks() {
+        String name = "Back to the future";
+        String text = "NOOOOOOOOOOOOOOOOOOOOOO!";
+        
+        Content content = createNewSimpleContent(name, text);
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        WebElement contentLink = driver.findElement(By.name(name));
+        contentLink.click();
+        
+        WebElement bookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        bookmarkButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        contentLink = driver.findElement(By.name(name));
+        contentLink.click();
+        
+        WebElement unbookmarkButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_UNBOOKMARK));
+        unbookmarkButton.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_BOOKMARK);
+        
+        assertFalse(driver.getPageSource().contains(name));
+    }
+    
 }

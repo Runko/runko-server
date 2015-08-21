@@ -16,7 +16,6 @@ public abstract class Links {
     public static final String LINK_BOOKMARK = "/bookmarks";
     public static final String LINK_FRONTPAGE = "/frontpage";
     
-
     public static final String LINK_VIEW_ID = "/{id}";
 
     public static final String LINK_AREA_INDEX = "/area";

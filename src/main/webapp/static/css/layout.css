@@ -50,10 +50,14 @@ and open the template in the editor.
 .centered {
     position: absolute;
     margin-top: 80px;
-    min-width: 600px;
-    margin-left: 5%;
-    margin-right: -5%;
+    min-width: 660px;
+    margin-left: 3%;
+    margin-right: -3%;
     background-color: transparent;
+}
+
+.centered-inner{
+    max-width: 660px;
 }
 
 .topspace {
@@ -73,6 +77,11 @@ and open the template in the editor.
 h1 {
     padding-left: 0px;
     text-align: center;
+}
+
+.bookmark {
+    float: right;
+    top: -25px
 }
 
 /* @media is for browser */
