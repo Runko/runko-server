@@ -84,8 +84,7 @@ h1 {
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
     body {
-        background-color: #253764;
-        opacity: 0.3;
+        background-color: rgba (37, 55, 100, 0.3);
     }
     
     .centered {
