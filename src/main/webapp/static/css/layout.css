@@ -35,17 +35,6 @@ and open the template in the editor.
 }
 
 /* Others */
-
-/* content of pages */
-.centered {
-    position: absolute;
-    margin-top: 80px;
-    min-width: 600px;
-    margin-left: 5%;
-    margin-right: -5%;
-    background-color: transparent;
-}
-
 .topspace {
     margin-top: 15px;
 }
@@ -70,7 +59,7 @@ h1 {
     .mobileform{
         display: none;
     }
-    
+
     /* center and color layout*/
     #background {
         position: absolute;
@@ -79,6 +68,16 @@ h1 {
         min-width: 700px;
         min-height: 100%;
         background-color: lavender;
+    }
+
+    /* content of pages */
+    .centered {
+        position: absolute;
+        margin-top: 80px;
+        min-width: 600px;
+        margin-left: 5%;
+        margin-right: -5%;
+        background-color: transparent;
     }
 }
 
