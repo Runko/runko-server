@@ -2,6 +2,7 @@ package runkoserver.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -33,7 +34,7 @@ public class Area {
     private List<Person> subscribers;
 
     @ManyToMany(fetch = FetchType.EAGER, mappedBy = "areas")
-    private List<Element> elements;
+    private Set<Element> elements;
 
     public String getName() {
         return name;
@@ -47,7 +48,7 @@ public class Area {
         return owner;
     }
 
-    public List<Element> getElements() {
+    public Set<Element> getElements() {
         return elements;
     }
 
@@ -67,7 +68,7 @@ public class Area {
         this.owner = owner;
     }
 
-    public void setElements(List<Element> elements) {
+    public void setElements(Set<Element> elements) {
         this.elements = elements;
     }
 

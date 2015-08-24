@@ -1,7 +1,9 @@
 package runkoserver.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
@@ -62,13 +64,13 @@ public class AreaService {
         return area;
     }
 
-    public List<Area> findListedAreasById(List<Long> areaIds) {
-        List<Area> areas = new ArrayList<>();
-        
+    public Set<Area> findListedAreasById(List<Long> areaIds) {
+        Set<Area> areas = new HashSet<>();
+
         for (Long id : areaIds) {
             areas.add(findAreaById(id));
         }
-        
+
         return areas;
     }
 
@@ -80,13 +82,13 @@ public class AreaService {
      */
     public void addElementToAreas(Element element) {
         for (Area area : element.getAreas()) {
-            List<Element> elements = area.getElements();
-            
+            Set<Element> elements = area.getElements();
+
             if (!elements.contains(element)) {
                 elements.add(element);
-                area.setElements(elements);
-                areaRepository.save(area);
             }
+            area.setElements(elements);
+            areaRepository.save(area);
         }
     }
 
@@ -95,17 +97,17 @@ public class AreaService {
      * to, and removes any connections from the areas to the element -- but not
      * from the element to the areas.
      *
-     * @param element the element that area connections will be removed 
+     * @param element the element that area connections will be removed
      */
     public void deleteElementFromAreas(Element element) {
         for (Area area : element.getAreas()) {
-            List<Element> elements = area.getElements();
-            
+            Set<Element> elements = area.getElements();
+
             if (elements.contains(element)) {
                 elements.remove(element);
-                area.setElements(elements);
-                areaRepository.save(area);
             }
+            area.setElements(elements);
+            areaRepository.save(area);
         }
     }
 }

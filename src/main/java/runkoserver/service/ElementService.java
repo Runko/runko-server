@@ -1,7 +1,9 @@
 package runkoserver.service;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
@@ -62,7 +64,7 @@ public class ElementService {
     }
 
     //TODO add areaIds
-    public Content createContent(String name, String textArea, Person owner, List<Area> areas) {
+    public Content createContent(String name, String textArea, Person owner, Set<Area> areas) {
         Content content = new Content();
         content.setName(name);
         content.setElement(textArea);
@@ -72,12 +74,12 @@ public class ElementService {
         return content;
     }
     
-    public boolean editContent(Element element, String name, String textArea, List<Area> areas, Person loggedUser) {
+    public boolean editContent(Element element, String name, String textArea, Set<Area> areas, Person loggedUser) {
         if (loggedUser.getId() == element.getOwner().getId()) {
             element.setName(name);
             element.setElement(textArea);
             element.setModifyTime();
-            element.setAreas(new ArrayList<>());
+            element.setAreas(new HashSet<>());
             
             if (areas != null || !areas.isEmpty()) {
                 element.setAreas(areas);

@@ -2,7 +2,9 @@ package runkoserver.contoller;
 
 import java.security.Principal;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -56,6 +58,9 @@ public class ElementController {
         model.addAttribute(ATTRIBUTE_CONTENT, content);
         model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
 
+        int areaSize = content.getAreas().size();
+        model.addAttribute(ATTRIBUTE_MESSAGES, areaSize);
+        
         return FILE_CONTENT;
     }
 
@@ -114,11 +119,11 @@ public class ElementController {
             Principal principal) {
         
         Person person = personService.findByUsername(principal.getName());
-        List<Area> areas;
+        Set<Area> areas;
         if (!areaIds.isEmpty()) {
             areas = areaService.findListedAreasById(areaIds);
         } else {
-            areas = new ArrayList<>();
+            areas = new HashSet<>();
         }
         Element content = elementService.createContent(name, textArea, person, areas);
 

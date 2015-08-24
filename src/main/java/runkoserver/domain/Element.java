@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -35,7 +36,7 @@ public abstract class Element implements Serializable {
     private Person owner;
     
     @ManyToMany(fetch = FetchType.EAGER)
-    private List<Area> areas;
+    private Set<Area> areas;
     
     @Temporal(TemporalType.TIMESTAMP)
     private Date creationTime;
@@ -82,11 +83,11 @@ public abstract class Element implements Serializable {
         this.owner = owner;
     }
 
-    public List<Area> getAreas() {
+    public Set<Area> getAreas() {
         return areas;
     }
 
-    public void setAreas(List<Area> areas) {
+    public void setAreas(Set<Area> areas) {
         this.areas = areas;
     }        
     
