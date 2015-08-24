@@ -36,16 +36,6 @@ and open the template in the editor.
 
 /* Others */
 
-/* center and color layout*/
-#background {
-    position: absolute;
-    margin-left: 25%;
-    margin-right: -25%;
-    min-width: 700px;
-    min-height: 100%;
-    background-color: lavender;
-}
-
 /* content of pages */
 .centered {
     position: absolute;
@@ -79,24 +69,25 @@ h1 {
 @media only screen and (min-device-width: 1024px){
     .mobileform{
         display: none;
-    }   
+    }
+    
+    /* center and color layout*/
+    #background {
+        position: absolute;
+        margin-left: 25%;
+        margin-right: -25%;
+        min-width: 700px;
+        min-height: 100%;
+        background-color: lavender;
+    }
 }
 
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
-    /* center and color layout*/
-    #background {
-        position: absolute;
-        margin-left: 0%;
-        margin-right: 0%;
-        background-color: lavender;
-    }
-
     .centered {
         margin: 0%;
         padding-left: 5px;
         padding-right: 5px;
-        background-color: transparent;
     }
 
     .navbarmenu {
