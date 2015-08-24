@@ -10,14 +10,17 @@
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" 
         th:src="@{/static/js/bootstrap.min.js}"></script>
-
+        
+        <!-- runko's js functions -->
+        <script src="/js/runko.js" th:src="@{/static/js/runko.js}"></script>
+        
         <!-- CK Editor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
-        <!-- bootstrap.min.css is bootstraps own css -->
+        <!-- bootstrap.min.css is bootstrap's own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
 
-        <!-- layout.css is Runkos css -->
+        <!-- layout.css is Runko's css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -103,26 +106,4 @@
             </div>
         </div>
     </body>
-
-    <script>
-        //function for filtering areas in area-modal
-        $(function () {
-            var $areas = $('.checkbox label');
-            $("#search").keyup(function () {
-                var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
-                $areas.show().filter(function () {
-                    var text = $(this).text().replace(/\s+/g, '').toLowerCase();
-                    return !~text.indexOf(inputText);
-                }).hide();
-
-            });
-        });
-
-        // function to prevent text editor to save content twice
-        if ($('#mobile').css('display') === 'none') {
-            document.getElementById("mobilecontent").setAttribute("name", "non");
-        } else {
-            document.getElementById("browsercontent").setAttribute("name", "non");
-        }
-    </script>
 </html>

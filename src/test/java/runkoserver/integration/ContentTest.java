@@ -205,7 +205,7 @@ public class ContentTest {
         assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
     }
 
-    @Test
+@Test
     public void contentHasBookmarkButtonWhenNotBookmarked() {
         String name = "Elder Scrolls";
         String text = "playing time";
@@ -213,8 +213,7 @@ public class ContentTest {
         
         driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
         
-        assertTrue(driver.getPageSource().contains(ATTRIBUTE_BOOKMARK) &&
-                !driver.getPageSource().contains(ATTRIBUTE_UNBOOKMARK));
+        assertEquals(ATTRIBUTE_BUTTON_BOOKMARK, driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK)).getAttribute("name"));
     }
     
     @Test
@@ -228,7 +227,6 @@ public class ContentTest {
         WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
         subscribe.click();
         
-        assertTrue(!driver.getPageSource().contains(ATTRIBUTE_BOOKMARK) &&
-                driver.getPageSource().contains(ATTRIBUTE_UNBOOKMARK));
+        assertEquals(ATTRIBUTE_BUTTON_UNBOOKMARK, driver.findElement(By.name(ATTRIBUTE_BUTTON_UNBOOKMARK)).getAttribute("name"));
     }
 }

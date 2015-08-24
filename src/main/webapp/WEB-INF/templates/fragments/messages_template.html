@@ -1,5 +1,5 @@
 <html xlmns="http://www.w3.org/1999/xhtml" xlmns:th="http://www.thymeleaf.org">
-    
+
     <head lang="en">
         <!-- bootstrap.min.css is bootstraps own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
@@ -19,14 +19,16 @@
 
         <title>messages_template></title>
     </head>
-    
+
     <body>
-        <!-- centered custom class is in layout.css -->
+
         <div th:fragment="messages">
-            <div th:if="${messages}" class="alert alert-info" th:each="message : ${messages}">
-                <ul>
-                    <li th:text="${message}"></li>
-                </ul>
+            <div class="centered-inner">
+                <div th:if="${messages}" class="alert alert-info" th:each="message : ${messages}">
+                    <ul>
+                        <li th:text="${message}"></li>
+                    </ul>
+                </div>
             </div>
         </div>
     </body>
