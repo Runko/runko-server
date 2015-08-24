@@ -90,4 +90,20 @@ public class ElementService {
         
         return false;
     }
+
+    public List<Element> ListFromSubscribedAreas(Person user) {
+        List<Element> subscribedContent = new ArrayList<>();
+        
+        user.getSubscriptions().stream().forEach((area) -> {
+            area.getElements().stream().filter((content) ->
+                (!subscribedContent.contains(content))).forEach((content) ->
+                    subscribedContent.add(content));
+        });
+        
+        subscribedContent.sort((Element x, Element y) -> {
+            return y.getModifyTime().compareTo(x.getModifyTime());
+        });
+        
+        return subscribedContent;
+    }
 }
