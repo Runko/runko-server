@@ -1,5 +1,6 @@
 package runkoserver.service;
 
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,10 @@ public class ElementService {
     public List<Element> findByName(String name) {
         return elementReposiory.findByName(name);
     }
+    
+    public List<Element> findByOwner(Person person) {
+        return elementReposiory.findByOwner(person);
+    }
 
     public List<Element> findAll() {
         return elementReposiory.findAll();
@@ -65,5 +70,22 @@ public class ElementService {
         content.setCreationTime();
         content.setAreas(areas);
         return content;
+    }
+    
+    public boolean editContent(Element element, String name, String textArea, List<Area> areas, Person loggedUser) {
+        if (loggedUser.getId() == element.getOwner().getId()) {
+            element.setName(name);
+            element.setElement(textArea);
+            element.setModifyTime();
+            element.setAreas(new ArrayList<>());
+            
+            if (areas != null || !areas.isEmpty()) {
+                element.setAreas(areas);
+            }
+            elementReposiory.save(element);
+            return true;
+        }
+        
+        return false;
     }
 }

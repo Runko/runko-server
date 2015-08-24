@@ -55,4 +55,9 @@ public abstract class Links {
     public static final String FILE_LOGIN = "login";
 
     public static final String FOLDER_CSS = "/static/**";
+    
+    public static final String LINK_SAML_LOGIN = "/saml/login";
+    public static final String LINK_SAML_LOGOUT = "/saml/logout";
+    
+    public static final String FILE_CONTENT_EDIT = "/element/content_edit";
 }

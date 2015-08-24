@@ -2,7 +2,6 @@ package runkoserver.contoller;
 
 import java.security.Principal;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
@@ -14,6 +13,7 @@ import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
+import runkoserver.service.ElementService;
 import runkoserver.service.PersonService;
 
 /**
@@ -26,6 +26,9 @@ public class PersonController {
 
     @Autowired
     PersonService personService;
+    
+    @Autowired
+    ElementService elementService;
 
     /**
      * GET-method to view the currently logged in user's profile.
@@ -91,5 +94,16 @@ public class PersonController {
 
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_NOT_LOGGEDIN);
         return REDIRECT_HOME;
+    }
+    
+    @RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
+    public String getContentManager(RedirectAttributes redirectAttributes,
+            Model model,
+            Principal principal) {
+        Person currentUser = personService.findByUsername(principal.getName());
+        model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findByOwner(currentUser));
+        model.addAttribute(ATTRIBUTE_PERSON, currentUser);
+        
+        return FILE_CONTENT_MANAGER;
     }
 }

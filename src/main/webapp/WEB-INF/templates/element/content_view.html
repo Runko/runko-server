@@ -45,17 +45,18 @@
                 <!-- This lists areas, where content belongs to -->
                 <!-- bold is in layout.css -->
                 
-                <!--
+                
                 <table>
                     <h3>Sisältöalueet</h3>
                     <tr th:each="area : ${content.areas}">
                     <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
+                    <tr><th><a th:text="${area.id}" class="bold"></a></th></tr>
                     <tr></tr>
                     </tr> 
 
                 </table>
                 
-                -->
+                
 
                 <div th:if="${person != null}" >
                     <div th:if="${person.id == content.owner.id}">
@@ -65,7 +66,9 @@
                             <form th:method="get" th:action="@{/element/edit/{id}(id=${content.id})}" >
                                 <button name="edit" type="submit" class="btn btn-primary">Muokkaa</button>
                             </form>
-                        </div>  
+                        </div>
+                        
+                        
 
                         <!-- topspace is in layout.css -->
                         <div class="topspace">

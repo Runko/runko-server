@@ -38,13 +38,13 @@
                 <table class="table table-hover col-sm-12">
 
                     <tr th:each="content : ${contents}">
-                        <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
+                        <th><a th:href="@{/element/{id}(id=${content.id})}" th:text="${content.name}"></a>
                         </th>
                         <td>
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <!-- topspace is in layout.css -->
 
-                            <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
+                            <form th:method="get" th:action="@{element/edit/{id}(id=${content.id})}" >
                                 <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
                             </form>
 
@@ -52,7 +52,7 @@
                         <td>
                             <!-- topspace is in layout.css -->
 
-                            <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
+                            <form th:method="delete" th:action="@{element/{id}(id=${content.id})}">
                                 <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
                             </form>
 

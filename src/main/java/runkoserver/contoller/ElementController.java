@@ -1,6 +1,7 @@
 package runkoserver.contoller;
 
 import java.security.Principal;
+import java.util.ArrayList;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -75,11 +76,12 @@ public class ElementController {
 
         if (elementService.deleteElement(id, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_SUCCESS);
+            areaService.deleteElementFromAreas(element);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
 
-        return REDIRECT + LINK_FRONTPAGE;
+        return REDIRECT_HOME;
     }
 
     /**
@@ -112,16 +114,53 @@ public class ElementController {
             Principal principal) {
         
         Person person = personService.findByUsername(principal.getName());
-        List<Area> areas = areaService.findListedAreasById(areaIds);
+        List<Area> areas;
+        if (!areaIds.isEmpty()) {
+            areas = areaService.findListedAreasById(areaIds);
+        } else {
+            areas = new ArrayList<>();
+        }
         Element content = elementService.createContent(name, textArea, person, areas);
 
         if (elementService.saveElement(content)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
+            areaService.addElementToAreas(content);
         } else {
-            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
-            return REDIRECT_HOME;
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);            
         }
 
         return REDIRECT + LINK_ELEMENT + "/" + content.getId();
+    }
+    
+    @RequestMapping(value = LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.GET)
+    public String getContentEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAllAreas());
+        model.addAttribute(ATTRIBUTE_CONTENT, elementService.findById(id));
+        
+        return FILE_CONTENT_EDIT;
+    }
+    
+    @RequestMapping(value = LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.POST)
+    public String editContent(Principal principal, 
+            RedirectAttributes redirectAttributes,
+            Model model,
+            @PathVariable Long id,
+            @RequestParam(required = true) String name,
+            @RequestParam(required = true) String textArea,
+            @RequestParam(required = false) List<Long> areaIds) {
+        if (elementService.editContent(elementService.findById(id), 
+                name, 
+                textArea, 
+                areaService.findListedAreasById(areaIds), 
+                personService.findByUsername(principal.getName()))) {
+            Element element = elementService.findById(id);
+            areaService.deleteElementFromAreas(element);
+            areaService.addElementToAreas(element);
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
+        }
+        
+        return REDIRECT + LINK_ELEMENT + "/" + id;
     }
 }

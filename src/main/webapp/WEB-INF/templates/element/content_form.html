@@ -108,5 +108,12 @@
             });
         });
 
+        if ($('#mobile').css('display') === 'none')
+        {
+            document.getElementById("mobilecontent").setAttribute("name", "non");
+        }
+        else {
+            document.getElementById("browsercontent").setAttribute("name", "non");
+        }
     </script>
 </html>
