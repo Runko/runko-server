@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import runkoserver.domain.Area;
@@ -67,7 +69,7 @@ public class ElementService {
     public Content createContent(String name, String textArea, Person owner, Set<Area> areas) {
         Content content = new Content();
         content.setName(name);
-        content.setElement(textArea);
+        content.setElement(Jsoup.clean(textArea, Whitelist.relaxed()));
         content.setOwner(owner);
         content.setCreationTime();
         content.setAreas(areas);
@@ -77,7 +79,7 @@ public class ElementService {
     public boolean editContent(Element element, String name, String textArea, Set<Area> areas, Person loggedUser) {
         if (loggedUser.getId() == element.getOwner().getId()) {
             element.setName(name);
-            element.setElement(textArea);
+            element.setElement(Jsoup.clean(textArea, Whitelist.relaxed()));
             element.setModifyTime();
             element.setAreas(new HashSet<>());
             
