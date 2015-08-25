@@ -21,7 +21,10 @@ public class PersonService implements RepoService{
     private PersonRepository repository;
     
     @Autowired
-    private ContentAreaService contentAreaService;
+    private AreaService areaService;
+    
+    @Autowired
+    private ElementService elementService;
     
     public List<Person> findAll() {
         return repository.findAll();
@@ -90,14 +93,14 @@ public class PersonService implements RepoService{
         if(findIfSubscripted(person,area)){
             subcriptions.remove(area);
             person.setSubscriptions(subcriptions);
-            contentAreaService.deleteSubcriptions(person, area);
+            areaService.deleteSubcriptions(person, area);
             repository.save(person);
             return false;
         }
       
         subcriptions.add(area);
         person.setSubscriptions(subcriptions);
-        contentAreaService.addSubcriptions(person, area);
+        areaService.addSubcriptions(person, area);
         repository.save(person);
         return true;
     }
@@ -116,14 +119,14 @@ public class PersonService implements RepoService{
         if(findIfBookmarked(person, content)){
             bookmarks.remove(content);
             person.setBookmarks(bookmarks);
-            contentAreaService.deleteBookmarks(person, content);
+            elementService.deleteBookmarks(person, content);
             repository.save(person);
             return false;
         }
         
         bookmarks.add(content);
         person.setBookmarks(bookmarks);
-        contentAreaService.addBookmarks(person, content);
+        elementService.addBookmarks(person, content);
         repository.save(person);
         return true;
     }

@@ -5,6 +5,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
+import runkoserver.domain.Person;
 
 public interface AreaRepository extends JpaRepository<Area, Long> {
 
@@ -13,4 +14,7 @@ public interface AreaRepository extends JpaRepository<Area, Long> {
     
     @Query
     public Area findByName(String name);
+    
+    @Query
+    public List<Area> findByOwner(Person person);
 }

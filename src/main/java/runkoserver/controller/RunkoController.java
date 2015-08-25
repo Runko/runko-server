@@ -11,7 +11,7 @@ import runkoserver.domain.Content;
 import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
 import runkoserver.service.PersonService;
 
 /**
@@ -22,7 +22,7 @@ import runkoserver.service.PersonService;
 public class RunkoController {
 
     @Autowired
-    ContentAreaService contentAreaService;
+    AreaService areaService;
 
     @Autowired
     PersonService personService;
@@ -36,9 +36,9 @@ public class RunkoController {
     @RequestMapping(method = RequestMethod.GET)
     public String Hello(Model model) {
         if (personService.userIsLoggedIn()) {
-            model.addAttribute(ATTRIBUTE_AREAS, contentAreaService.findAllAreas());
+            model.addAttribute(ATTRIBUTE_AREAS, areaService.findAllAreas());
         } else {
-            model.addAttribute(ATTRIBUTE_AREAS, contentAreaService.findAllPublicAreas());
+            model.addAttribute(ATTRIBUTE_AREAS, areaService.findAllPublicAreas());
         }
 
         return FILE_HOME;
@@ -70,7 +70,7 @@ public class RunkoController {
     @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
     public String frontPage(Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        List <Content> contents = contentAreaService.createListFromSubscripedContents(person);
+        List <Content> contents = areaService.createListFromSubscripedContents(person);
         model.addAttribute(ATTRIBUTE_CONTENTS, contents);
         
         return FILE_FRONTPAGE;

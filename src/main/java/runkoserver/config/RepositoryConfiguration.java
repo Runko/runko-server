@@ -6,7 +6,7 @@ import runkoserver.controller.AreaController;
 import runkoserver.domain.Area;
 import runkoserver.domain.Person;
 import runkoserver.repository.AreaRepository;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
 import runkoserver.service.PersonService;
 
 /**
@@ -20,7 +20,7 @@ public class RepositoryConfiguration {
     PersonService personService;
     
      @Autowired
-     ContentAreaService contentAreaService;
+     AreaService contentAreaService;
     
      private Person p;
      
