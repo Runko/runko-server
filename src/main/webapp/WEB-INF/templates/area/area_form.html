@@ -33,7 +33,7 @@
                 <div th:include="fragments/messages_template :: messages"></div>
 
                 <!-- Form makes new area -->
-                <form method="post" action="/area/areaform" id="contentform">
+                <form method="post" action="/area/areaform" id="areaform">
                     <input type="hidden" th:value="${person.id}" name="ownerId" />
                     <div class="form-group">
                         <label>Alueen nimi *</label>

@@ -25,7 +25,7 @@ import runkoserver.service.PersonService;
 public class AreaController {
 
     @Autowired
-    AreaService contentAreaService;
+    AreaService areaService;
 
     @Autowired
     PersonService personService;
@@ -40,8 +40,8 @@ public class AreaController {
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model, Principal principal) {
-        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAreaById(id));
-        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), contentAreaService.findAreaById(id)));
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAreaById(id));
+        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), areaService.findAreaById(id)));
         return FILE_AREA;
     }
 
@@ -75,9 +75,9 @@ public class AreaController {
             @RequestParam(required = true) String name,
             @RequestParam(required = true) Boolean visibility) {
 
-        Area area = contentAreaService.createArea(name, personService.findById(ownerId), visibility);
+        Area area = areaService.createArea(name, personService.findById(ownerId), visibility);
 
-        if (contentAreaService.saveArea(area)) {
+        if (areaService.saveArea(area)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_SUCCESS);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
@@ -100,7 +100,7 @@ public class AreaController {
             RedirectAttributes redirectAttributes
     ) {
         Person person = personService.findByUsername(principal.getName());
-        if (personService.addSubscribtion(person, contentAreaService.findAreaById(id))) {
+        if (personService.addSubscribtion(person, areaService.findAreaById(id))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_START);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_STOP);

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import runkoserver.domain.*;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ElementRepository;
-import runkoserver.service.ElementService;
 
 /**
  * Class for repository-interactions of Areas and Content.
@@ -20,9 +19,6 @@ public class AreaService {
 
     @Autowired
     AreaRepository areaRepository;
-    
-    @Autowired
-    ElementService elementService;
     
     public boolean saveArea(Area area) {
         if (area != null) {
@@ -84,6 +80,7 @@ public class AreaService {
      * Adds connection between given content and it's Areas. Used by delete
      * content.
      *
+     * @param element element
      * @param content on which the connections are wanted
      */
     public void saveContentToAreas(Element element) {
@@ -99,6 +96,7 @@ public class AreaService {
     /**
      * Deletes connection between given connection and it's Areas-
      *
+     * @param element element
      * @param content on which connections are disabled
      */
     public void deleteElementFromAreas(Element element) {
