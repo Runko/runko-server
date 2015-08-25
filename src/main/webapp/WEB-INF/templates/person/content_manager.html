@@ -34,8 +34,7 @@
 
                 <h1>Content manager</h1>
 
-                <h2>Sisältösi</h2>
-
+                <h2>Luomasi sisällöt</h2>
                 <div th:unless="${#lists.isEmpty(contents)}">
                     <table class="table table-hover col-sm-12">
                         <tr th:each="content : ${contents}">
@@ -58,11 +57,34 @@
                 <div th:if="${#lists.isEmpty(contents)}">
                     <p>Et ole luonu sisältöä!</p>
                 </div>
+                
+                <h2>Luomasi alueet</h2>
+                <div th:unless="${#lists.isEmpty(person.ownedAreas)}">
+                    <table class="table table-hover col-sm-12">
+                        <tr th:each="area : ${areas}">
+                            <th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" th:name="${area.name}"></a></th>
+                            <!-- Shows buttons only if user who is logged in is owner -->
+                            <td>
+                                <form th:method="get" th:action="@{/area/edit/{id}(id=${area.id})}" >
+                                    <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form th:method="delete" th:action="@{/area/{id}(id=${area.id})}">
+                                    <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div th:if="${#lists.isEmpty(contents)}">
+                    <p>Et ole luonu aluetta!</p>
+                </div>
 
                 <h2>Tilatut alueesi</h2>
                 <div th:unless="${#lists.isEmpty(person.subscriptions)}">
                     <table class="table table-hover col-sm-12">
-
                         <tr th:each="area : ${person.subscriptions}">
                             <th><a th:id="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th>
                             <td>
@@ -78,13 +100,13 @@
                 <div th:if="${#lists.isEmpty(person.subscriptions)}">
                     <p>Et ole tilannut sisältöä!</p>
                 </div>
+                
                 <h2>Kirjanmerkkisi</h2>
                 <div th:unless="${#lists.isEmpty(person.bookmarks)}">
                     <table class="table table-hover col-sm-12">
 
                         <tr th:each="content : ${person.bookmarks}">
-                            <th><a th:name="${content.name}" th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
-                            </th>
+                            <th><a th:name="${content.name}" th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th>
                             <td>
                                 <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
                                     <input type="hidden" value="CM" name="whereICome" />
@@ -95,7 +117,7 @@
                     </table>
                 </div>
                 <div th:if="${#lists.isEmpty(person.bookmarks)}">
-                    <p>Et ole tilannut sisältöä!</p>
+                    <p>Sinulla ei ole kirjanmerkkejä.</p>
                 </div>
             </div>
         </div>

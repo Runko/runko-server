@@ -24,7 +24,8 @@ import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
 import runkoserver.repository.PersonRepository;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 import runkoserver.service.PersonService;
 
 /**
@@ -43,7 +44,10 @@ public class PersonTest {
     private PersonService personService;
 
     @Autowired
-    private ContentAreaService contentAreaService;
+    private AreaService areaService;
+    
+    @Autowired
+    private ElementService elementService;
 
     Person user;
     Content simpleContent;
@@ -65,12 +69,12 @@ public class PersonTest {
     @Before
     public void createAreaAndContent(){
         List<Long> areas = new ArrayList<>();
-        Area area = contentAreaService.createArea("area", user, Boolean.TRUE);
-        contentAreaService.saveArea(area);
+        Area area = areaService.createArea("area", user, Boolean.TRUE);
+        areaService.saveArea(area);
         areas.add(area.getId());
         
-        simpleContent = contentAreaService.createContent("content", "a lot of text", areas, user);
-        contentAreaService.saveElement(simpleContent);
+        simpleContent = elementService.createContent("content", "a lot of text", areas, user);
+        elementService.saveElement(simpleContent);
     }
     
     private Content createNewSimpleContent(String contentName, String tArea) {
@@ -85,7 +89,7 @@ public class PersonTest {
         textArea.sendKeys(text);
         textArea.submit();
 
-        return (Content) contentAreaService.findElementByName(theName);
+        return (Content) elementService.findElementByName(theName);
     }
 
     @Test
@@ -163,7 +167,8 @@ public class PersonTest {
     
     @Test
     public void deletedContentIsRemovedFromContentManager() {
-        contentAreaService.deleteAll();
+        areaService.deleteAllAreas();
+        elementService.deleteAllElements();
         
         String name = "Dark Soul's most common screen";
         String text = "YOU DIED";
@@ -187,7 +192,7 @@ public class PersonTest {
         nameField.sendKeys(name);
         nameField.submit();
         
-        return contentAreaService.findAreaByName(name);
+        return areaService.findAreaByName(name);
     }
     
     @Test

@@ -14,7 +14,7 @@ import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
 import runkoserver.service.PersonService;
 
 /**
@@ -25,7 +25,7 @@ import runkoserver.service.PersonService;
 public class AreaController {
 
     @Autowired
-    ContentAreaService contentAreaService;
+    AreaService contentAreaService;
 
     @Autowired
     PersonService personService;

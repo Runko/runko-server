@@ -16,7 +16,8 @@ import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.MESSAGE_CONTENT_MODIFY_SUCCESS;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 import runkoserver.service.PersonService;
 
 /**
@@ -31,7 +32,10 @@ public class PersonController {
     PersonService personService;
 
     @Autowired
-    ContentAreaService contentAreaService;
+    AreaService areaService;
+    
+    @Autowired
+    ElementService elementService;
 
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
@@ -57,7 +61,7 @@ public class PersonController {
     @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
     public String getProfile(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findElementsByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
         return FILE_PROFILE;
@@ -73,7 +77,7 @@ public class PersonController {
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.GET)
     public String getProfileEdit(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findElementsByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
         return FILE_PROFILE_EDIT;
@@ -102,7 +106,8 @@ public class PersonController {
     @RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
     public String getContentManager(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findElementsByOwner(person));
+        model.addAttribute(ATTRIBUTE_CONTENTS, areaService.findAreasByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
         return FILE_CONTENT_MANAGER;
@@ -111,7 +116,7 @@ public class PersonController {
     @RequestMapping(value = LINK_BOOKMARK, method = RequestMethod.GET)
     public String getBookmarks(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
-        model.addAttribute(ATTRIBUTE_CONTENTS, contentAreaService.findByOwner(person));
+        model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findElementsByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
         
         return FILE_BOOKMARK;

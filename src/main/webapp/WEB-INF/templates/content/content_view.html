@@ -71,13 +71,13 @@
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <div class="topspace">
                                 <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
-                                    <button name="edit" type="submit" class="btn btn-primary">Muokkaa</button>
+                                    <button name="edit" type="submit" class="btn btn-primary btn-sm">Muokkaa</button>
                                 </form>
                             </div>  
 
                             <div class="topspace">
                                 <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
-                                    <button name="remove" type="submit" class="btn btn-danger">Poista</button>
+                                    <button name="remove" type="submit" class="btn btn-danger btn-sm">Poista</button>
                                 </form>
                             </div>
                         </div>
