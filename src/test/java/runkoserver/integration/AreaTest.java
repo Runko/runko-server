@@ -71,7 +71,7 @@ public class AreaTest {
         return areaService.findAreaByName(theName);
     }
     
-    private Content createNewSimpleContent(String contentName, String tArea, Area area) {
+    private Content createNewContent(String contentName, String tArea, Area area) {
         driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_FORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
@@ -139,7 +139,7 @@ public class AreaTest {
         String visibility = "testing1";
         
         Area area = createNewArea(areaName, visibility);
-        Content content = createNewSimpleContent(contentName, contentText, area);
+        Content content = createNewContent(contentName, contentText, area);
         
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
         

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.junit.Assert;
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -91,6 +92,16 @@ public class PersonTest {
 
         return (Content) elementService.findElementByName(theName);
     }
+    
+    private Area createNewArea(String name) {
+        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
+        
+        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
+        nameField.sendKeys(name);
+        nameField.submit();
+        
+        return areaService.findAreaByName(name);
+    }
 
     @Test
     public void userCanSeeOwnProfile() {
@@ -145,6 +156,17 @@ public class PersonTest {
     }
     
     @Test
+    public void ownedAreaShowsUpInContentManager() {
+        String name = "Meitsin sisältö";  
+
+        Area area = createNewArea(name);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+
+        assertEquals(name, driver.findElement(By.name(name)).getAttribute("name"));
+    }
+    
+    @Test
     public void otherPersonsContentDoesNotShowUpInContentManager() {
         String name = "I used to be adventurer like you";
         String text = "Until I took arrow to my knee";
@@ -167,8 +189,8 @@ public class PersonTest {
     
     @Test
     public void deletedContentIsRemovedFromContentManager() {
-        areaService.deleteAllAreas();
         elementService.deleteAllElements();
+        areaService.deleteAllAreas();
         
         String name = "Dark Soul's most common screen";
         String text = "YOU DIED";
@@ -185,21 +207,11 @@ public class PersonTest {
         assertFalse(driver.getPageSource().contains(name));
     }
     
-    private Area createArea(String name) {
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
-        
-        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
-        nameField.sendKeys(name);
-        nameField.submit();
-        
-        return areaService.findAreaByName(name);
-    }
-    
     @Test
     public void subscribedAreaIsShownAtContentManager() {
         String name = "Futurama references";
         
-        Area area = createArea(name);
+        Area area = createNewArea(name);
         driver.get(LINK_LOCALHOST);
         WebElement areaLink = driver.findElement(By.name(name));
         areaLink.click();
@@ -215,7 +227,7 @@ public class PersonTest {
     @Test
     public void unsubscribedAreaIsNotShownAtContentManager() {
         String name = "IMMA FIRIN MAH'";
-        Area area = createArea(name);
+        Area area = createNewArea(name);
         driver.get(LINK_LOCALHOST);
         WebElement areaLink = driver.findElement(By.name(name));
         areaLink.click();
@@ -231,40 +243,40 @@ public class PersonTest {
         unsubscribeButton.click();
         
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
-        
-        assertFalse(driver.getPageSource().contains(name));
+ 
+        assertNotEquals(name, driver.findElement(By.name(name)).getAttribute("id"));
     }
     
     @Test
     public void allSubscribedAreasAreShownAtContentManager() {
         String name1 = "Epic Rap Battles of History";
-        Area area1 = createArea(name1);
+        Area area1 = createNewArea(name1);
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
         WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
         String name2 = "Chuck Norris";
-        Area area2 = createArea(name2);
+        Area area2 = createNewArea(name2);
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
         subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         
-        assertTrue(driver.getPageSource().contains(name1) 
-                && driver.getPageSource().contains(name2));
+        assertEquals(name1, driver.findElement(By.id(name1)).getAttribute("id"));
+        assertEquals(name2, driver.findElement(By.id(name2)).getAttribute("id"));
     }
     
     @Test
     public void allSubscribedAreasAreShownOnceAtContentManager() {
         String name1 = "Perjantai-rage";
-        Area area1 = createArea(name1);
+        Area area1 = createNewArea(name1);
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
         WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
         String name2 = "Matti Luukkainen";
-        Area area2 = createArea(name2);
+        Area area2 = createNewArea(name2);
         driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
         subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
@@ -321,5 +333,4 @@ public class PersonTest {
         
         assertFalse(driver.getPageSource().contains(name));
     }
-    
 }

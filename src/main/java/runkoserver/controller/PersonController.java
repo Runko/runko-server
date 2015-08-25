@@ -107,7 +107,7 @@ public class PersonController {
     public String getContentManager(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
         model.addAttribute(ATTRIBUTE_CONTENTS, elementService.findElementsByOwner(person));
-        model.addAttribute(ATTRIBUTE_CONTENTS, areaService.findAreasByOwner(person));
+        model.addAttribute(ATTRIBUTE_AREAS, areaService.findAreasByOwner(person));
         model.addAttribute(ATTRIBUTE_PERSON, person);
 
         return FILE_CONTENT_MANAGER;

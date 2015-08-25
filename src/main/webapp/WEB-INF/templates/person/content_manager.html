@@ -57,26 +57,26 @@
                 </div>
                 
                 <h2>Luomasi alueet</h2>
-                <div th:unless="${#lists.isEmpty(person.ownedAreas)}">
+                <div th:unless="${#lists.isEmpty(areas)}">
                     <table class="table table-hover col-sm-12">
                         <tr th:each="area : ${areas}">
                             <th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" th:name="${area.name}"></a></th>
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <td>
                                 <form th:method="get" th:action="@{/area/edit/{id}(id=${area.id})}" >
-                                    <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
+                                    <button name="editArea" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
                                 </form>
                             </td>
                             <td>
                                 <form th:method="delete" th:action="@{/area/{id}(id=${area.id})}">
-                                    <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
+                                    <button name="removeArea" type="submit" class="btn btn-xs btn-danger">Poista</button>
                                 </form>
                             </td>
                         </tr>
                     </table>
                 </div>
 
-                <div th:if="${#lists.isEmpty(contents)}">
+                <div th:if="${#lists.isEmpty(areas)}">
                     <p>Et ole luonu aluetta!</p>
                 </div>
 
