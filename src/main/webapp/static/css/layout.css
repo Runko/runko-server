@@ -78,7 +78,7 @@ h1 {
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
     body {
-        background-color: #FFCCBA;
+        background-color: rgba(194,194,192,0.3);
     }
 
     .centered {
