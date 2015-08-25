@@ -94,7 +94,7 @@ public class PersonTest {
     }
     
     private Area createNewArea(String name) {
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
+        driver.get(LINK_LOCALHOST + LINK_AREA + LINK_AREA_FORM);
         
         WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
         nameField.sendKeys(name);
@@ -199,7 +199,7 @@ public class PersonTest {
         
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         
-        WebElement delete = driver.findElement(By.name(ATTRIBUTE_BUTTON_DELETE));
+        WebElement delete = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_DELETE));
         delete.click();
         
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
@@ -251,13 +251,13 @@ public class PersonTest {
     public void allSubscribedAreasAreShownAtContentManager() {
         String name1 = "Epic Rap Battles of History";
         Area area1 = createNewArea(name1);
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area1.getId());
         WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
         String name2 = "Chuck Norris";
         Area area2 = createNewArea(name2);
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area2.getId());
         subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
@@ -271,13 +271,13 @@ public class PersonTest {
     public void allSubscribedAreasAreShownOnceAtContentManager() {
         String name1 = "Perjantai-rage";
         Area area1 = createNewArea(name1);
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area1.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area1.getId());
         WebElement subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         
         String name2 = "Matti Luukkainen";
         Area area2 = createNewArea(name2);
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area2.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area2.getId());
         subscribeButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribeButton.click();
         

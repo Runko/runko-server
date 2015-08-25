@@ -18,9 +18,9 @@ public abstract class Links {
     
     public static final String LINK_VIEW_ID = "/{id}";
 
-    public static final String LINK_AREA_INDEX = "/area";
+    public static final String LINK_AREA = "/area";
 
-    // You can access area-view for example like LINK_AREA_INDEX + LINK_VIEW_ID.
+    // You can access area-view for example like LINK_AREA + LINK_VIEW_ID.
     //If index is already given, LINK_VIEW_ID is enough    
     public static final String LINK_AREA_FORM = "/areaform";
 
@@ -37,6 +37,7 @@ public abstract class Links {
 
     public static final String FILE_AREA = "/area/area";
     public static final String FILE_AREA_FORM = "/area/area_form";
+    public static final String FILE_AREA_EDIT = "/area/area_edit";
 
     public static final String FILE_HOME = "index";
 
