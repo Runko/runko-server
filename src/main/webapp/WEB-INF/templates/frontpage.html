@@ -35,7 +35,7 @@
                 <h1>-- RUNKO newsfeed --</h1>
 
                 <!-- Here will be message if needed (like new content has created) -->
-                <p th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
+                <p class="topspace" th:if="${#lists.isEmpty(contents)}"> Sinulla ei ole alueita vielä tilattuna</p>
 
                 <table class="topspace">
                     <tr th:each="content : ${contents}">

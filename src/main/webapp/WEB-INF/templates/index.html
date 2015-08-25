@@ -29,31 +29,41 @@
 
             <div class="centered">
 
-                <h1>Partio</h1>
+                <h1>Pääkaupungin partiolaisten julkaisut sisältöalueittain</h1>
 
                 <div th:include="fragments/messages_template :: messages"></div>
 
-                <!-- Here will be message if needed (like new content has created) -->
-                <p>Partiolaiset hei!!</p>
+                <input type="text" id="search" placeholder="etsi alueista" class="topspace" />
 
-                <!-- Form lists all areas -->
-                <h3>Sisältöalueet</h3>
                 <div th:each="area : ${areas}">
-                    <table class="topspace">
-                        <tr><th>Nimi: </th><th><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></th></tr>
-                        <tr><th>Näkyvyys: </th> <td th:text="${area.visibilityText}"></td></tr>
+                    <h3 class="topspace">
+                        <a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></h3>
+                    <p>Näkyvyys: <span style="font-style: italic" th:text="${area.visibilityText}"></span></p>
 
-                        <!-- List all contents related to area -->
-                        <tr><th>Sisällöt</th></tr>
-
-                        <tr th:each="content : ${area.elements}">
-                        <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th></tr>
-                        <tr><td th:utext="${content.textArea}"></td></tr>
-                        <tr></tr>
-                        </tr>
-                    </table>
+                    <h4>Sisällöt:</h4>
+                    <div  class="toSearch" th:each="content : ${area.elements}">
+                        <label>
+                            <p class="h4"><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></p>
+                            <p th:utext="${content.textArea}"></p>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div> 
     </body>
+    <script>
+        //function for filtering content
+        var $areas = $('.toSearch a');
+        var $toHide = $('.toSearch label');
+
+        $("#search").keyup
+                (function () {
+                    var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
+                    $toHide.show().filter
+                            (function () {
+                                var text = $areas.text().replace(/\s+/g, '').toLowerCase();
+                                return !~text.indexOf(inputText);
+                            }).hide();
+                });
+    </script>
 </html>
