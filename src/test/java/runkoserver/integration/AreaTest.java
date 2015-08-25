@@ -6,6 +6,7 @@
 package runkoserver.integration;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -124,7 +125,7 @@ public class AreaTest {
     @Test
     public void createdAreaContainsAllGivenInformation() {
         String areaName = "Tämä on testi.";
-        String visibility = "testing1";
+        String visibility = "testing2";
         Area area = createNewArea(areaName, visibility);
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
@@ -190,20 +191,46 @@ public class AreaTest {
                 driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
     }
     
+   
     @Test
     public void areaOwnerCanDeleteNullArea() {
-        String areaName = "omistaja poistaa alueen";
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String areaName = "Omistaja poistaa ALUEEN";
         String visibility = "testing1";
         
-        Area area = createNewArea(areaName, visibility);
+        createNewArea(areaName, visibility);
 
         driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
         
         WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_DELETE));
         deleteButton.click();
 
-        driver.get(getViewArea(area));
-
-        assertFalse(driver.getPageSource().contains(areaName));
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_SUCCESS));
     }
+    
+     @Test
+    public void areaOwnerCantDeleteNotNullArea() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String areaName = "Omistaja koittaa poistaa alueen";
+        String visibility = "testing1";
+        
+        String contentName = "Ankaraa testausta..";
+        String contentText = "Elämä On!";
+        
+        Area area = createNewArea(areaName, visibility);
+        
+        createNewContent(contentName, contentText, area);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_DELETE));
+        deleteButton.click();
+
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_FAIL));
+    }
+    
 }
