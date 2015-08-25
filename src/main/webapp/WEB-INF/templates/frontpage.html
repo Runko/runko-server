@@ -45,7 +45,7 @@
                         <td style="font-size:12px;"><a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a>, </td>
                         </td>
                     </tr>
-                    <tr><td th:text="${content.textArea}"></td></tr>
+                    <tr><td th:utext="${content.textArea}"></td></tr>
                     <tr></tr>
                 </table>
                 </tr>
