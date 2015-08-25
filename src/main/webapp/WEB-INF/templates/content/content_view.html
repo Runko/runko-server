@@ -32,8 +32,18 @@
                 <div th:include="fragments/messages_template :: messages"></div>
 
                 <div class="col-sm-12">
+
                     <!-- This makes contens name to heading -->
                     <h2 th:text="${content.name}"></h2>
+
+                    <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
+                        <div th:if="${book} == false">
+                            <button name="bookmark" type="submit" class="btn btn-default btn-xs bookmark" value="Order"><span class="glyphicon glyphicon-star-empty"></span></button>
+                        </div>
+                        <div th:if="${book} == true">
+                            <button name="unbookmark" type="submit" class="btn btn-default btn-xs bookmark" value="StopOrder"><span class="glyphicon glyphicon-star"></span></button>
+                        </div>
+                    </form>
 
                     <div style="font-size:8px; color:grey">
                         <p>Luotu: <span th:text="${content.creationTime}"></span></p>
@@ -42,13 +52,14 @@
                         </div>
                     </div>
 
-                    <!-- This tell's content -->
-                    <p th:utext="${content.textArea}"></p>
+                    <!-- This tell content -->
+                    <div class="centered-inner" style="padding-right: 5px">
+                        <p th:utext="${content.textArea}"></p>
+                    </div>
 
                     <!-- This lists areas, where content belongs to -->
-                    <!-- bold is in layout.css -->
+                    <h3>Sisältöalueet</h3>
                     <table>
-                        <h3>Sisältöalueet</h3>
                         <tr th:each="area : ${content.areas}">
                         <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
                         <tr></tr>
@@ -57,7 +68,6 @@
 
                     <div th:if="${person != null}" >
                         <div th:if="${person.id == content.owner.id}">
-
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <div class="topspace">
                                 <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
@@ -73,7 +83,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
-        </div> 
+            </div> 
+        </div>
     </body>
 </html>

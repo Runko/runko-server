@@ -205,4 +205,28 @@ public class ContentTest {
         assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
     }
 
+@Test
+    public void contentHasBookmarkButtonWhenNotBookmarked() {
+        String name = "Elder Scrolls";
+        String text = "playing time";
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
+        
+        assertEquals(ATTRIBUTE_BUTTON_BOOKMARK, driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK)).getAttribute("name"));
+    }
+    
+    @Test
+    public void contentHasUnbookmarkButtonWhenBookmarked() {
+        String name = "Praise the Sun!";
+        String text = "YES, MY LORD";
+        Content content = createNewSimpleContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        subscribe.click();
+        
+        assertEquals(ATTRIBUTE_BUTTON_UNBOOKMARK, driver.findElement(By.name(ATTRIBUTE_BUTTON_UNBOOKMARK)).getAttribute("name"));
+    }
 }

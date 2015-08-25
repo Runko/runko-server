@@ -213,10 +213,13 @@ public class ContentController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_UNBOOKMARKED);
             if (null != whereICome) {
+                if (whereICome.equals("bookmarks")) {
+                    return REDIRECT + LINK_PERSONS + LINK_BOOKMARK;
+                }
                 if (whereICome.equals("CM")) {
                     return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
                 }
-            }
+            } 
         }
 
         return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;

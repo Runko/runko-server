@@ -10,14 +10,17 @@
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" 
         th:src="@{/static/js/bootstrap.min.js}"></script>
-
+        
+        <!-- runko's js functions -->
+        <script src="/js/runko.js" th:src="@{/static/js/runko.js}"></script>
+        
         <!-- CK Editor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
-        <!-- bootstrap.min.css is bootstraps own css -->
+        <!-- bootstrap.min.css is bootstrap's own css -->
         <link href="/css/bootstrap.min.css" rel="stylesheet" type="text/css" th:href="@{/static/css/bootstrap.min.css}" />
 
-        <!-- layout.css is Runkos css -->
+        <!-- layout.css is Runko's css -->
         <link href="/css/layout.css" rel="stylesheet" type="text/css" th:href="@{/static/css/layout.css}" />
 
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -40,25 +43,26 @@
 
                     <label>Sisällön otsikko *</label>
                     <input type="text" name="name" class="form-control topspace"  required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{1,48}" placeholder="Otsikon tulee olla 3-50 merkkiä." th:value="${content.name}"/>
+                    <div class="centered-inner">
+                        <!-- Text editor shown on computer's browser -->
+                        <div class="browserform" id='browser'>
+                            <label class="topspace">Sisältö</label>
+                            <textarea rows="10" cols="80" id ="browsercontent" name="textArea" class="form-control topspace" th:text="${content.textArea}" style="margin-bottom: 10px" placeholder="for browser"></textarea>
 
-                    <!-- Text editor shown on computer's browser -->
-                    <div class="browserform" id='browser'>
-                        <label class="topspace">Sisältö</label>
-                        <textarea rows="10" cols="80" id ="browsercontent" name="textArea" class="form-control topspace" th:text="${content.textArea}" style="margin-bottom: 10px" placeholder="for browser"></textarea>
+                            <script>
+                                CKEDITOR.replace('browsercontent');
+                            </script>
+                        </div>
 
-                        <script>
-                            CKEDITOR.replace('browsercontent');
-                        </script>
-                    </div>
+                        <!-- Text editor shown on mobile device -->
+                        <div class="mobileform" id='mobile'>
+                            <label class="topspace">Sisältö</label>
+                            <textarea rows="10" cols="80" id ="mobilecontent" name="textArea" class="form-control topspace" th:text="${content.textArea}" style="margin-bottom: 10px" placeholder="for mobile"></textarea>
 
-                    <!-- Text editor shown on mobile device -->
-                    <div class="mobileform" id='mobile'>
-                        <label class="topspace">Sisältö</label>
-                        <textarea rows="10" cols="80" id ="mobilecontent" name="textArea" class="form-control topspace" th:text="${content.textArea}" style="margin-bottom: 10px" placeholder="for mobile"></textarea>
-
-                        <script>
-                            CKEDITOR.replace('mobilecontent', {customConfig: 'mobileconfig.js'});
-                        </script>
+                            <script>
+                                CKEDITOR.replace('mobilecontent', {customConfig: 'mobileconfig.js'});
+                            </script>
+                        </div>
                     </div>
                     <!-- This lists all areas on which user can choose right area or areas -->
                     <button type="button" style="margin-bottom: 10px" class="btn btn-default btn-sm topspace" id="myBtn" data-toggle="modal" data-target="#alueModal">
@@ -102,26 +106,4 @@
             </div>
         </div>
     </body>
-
-    <script>
-        //function for filtering areas in area-modal
-        $(function () {
-            var $areas = $('.checkbox label');
-            $("#search").keyup(function () {
-                var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
-                $areas.show().filter(function () {
-                    var text = $(this).text().replace(/\s+/g, '').toLowerCase();
-                    return !~text.indexOf(inputText);
-                }).hide();
-
-            });
-        });
-
-        // function to prevent text editor to save content twice
-        if ($('#mobile').css('display') === 'none') {
-            document.getElementById("mobilecontent").setAttribute("name", "non");
-        } else {
-            document.getElementById("browsercontent").setAttribute("name", "non");
-        }
-    </script>
 </html>

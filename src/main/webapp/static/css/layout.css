@@ -1,19 +1,3 @@
-/*
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
-*/
-/* 
-    Created on : 23-Jul-2015, 10:51:58
-    Author     : warva
-*/
-
-/*!
- * Bootstrap v3.3.5 (http://getbootstrap.com)
- * Copyright 2011-2015 Twitter, Inc.
- * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
- */
-
 /* Menu */
 
 /* .navbarmenu makes menu to be center of the page */
@@ -44,7 +28,7 @@ and open the template in the editor.
     margin-bottom: 15px;
 }
 
-/* Bold makes text bold  */
+/* Bold makes text bold, obviously */
 .bold {
     font-style: oblique;
 }
@@ -54,8 +38,38 @@ h1 {
     text-align: center;
 }
 
+.bookmark {
+    float: right;
+    top: -25px
+}
+
 /* @media is for browser */
 @media only screen and (min-device-width: 1024px){
+    /* center and color layout*/
+    #background {
+        position: absolute;
+        margin-left: 25%;
+        margin-right: -25%;
+        min-width: 700px;
+        min-height: 100%;
+        background-color: lavender;
+    }
+
+    /* content of pages */
+    .centered {
+        position: absolute;
+        margin-top: 80px;
+        min-width: 660px;
+        margin-left: 3%;
+        margin-right: -3%;
+        background-color: transparent;
+    }
+
+    /* for text editors */
+    .centered-inner{
+        max-width: 660px;
+    }
+
     .mobileform{
         display: none;
     }
@@ -84,9 +98,9 @@ h1 {
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
     body {
-        background-color: rgba (37, 55, 100, 0.3);
+        background-color: #FFCCBA;
     }
-    
+
     .centered {
         margin: 0%;
         padding-left: 5px;
@@ -101,3 +115,4 @@ h1 {
         display: none;
     }
 }
+

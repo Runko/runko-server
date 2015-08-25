@@ -22,7 +22,7 @@
         <title>Profiili</title>
 
     </head>
-    
+
     <!-- centered, background, bold, topspaced, aroundspaced are in layout.css -->
     <body>
         <div id="background">
@@ -34,14 +34,12 @@
 
                 <h1>Content manager</h1>
 
-
                 <h2>Sisältösi</h2>
 
                 <div th:unless="${#lists.isEmpty(contents)}">
                     <table class="table table-hover col-sm-12">
-
                         <tr th:each="content : ${contents}">
-                            <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></th>
+                            <th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" th:name="${content.name}"></a></th>
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <td>
                                 <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
@@ -76,8 +74,27 @@
                         </tr>
                     </table>
                 </div>
-                
+
                 <div th:if="${#lists.isEmpty(person.subscriptions)}">
+                    <p>Et ole tilannut sisältöä!</p>
+                </div>
+                <h2>Kirjanmerkkisi</h2>
+                <div th:unless="${#lists.isEmpty(person.bookmarks)}">
+                    <table class="table table-hover col-sm-12">
+
+                        <tr th:each="content : ${person.bookmarks}">
+                            <th><a th:name="${content.name}" th:id="${content.name}" th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a>
+                            </th>
+                            <td>
+                                <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
+                                    <input type="hidden" value="CM" name="whereICome" />
+                                    <button type="submit" class="btn btn-default btn-xs" value="StopOrder"><span class="glyphicon glyphicon-star"></span></button>
+                                </form>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div th:if="${#lists.isEmpty(person.bookmarks)}">
                     <p>Et ole tilannut sisältöä!</p>
                 </div>
             </div>
