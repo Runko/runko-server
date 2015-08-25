@@ -23,7 +23,8 @@ import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 
 /**
  * Integration tests for area-usage.
@@ -39,7 +40,10 @@ public class AreaTest {
     private WebDriver driver;
     
     @Autowired
-    private ContentAreaService contentAreaService;
+    private AreaService areaService;
+    
+    @Autowired
+    private ElementService elementService;
     
     @Before
     public void userIsLoggedIn() {
@@ -64,7 +68,7 @@ public class AreaTest {
         publicity.click();
         publicity.submit();
         
-        return contentAreaService.findAreaByName(theName);
+        return areaService.findAreaByName(theName);
     }
     
     private Content createNewSimpleContent(String contentName, String tArea, Area area) {
@@ -83,7 +87,7 @@ public class AreaTest {
         driver.findElement(By.name("move")).click();
        
          driver.findElement(By.name("save")).click();
-        return (Content) contentAreaService.findElementByName(theName);
+        return (Content) elementService.findElementByName(theName);
     }
     
     @Test
