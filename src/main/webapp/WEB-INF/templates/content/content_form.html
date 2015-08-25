@@ -14,9 +14,6 @@
         <!-- Bootstrap (js-file) -->
         <script src="/js/bootstrap.min.js" th:src="@{/static/js/bootstrap.min.js}"></script>
 
-        <!-- runko's js functions -->
-        <script src="/js/runko.js" th:src="@{/static/js/runko.js}"></script>
-
         <!-- CK Editor -->
         <script src="/ckeditor/ckeditor.js" th:src="@{/static/ckeditor/ckeditor.js}"></script>
 
@@ -98,4 +95,23 @@
             </div>
         </div>
     </body>
+
+    <script>
+        //function for filtering areas in area-modal
+        var $areas = $('.checkbox label');
+        $("#search").keyup(function () {
+            var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
+            $areas.show().filter(function () {
+                var text = $(this).text().replace(/\s+/g, '').toLowerCase();
+                return !~text.indexOf(inputText);
+            }).hide();
+        });
+
+        // function to prevent text editor to save content twice
+        if ($('#mobile').css('display') === 'none') {
+            document.getElementById("mobilecontent").setAttribute("name", "non");
+        } else {
+            document.getElementById("browsercontent").setAttribute("name", "non");
+        }
+    </script>
 </html>
