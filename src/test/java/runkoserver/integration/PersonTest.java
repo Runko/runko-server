@@ -333,4 +333,15 @@ public class PersonTest {
         
         assertFalse(driver.getPageSource().contains(name));
     }
+    
+    @Test
+    public void createdAreaFoundInContentManger() {
+        String name = "Tarkistettavaksi";
+
+        createNewArea(name);
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        assertTrue(driver.getPageSource().contains(name));
+    }
 }

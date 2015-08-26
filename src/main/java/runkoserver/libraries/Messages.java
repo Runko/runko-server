@@ -18,7 +18,7 @@ public abstract class Messages {
     public static final String MESSAGE_AREA_MODIFY_SUCCESS = "Alueen muokkaaminen onnistui";
     public static final String MESSAGE_AREA_MODIFY_FAIL = "Sinulla ei ole oikeuksia muokata aluetta! Hyi Hyi.";
     public static final String MESSAGE_AREA_DELETE_SUCCESS = "Alue poistettu onnistuneesti: ";
-    public static final String MESSAGE_AREA_DELETE_FAIL = "Alueen poistaminen epäonnistui"; 
+    public static final String MESSAGE_AREA_DELETE_FAIL = "Alueen poistaminen epäonnistui. Alueella on sisältöä."; 
     public static final String MESSAGE_AREA_SUBSCRIPTION_START = "Alueen tilaaminen onnistui!";
     public static final String MESSAGE_AREA_SUBSCRIPTION_STOP = "Alueen tilaaminen lopetettu!";
     public static final String MESSAGE_CONTENT_BOOKMARKED = "Kirjanmerkin lisääminen onnistui!";
