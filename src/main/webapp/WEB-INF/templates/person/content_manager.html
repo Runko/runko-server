@@ -40,12 +40,12 @@
                             <!-- Shows buttons only if user who is logged in is owner -->
                             <td>
                                 <form th:method="get" th:action="@{/content/edit/{id}(id=${content.id})}" >
-                                    <button name="edit" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
+                                    <button name="editContent" type="submit" class="btn btn-xs btn-success">Muokkaa</button>
                                 </form>
                             </td>
                             <td>
                                 <form th:method="delete" th:action="@{/content/{id}(id=${content.id})}">
-                                    <button name="remove" type="submit" class="btn btn-xs btn-danger">Poista</button>
+                                    <button name="removeContent" type="submit" class="btn btn-xs btn-danger">Poista</button>
                                 </form>
                             </td>
                         </tr>

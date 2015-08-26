@@ -130,7 +130,7 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_DELETE));
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_DELETE));
         deleteButton.click();
 
         driver.get(getViewContent(content));
@@ -156,7 +156,7 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_DELETE));
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_CONTENT_DELETE));
     }
 
     @Test
@@ -168,7 +168,7 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_EDIT));
         editButton.click();
 
         WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
@@ -181,7 +181,7 @@ public class ContentTest {
         textField.clear();
         textField.sendKeys(text);
 
-        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_EDIT));
         editButton.click();
         driver.get(getViewContent(content));
 
@@ -206,7 +206,7 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_CONTENT_EDIT));
     }
 
 @Test

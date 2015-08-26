@@ -6,6 +6,7 @@
 package runkoserver.integration;
 
 import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
 import org.junit.Test;
@@ -57,11 +58,11 @@ public class AreaTest {
         password.submit();
     }
     
-    private Area createNewArea(String areaName, String id) {
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + LINK_AREA_FORM);
+    private Area createNewArea(String areaName, String areaVisibility) {
+        driver.get(LINK_LOCALHOST + LINK_AREA + LINK_AREA_FORM);
         
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
-        WebElement publicity = driver.findElement(By.id(id));
+        WebElement publicity = driver.findElement(By.id(areaVisibility));
                 
         String theName = areaName;
         name.sendKeys(theName);
@@ -88,6 +89,10 @@ public class AreaTest {
        
          driver.findElement(By.name("save")).click();
         return (Content) elementService.findElementByName(theName);
+    }
+    
+    private String getViewArea(Area area) {
+        return LINK_LOCALHOST + LINK_AREA + "/" + area.getId();
     }
     
     @Test
@@ -120,13 +125,13 @@ public class AreaTest {
     @Test
     public void createdAreaContainsAllGivenInformation() {
         String areaName = "Tämä on testi.";
-        String visibility = "testing1";
+        String visibility = "testing2";
         Area area = createNewArea(areaName, visibility);
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS));
         driver.get(LINK_LOCALHOST);
         assertTrue(driver.getPageSource().contains("Julkinen"));
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
         assertTrue(driver.getPageSource().contains(areaName));
 
     }
@@ -141,7 +146,7 @@ public class AreaTest {
         Area area = createNewArea(areaName, visibility);
         Content content = createNewContent(contentName, contentText, area);
         
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
         
         assertTrue(driver.getPageSource().contains(contentName));
     }
@@ -164,7 +169,7 @@ public class AreaTest {
         String visibility = "testing1";
         Area area = createNewArea(areaName, visibility);
         
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
         
         assertTrue(driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
                 !driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
@@ -174,9 +179,10 @@ public class AreaTest {
     public void areaHasUnsubscribeButtonWhenSubscribed() {
         String areaName = "Praise the Sun!";
         String visibility = "testing1";
+        
         Area area = createNewArea(areaName, visibility);
         
-        driver.get(LINK_LOCALHOST + LINK_AREA_INDEX + "/" + area.getId());
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
         
         WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
         subscribe.click();
@@ -184,4 +190,47 @@ public class AreaTest {
         assertTrue(!driver.getPageSource().contains(ATTRIBUTE_SUBSCRIPTION) &&
                 driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
     }
+    
+   
+    @Test
+    public void areaOwnerCanDeleteNullArea() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String areaName = "Omistaja poistaa ALUEEN";
+        String visibility = "testing1";
+        
+        createNewArea(areaName, visibility);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_DELETE));
+        deleteButton.click();
+
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_SUCCESS));
+    }
+    
+     @Test
+    public void areaOwnerCantDeleteNotNullArea() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String areaName = "Omistaja koittaa poistaa alueen";
+        String visibility = "testing1";
+        
+        String contentName = "Ankaraa testausta..";
+        String contentText = "Elämä On!";
+        
+        Area area = createNewArea(areaName, visibility);
+        
+        createNewContent(contentName, contentText, area);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+        
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_DELETE));
+        deleteButton.click();
+
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_FAIL));
+    }
+    
 }

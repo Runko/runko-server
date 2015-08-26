@@ -60,6 +60,48 @@ public class AreaService {
 
         return area;
     }
+    
+    /**
+     * 
+     * @param areaId which area will be updated
+     * @param name areas new name
+     * @param visibility areas new visibility
+     * @param whoIsLogged to check who is logged in
+     * @return 
+     */
+    public boolean updateArea(Long areaId, String name, boolean visibility, Person whoIsLogged) {
+        Area area =  findAreaById(areaId);
+        if (whoIsLogged.getId() == area.getOwner().getId()) {
+            area.setName(name);
+            area.setVisibility(visibility);
+ 
+            areaRepository.save(area);
+            return true;
+        }
+        return false;
+    }
+    
+    /**
+     * 
+     * @param areaid which area will be deleted
+     * @param whoIsLoggedIn to check who is logged in
+     * @return 
+     */
+    public boolean deleteArea(Long areaid, Person whoIsLoggedIn) {
+        
+        if (areaRepository.exists(areaid)) {
+
+            Area area = areaRepository.findOne(areaid);
+            if (area.getOwner().getId() == whoIsLoggedIn.getId()) {
+                if (findAreaById(areaid).getElements().isEmpty()) {
+                    areaRepository.delete(areaid);
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
 
     /**
      * Finds all areas by id from the given list by their id and returns them as
@@ -120,10 +162,20 @@ public class AreaService {
         return false;
     }
 
+    /**
+     * 
+     * @param person whose areas will be found
+     * @return 
+     */
     public List<Area> findAreasByOwner(Person person) {
         return areaRepository.findByOwner(person);
     }
 
+    /**
+     * 
+     * @param person tells to whom subcription will be added
+     * @param area which area wil be added to subcription
+     */
     public void addSubcriptions(Person person, Area area) {
         List<Person> subscribers = area.getSubscribers();
         subscribers.add(person);
@@ -131,6 +183,11 @@ public class AreaService {
         areaRepository.save(area);
     }
 
+    /**
+     * 
+     * @param person tells whose subcription will be deleted
+     * @param area which area wil be deleted from subcription
+     */
     public void deleteSubcriptions(Person person, Area area) {
         List<Person> subscribers = area.getSubscribers();
         subscribers.remove(person);

@@ -143,7 +143,7 @@ public class ContentController {
      * @return back to index
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
-    public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
+    public String updateContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds,

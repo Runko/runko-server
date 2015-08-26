@@ -28,30 +28,30 @@
             <div th:include ="fragments/navbar_template :: navbar">navbar</div>
 
             <div class="centered">
-                <h1>Luo uusi sisältöalue</h1>
+                <h2>Muokkaa sisältöaluetta</h2>
 
                 <div th:include="fragments/messages_template :: messages"></div>
 
-                <!-- Form makes new area -->
-                <form method="post" action="/area/areaform" id="areaform">
-                    <input type="hidden" th:value="${person.id}" name="ownerId" />
+                <!-- Form updates area -->
+                <form method="post" th:action="@{/area/edit/{id}(id=${area.id})}" id="areaform">
+                    
                     <div class="form-group">
                         <label>Alueen nimi *</label>
-                        <input type="text" name="name" class="form-control aroundspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{2,48}" placeholder="Nimen tulee olla 4-50 merkkiä." />
+                        <input type="text" name="name" class="form-control aroundspace" required="required" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{2,48}" placeholder="Nimen tulee olla 4-50 merkkiä." th:value="${area.name}" />
 
                         <!-- This specify areas publicity -->
                         <!-- ID's testing1 and testing2 are for testing only -->
 
                         <label>Julkisuusaste *</label>
                         <br/>
-                        <input type="radio" name="visibility" id="testing1" value="false" checked="checked"/><p> Sisäänkirjautuneille</p>
+                        <input type="radio" name="visibility" id="testing1" value="false" checked="checked"/> Sisäänkirjautuneille
                         <br/>
-                        <input type="radio" name="visibility" id="testing2" value="true"/><p> Julkinen</p>
+                        <input type="radio" name="visibility" id="testing2" value="true"/> Julkinen
 
                     </div>
 
-                    <div class="topspace">
-                        <button type="submit" class="btn btn-primary">Tallenna</button>
+                    <div class="aroundspace">
+                        <button name="editArea" type="submit" class="btn btn-primary">Tallenna</button>
                     </div>
                 </form>
             </div>
