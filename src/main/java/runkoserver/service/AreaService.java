@@ -152,10 +152,7 @@ public class AreaService {
      */
     public boolean deleteAllAreas() {
         areaRepository.deleteAll();
-        if (findAllAreas().isEmpty()) {
-            return true;
-        }
-        return false;
+        return findAllAreas().isEmpty();
     }
 
     /**
