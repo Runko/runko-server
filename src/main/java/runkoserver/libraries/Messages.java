@@ -23,6 +23,7 @@ public abstract class Messages {
     public static final String MESSAGE_AREA_SUBSCRIPTION_STOP = "Alueen tilaaminen lopetettu!";
     public static final String MESSAGE_CONTENT_BOOKMARKED = "Kirjanmerkin lisääminen onnistui!";
     public static final String MESSAGE_CONTENT_UNBOOKMARKED = "Kirjanmerkki poistettu";
+    public static final String MESSAGE_PROFILE_MODIFY_SUCCESS = "Profiilin muokkaaminen onnistui";
     
     //is shown by Spring security by default. Used at least for testing.
     public static final String MESSAGE_LOGIN_DEFAULT = "Käyttäjätunnus tai salasana ei kelpaa.";
