@@ -53,6 +53,16 @@ public class AreaServiceTest {
 
     }
 
+    private void doNewAreaAndSave(String name, Person person, Boolean visibility) {
+        testArea = areaService.createArea(name, person, visibility);
+        areaService.saveArea(testArea);
+    }
+
+    private void doNewContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
+        testSC = elementService.createContent(name, textArea, areaIDs, person);
+        elementService.saveElement(testSC);
+    }
+    
     //Test for areas
 
     @Test
@@ -85,8 +95,8 @@ public class AreaServiceTest {
     @Test
     public void testDeleteAllLifeFromEarth() {
         doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
-        doNewSimpleContentAndSave("Life", "Is guut", null, testMan2);
-        assertTrue(areaService.deleteAllAreas() && elementService.deleteAllElements());
+        doNewContentAndSave("Life", "Is guut", null, testMan2);
+        assertTrue(elementService.deleteAllElements() && areaService.deleteAllAreas());
     }
 
     @Test
@@ -118,14 +128,19 @@ public class AreaServiceTest {
         assertEquals(3, subscribedContent.size());
     }
 
-    private void doNewAreaAndSave(String name, Person person, Boolean visibility) {
-        testArea = areaService.createArea(name, person, visibility);
-        areaService.saveArea(testArea);
+    @Test
+    public void testDeleteAreaWithOutElements() {
+        doNewAreaAndSave("TestiArea", testMan, Boolean.TRUE);
+        assertTrue(areaService.deleteArea(testSC.getId(), testMan));
+        assertFalse(areaService.deleteArea(testSC.getId(), testMan));
     }
 
-    private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
-        testSC = elementService.createContent(name, textArea, areaIDs, person);
-        elementService.saveElement(testSC);
-
+    @Test
+    public void testDontDeleteAreatWithElements() {
+        areaIDs = new ArrayList<>();
+        doNewAreaAndSave("Test Area", testMan, Boolean.TRUE);
+        areaIDs.add(testArea.getId());
+        doNewContentAndSave("Test", "Delete", areaIDs, testMan);
+        assertFalse(areaService.deleteArea(testSC.getId(), testMan));
     }
 }
