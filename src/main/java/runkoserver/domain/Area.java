@@ -88,12 +88,8 @@ public class Area {
     }
     
     public List<Element> getElements() {
-        if (elements != null) {
             return elements;
         }
-        this.elements = new ArrayList<>();
-        return elements;
-    }
 
     public void setElements(List<Element> elements) {
         this.elements = elements;

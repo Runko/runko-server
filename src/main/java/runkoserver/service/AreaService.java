@@ -57,6 +57,7 @@ public class AreaService {
         area.setName(name);
         area.setOwner(person);
         area.setVisibility(visibility);
+        area.setElements(new ArrayList<>());
 
         return area;
     }
@@ -151,10 +152,7 @@ public class AreaService {
      */
     public boolean deleteAllAreas() {
         areaRepository.deleteAll();
-        if (findAllAreas().isEmpty()) {
-            return true;
-        }
-        return false;
+        return findAllAreas().isEmpty();
     }
 
     /**

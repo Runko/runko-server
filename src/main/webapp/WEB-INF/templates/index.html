@@ -43,9 +43,7 @@
                         <div th:each="content : ${area.elements}">
                             <label>
                                 <h4><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h4>
-                                <div style="max-height: 50px">
-                                    <p th:utext="${content.textArea}"></p>
-                                </div>
+                                <p th:utext="${content.textArea}"></p>
                             </label>
                         </div>
                         <hr/>

@@ -59,13 +59,11 @@
 
                     <!-- This lists areas, where content belongs to -->
                     <h3>Sisältöalueet</h3>
-                    <table>
-                        <tr th:each="area : ${content.areas}">
-                        <tr><th><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></th></tr>
-                        <tr></tr>
-                        </tr> 
-                    </table>
-
+                    <div th:each="area : ${content.areas}">
+                        <label>
+                            <p><a th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}" class="bold"></a></p>
+                        </label>
+                    </div>
                     <div th:if="${person != null}" >
                         <div th:if="${person.id == content.owner.id}">
                             <!-- Shows buttons only if user who is logged in is owner -->
