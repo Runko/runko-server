@@ -37,10 +37,10 @@
                 <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
 
                     <div th:if="${subs} == false">
-                        <button name="subscribe" type="submit" class="btn btn-primary" value="Order">Tilaa</button>
+                        <button name="subscribe" type="submit" class="btn btn-primary btn-sm" value="Order">Tilaa</button>
                     </div>
                     <div th:if="${subs}  == true">
-                        <button name="unsubscribe" type="submit" class="btn btn-primary" value="StopOrder">Lopeta tilaus</button>
+                        <button name="unsubscribe" type="submit" class="btn btn-primary btn-sm" value="StopOrder">Lopeta tilaus</button>
                     </div>
                 </form>
 

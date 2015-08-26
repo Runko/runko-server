@@ -14,18 +14,18 @@ import runkoserver.domain.Person;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
 import runkoserver.service.PersonService;
 
 /**
  * Controller class for HTTP requests related to Area objects.
  */
 @Controller
-@RequestMapping(LINK_AREA_INDEX)
+@RequestMapping(LINK_AREA)
 public class AreaController {
 
     @Autowired
-    ContentAreaService contentAreaService;
+    AreaService areaService;
 
     @Autowired
     PersonService personService;
@@ -40,8 +40,8 @@ public class AreaController {
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model, Principal principal) {
-        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAreaById(id));
-        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), contentAreaService.findAreaById(id)));
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAreaById(id));
+        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), areaService.findAreaById(id)));
         return FILE_AREA;
     }
 
@@ -75,16 +75,80 @@ public class AreaController {
             @RequestParam(required = true) String name,
             @RequestParam(required = true) Boolean visibility) {
 
-        Area area = contentAreaService.createArea(name, personService.findById(ownerId), visibility);
+        Area area = areaService.createArea(name, personService.findById(ownerId), visibility);
 
-        if (contentAreaService.saveArea(area)) {
+        if (areaService.saveArea(area)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_SUCCESS);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
         return REDIRECT + LINK_FRONTPAGE;
     }
+    
+    /**
+     * /**
+     * GET-method for rendering the form to modify existing area.
+     *
+     * @param id
+     * @param model object for spring to use
+     * @return path to the content creation form html file
+     */
+    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
+    public String areaEditForm(@PathVariable Long id, Model model) {
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAreaById(id));
 
+        return FILE_AREA_EDIT;
+    }
+
+     /**
+     * 
+     * @param id the id of the Area to be modified
+     * @param redirectAttributes a Spring object to carry attributes from this
+     * method to the one that the user is next redi
+     * @param name Area's name
+     * @param visibility Area's visibility
+     * @param principal who is logged in
+     * @return back to index
+     */
+    @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
+    public String updateArea(@PathVariable Long id, RedirectAttributes redirectAttributes,
+            @RequestParam(required = true) String name,
+            @RequestParam(required = true) boolean visibility,
+            Principal principal
+    ) {
+
+        if (areaService.updateArea(id, name, visibility, personService.findByUsername(principal.getName()))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_MODIFY_SUCCESS);
+            return REDIRECT + LINK_AREA + LINK_VIEW_ID;
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_MODIFY_FAIL);
+            return REDIRECT+LINK_FRONTPAGE;
+        }
+    }
+    
+    /**
+     * 
+     * @param id the id of the Area to be deleted
+     * @param redirectAttributes a Spring object to carry attributes from this
+     * method to the one that the user is next redi
+     * @param principal who is logged in
+     * @return back to index
+     */
+    @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
+    public String deleteArea(@PathVariable Long id,
+            RedirectAttributes redirectAttributes,
+            Principal principal) {
+
+        Area area = areaService.findAreaById(id);
+
+        if (areaService.deleteArea(area.getId(), personService.findByUsername(principal.getName()))) {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_DELETE_SUCCESS + area.getName());
+        } else {
+            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_DELETE_FAIL);
+        }
+        return REDIRECT+LINK_FRONTPAGE;
+    }
+    
     /**
      *
      * @param id which area is subscripted or unsubscripted
@@ -100,7 +164,7 @@ public class AreaController {
             RedirectAttributes redirectAttributes
     ) {
         Person person = personService.findByUsername(principal.getName());
-        if (personService.addSubscribtion(person, contentAreaService.findAreaById(id))) {
+        if (personService.addSubscribtion(person, areaService.findAreaById(id))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_START);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SUBSCRIPTION_STOP);
@@ -111,6 +175,6 @@ public class AreaController {
             }
         }
 
-        return REDIRECT + LINK_AREA_INDEX + LINK_VIEW_ID;
+        return REDIRECT + LINK_AREA + LINK_VIEW_ID;
     } 
 }
