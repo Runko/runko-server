@@ -74,7 +74,6 @@ public abstract class Element implements Serializable {
     }
 
     public void setAreas(List<Area> areas) {
-        this.areas = new ArrayList<>();
         this.areas = areas;
     }
 
