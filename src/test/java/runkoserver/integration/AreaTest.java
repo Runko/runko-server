@@ -295,5 +295,4 @@ public class AreaTest {
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_MODIFY_SUCCESS));
     }
-    
 }
