@@ -54,7 +54,7 @@ public class RunkoController {
     @RequestMapping(value = LINK_LOGIN_LOGOUT, method = RequestMethod.GET)
     public String logout() {
         
-        if (personService.userIsLoggedIn()) {;
+        if (personService.userIsLoggedIn()) {
             return REDIRECT + LINK_LOGOUT;
         }
         
@@ -69,6 +69,10 @@ public class RunkoController {
      */
     @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
     public String frontPage(Model model, Principal principal) {
+        if(!personService.userIsLoggedIn()) {
+            return REDIRECT + LINK_HOME;
+        }
+        
         Person person = personService.findByUsername(principal.getName());
         List <Content> contents = areaService.createListFromSubscripedContents(person);
         model.addAttribute(ATTRIBUTE_CONTENTS, contents);

@@ -13,13 +13,13 @@ import runkoserver.repository.ElementRepository;
  */
 @Service
 public class AreaService {
- 
+
     @Autowired
     ElementRepository elementRepository;
 
     @Autowired
     AreaRepository areaRepository;
-    
+
     public boolean saveArea(Area area) {
         if (area != null) {
             areaRepository.save(area);
@@ -60,35 +60,35 @@ public class AreaService {
 
         return area;
     }
-    
+
     /**
-     * 
+     *
      * @param areaId which area will be updated
      * @param name areas new name
      * @param visibility areas new visibility
      * @param whoIsLogged to check who is logged in
-     * @return 
+     * @return
      */
     public boolean updateArea(Long areaId, String name, boolean visibility, Person whoIsLogged) {
-        Area area =  findAreaById(areaId);
+        Area area = findAreaById(areaId);
         if (whoIsLogged.getId() == area.getOwner().getId()) {
             area.setName(name);
             area.setVisibility(visibility);
- 
+
             areaRepository.save(area);
             return true;
         }
         return false;
     }
-    
+
     /**
-     * 
+     *
      * @param areaid which area will be deleted
      * @param whoIsLoggedIn to check who is logged in
-     * @return 
+     * @return
      */
     public boolean deleteArea(Long areaid, Person whoIsLoggedIn) {
-        
+
         if (areaRepository.exists(areaid)) {
 
             Area area = areaRepository.findOne(areaid);
@@ -122,15 +122,11 @@ public class AreaService {
      * Adds connection between given content and it's Areas. Used by delete
      * content.
      *
-     * @param element element
-     * @param content on which the connections are wanted
+     * @param element on which the connections are wanted
      */
     public void saveContentToAreas(Element element) {
         for (Area area : element.getAreas()) {
-            
-            if (!area.getElements().contains(element)){
-                area.addElements(element);
-            }    
+            area.addElements(element);
             areaRepository.save(area);
         }
     }
@@ -138,8 +134,7 @@ public class AreaService {
     /**
      * Deletes connection between given connection and it's Areas-
      *
-     * @param element element
-     * @param content on which connections are disabled
+     * @param element on which connections are disabled 
      */
     public void deleteElementFromAreas(Element element) {
         for (Area area : element.getAreas()) {
@@ -163,16 +158,16 @@ public class AreaService {
     }
 
     /**
-     * 
+     *
      * @param person whose areas will be found
-     * @return 
+     * @return
      */
     public List<Area> findAreasByOwner(Person person) {
         return areaRepository.findByOwner(person);
     }
 
     /**
-     * 
+     *
      * @param person tells to whom subcription will be added
      * @param area which area wil be added to subcription
      */
@@ -184,7 +179,7 @@ public class AreaService {
     }
 
     /**
-     * 
+     *
      * @param person tells whose subcription will be deleted
      * @param area which area wil be deleted from subcription
      */
@@ -194,15 +189,15 @@ public class AreaService {
         area.setSubscribers(subscribers);
         areaRepository.save(area);
     }
-    
+
     /**
-     * 
+     *
      * @param person tells whose frontpage must be build
      * @return the content in chronological order
      */
     public List<Content> createListFromSubscripedContents(Person person) {
         List<Content> newList = new ArrayList<>();
-        
+
         // Builds new list without dublicates
         person.getSubscriptions().stream().forEach((area) -> {
             area.getElements().stream().filter((content)
@@ -214,8 +209,8 @@ public class AreaService {
         newList.sort((Content x, Content y) -> {
             return y.getModifyTime().compareTo(x.getModifyTime());
         });
-        
+
         return newList;
     }
-    
+
 }
