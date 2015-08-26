@@ -47,7 +47,7 @@
                 <p class="topspace">Omistaja: <span th:text="${area.owner.name}"></span></p>
 
                 <!-- This lists contents, which include to area -->
-                <h3>Sisällöt</h3>
+                <h4>Sisällöt</h4>
                 <div th:each="content : ${area.elements}">
                     <label>
                         <h4><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h4>
