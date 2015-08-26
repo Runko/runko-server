@@ -26,10 +26,7 @@ public abstract class Element implements Serializable {
     @NotBlank
     @Length(min = 3, max = 50)
     private String name;
-//
-//    @ManyToOne
-//    private Content content;
-//    
+  
     @ManyToOne
     private Person owner;
 
