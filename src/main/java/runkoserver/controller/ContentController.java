@@ -26,7 +26,6 @@ import runkoserver.service.PersonService;
  */
 @Controller
 @RequestMapping(LINK_CONTENT)
-@Transactional
 public class ContentController {
 
     @Autowired
