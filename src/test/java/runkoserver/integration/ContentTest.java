@@ -19,7 +19,8 @@ import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 
 /**
  * Integration tests for content-usage.
@@ -34,8 +35,11 @@ public class ContentTest {
     private WebDriver driver;
 
     @Autowired
-    private ContentAreaService contentAreaService;
-
+    private AreaService areaService;
+    
+    @Autowired
+    private ElementService elementService;
+    
     @Before
     public void userIsLoggedIn() {
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
@@ -48,7 +52,7 @@ public class ContentTest {
         password.submit();
     }
 
-    private Content createNewSimpleContent(String contentName, String tArea) {
+    private Content createNewContent(String contentName, String tArea) {
         driver.get(LINK_LOCALHOST + LINK_CONTENT + LINK_CONTENT_FORM);
 
         WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
@@ -60,7 +64,7 @@ public class ContentTest {
         textArea.sendKeys(text);
         textArea.submit();
 
-        return (Content)contentAreaService.findElementByName(theName);
+        return (Content)elementService.findElementByName(theName);
     }
 
     private Area createNewArea(String areaName){
@@ -71,7 +75,7 @@ public class ContentTest {
         name.sendKeys(areaName);
         name.submit();
         
-        return contentAreaService.findAreaByName(areaName);
+        return areaService.findAreaByName(areaName);
     }
 
     private String getViewContent(Content content) {
@@ -81,16 +85,16 @@ public class ContentTest {
     @Test
     public void contentCannotBeCreatedWithInvalidInformation() {
         String theName = "ba";
-        createNewSimpleContent(theName, "");
+        createNewContent(theName, "");
 
         assertFalse(driver.getPageSource().contains(MESSAGE_CONTENT_SAVE_SUCCESS));
     }
 
     @Test
-    public void simpleContentCanBeCreatedWithValidInformation() {
+    public void contentCanBeCreatedWithValidInformation() {
         String theName = "banjana";
         String text = "is jellow";
-        createNewSimpleContent(theName, text);
+        createNewContent(theName, text);
 
         assertTrue(driver.getPageSource().contains(MESSAGE_CONTENT_SAVE_SUCCESS));
     }
@@ -100,7 +104,7 @@ public class ContentTest {
         String theName = "mandoliini soi";
         String text = "ei itkeä saa";
 
-        Content content = createNewSimpleContent(theName, text);
+        Content content = createNewContent(theName, text);
 
         assertTrue(content != null);
     }
@@ -110,7 +114,7 @@ public class ContentTest {
         String name = "timo viheltää";
         String text = "en tunnista sävelmää";
 
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
 
         driver.get(getViewContent(content));
 
@@ -122,11 +126,11 @@ public class ContentTest {
         String name = "omistaja poistaa";
         String text = "tulee olematon";
 
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
 
         driver.get(getViewContent(content));
 
-        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_DELETE));
+        WebElement deleteButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_DELETE));
         deleteButton.click();
 
         driver.get(getViewContent(content));
@@ -139,7 +143,7 @@ public class ContentTest {
         String name = "älä edes yritä!";
         String text = "Yritit kuitenkin";
 
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
 
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
 
@@ -152,7 +156,7 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_DELETE));
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_CONTENT_DELETE));
     }
 
     @Test
@@ -160,11 +164,11 @@ public class ContentTest {
         String name = "kaka";
         String text = "on ruskeaa";
 
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
 
         driver.get(getViewContent(content));
 
-        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_EDIT));
         editButton.click();
 
         WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
@@ -177,7 +181,7 @@ public class ContentTest {
         textField.clear();
         textField.sendKeys(text);
 
-        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_EDIT));
+        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_CONTENT_EDIT));
         editButton.click();
         driver.get(getViewContent(content));
 
@@ -189,7 +193,7 @@ public class ContentTest {
         String name = "ääälä edes yritä!";
         String text = "Yyyyritit kuitenkin";
 
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
 
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
 
@@ -202,14 +206,14 @@ public class ContentTest {
 
         driver.get(getViewContent(content));
 
-        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_EDIT));
+        assertFalse(driver.getPageSource().contains(ATTRIBUTE_BUTTON_CONTENT_EDIT));
     }
 
 @Test
     public void contentHasBookmarkButtonWhenNotBookmarked() {
         String name = "Elder Scrolls";
         String text = "playing time";
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
         
         driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
         
@@ -220,7 +224,7 @@ public class ContentTest {
     public void contentHasUnbookmarkButtonWhenBookmarked() {
         String name = "Praise the Sun!";
         String text = "YES, MY LORD";
-        Content content = createNewSimpleContent(name, text);
+        Content content = createNewContent(name, text);
         
         driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
         

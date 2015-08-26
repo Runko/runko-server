@@ -21,8 +21,6 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_SUBSCRIPTION = "Tilaa";
     public static final String ATTRIBUTE_UNSUBSCRIPTION = "Lopeta tilaus";
     public static final String ATTRIBUTE_IS_BOOKMARKED = "book";
-    public static final String ATTRIBUTE_BOOKMARK = "Lisää kirjanmerkiksi";
-    public static final String ATTRIBUTE_UNBOOKMARK = "Poista kirjanmerkki";
 
     public static final String TITLE_FRONTPAGE = "-- RUNKO newsfeed --";
     public static final String TITLE_STANDARD = "Partio";
@@ -33,8 +31,10 @@ public abstract class Attributes {
     public static final String PASSWORD_TEST2 = "testi2";
 
     public static final String ATTRIBUTE_LOGOUT = "logout";
-    public static final String ATTRIBUTE_BUTTON_DELETE = "remove";
-    public static final String ATTRIBUTE_BUTTON_EDIT = "edit";
+    public static final String ATTRIBUTE_BUTTON_CONTENT_DELETE = "removeContent";
+    public static final String ATTRIBUTE_BUTTON_CONTENT_EDIT = "editContent";
+    public static final String ATTRIBUTE_BUTTON_AREA_DELETE = "removeArea";
+    public static final String ATTRIBUTE_BUTTON_AREA_EDIT = "editArea";
     public static final String ATTRIBUTE_BUTTON_SUBSCRIBE = "subscribe";
     public static final String ATTRIBUTE_BUTTON_UNSUBSCRIBE = "unsubscribe";
     public static final String ATTRIBUTE_BUTTON_BOOKMARK = "bookmark";

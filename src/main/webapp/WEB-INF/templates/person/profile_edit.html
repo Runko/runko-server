@@ -32,7 +32,7 @@
                 <div th:include="fragments/messages_template :: messages"></div>
 
                 <!-- Form updates profile -->
-                <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="contentform">
+                <form method="post" th:action="@{/persons/profile/edit/{id}(id=${person.id})}" id="personform">
 
                     <label class="topspace">Nimi</label>
                     <p th:text="${person.name}"></p>

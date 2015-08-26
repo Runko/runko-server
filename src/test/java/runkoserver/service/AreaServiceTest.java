@@ -14,15 +14,20 @@ import runkoserver.Application;
 import runkoserver.domain.Area;
 import runkoserver.domain.Content;
 import runkoserver.domain.Person;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @SpringApplicationConfiguration(classes = Application.class)
 @WebIntegrationTest({"server.port=0", "management.port=0"})
-public class ContentAreaServiceTest {
+public class AreaServiceTest {
 
     @Autowired
-    ContentAreaService contentAreaService;
+    private AreaService areaService;
+    
+    @Autowired
+    private ElementService elementService;
 
     @Autowired
     PersonService personService;
@@ -33,12 +38,13 @@ public class ContentAreaServiceTest {
     private Person testMan;
     private Person testMan2;
 
-    public ContentAreaServiceTest() {
+    public AreaServiceTest() {
     }
 
     @Before
     public void setUp() {
-        contentAreaService.deleteAll();
+        areaService.deleteAllAreas();
+        elementService.deleteAllElements();
         testSC = null;
         testArea = null;
         testMan = new Person("Jenny");
@@ -51,30 +57,30 @@ public class ContentAreaServiceTest {
     //Tests for content
     @Test
     public void testSaveContent() {
-        assertFalse(contentAreaService.saveElement(testSC));
-        testSC = contentAreaService.createContent("Test", "Test", null, testMan);
-        assertTrue(contentAreaService.saveElement(testSC));
+        assertFalse(elementService.saveElement(testSC));
+        testSC = elementService.createContent("Test", "Test", null, testMan);
+        assertTrue(elementService.saveElement(testSC));
     }
 
     @Test
     public void testFindAllContent() {
         doNewSimpleContentAndSave("Test ", "Find", null, testMan);
         doNewSimpleContentAndSave("All", "Content", null, testMan);
-        assertEquals(2, contentAreaService.findAllElements().size());
+        assertEquals(2, elementService.findAllElements().size());
     }
 
     @Test
     public void testFindContentById() {
         doNewSimpleContentAndSave("Test Find", "by Id", null, testMan);
-        assertEquals(testSC.getName(), contentAreaService.findElementById(testSC.getId()).getName());
+        assertEquals(testSC.getName(), elementService.findElementById(testSC.getId()).getName());
     }
 
     @Test
     public void testDeleteContentWithOutAreas() {
         doNewSimpleContentAndSave("Test", "Delete", null, testMan);
-        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan2));
-        assertTrue(contentAreaService.deleteElement(testSC.getId(), testMan));
-        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan));
+        assertFalse(elementService.deleteElement(testSC.getId(), testMan2));
+        assertTrue(elementService.deleteElement(testSC.getId(), testMan));
+        assertFalse(elementService.deleteElement(testSC.getId(), testMan));
     }
 
     @Test
@@ -83,59 +89,59 @@ public class ContentAreaServiceTest {
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         areaIDs.add(testArea.getId());
         doNewSimpleContentAndSave("Test", "Delete", areaIDs, testMan);
-        assertTrue(contentAreaService.deleteElement(testSC.getId(), testMan));
-        assertFalse(contentAreaService.deleteElement(testSC.getId(), testMan));
+        assertTrue(elementService.deleteElement(testSC.getId(), testMan));
+        assertFalse(elementService.deleteElement(testSC.getId(), testMan));
         assertEquals(0, testArea.getElements().size());
     }
 
     //Test for areas
     @Test
     public void testSaveArea() {
-        assertFalse(contentAreaService.saveArea(testArea));
-        testArea = contentAreaService.createArea("Test Save", null, Boolean.TRUE);
-        assertTrue(contentAreaService.saveArea(testArea));
+        assertFalse(areaService.saveArea(testArea));
+        testArea = areaService.createArea("Test Save", null, Boolean.TRUE);
+        assertTrue(areaService.saveArea(testArea));
     }
 
     @Test
     public void testFindAllAreas() {
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         doNewAreaAndSave("Test Area 2", null, Boolean.FALSE);
-        assertEquals(2, contentAreaService.findAllAreas().size());
+        assertEquals(2, areaService.findAllAreas().size());
     }
 
     @Test
     public void testFindAreaById() {
         doNewAreaAndSave("Test Id find", null, Boolean.TRUE);
-        assertEquals(testArea.getName(), contentAreaService.findAreaById(testArea.getId()).getName());
+        assertEquals(testArea.getName(), areaService.findAreaById(testArea.getId()).getName());
     }
 
     @Test
     public void testFindPublicAreas() {
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         doNewAreaAndSave("Test Area", null, Boolean.FALSE);
-        assertEquals(1, contentAreaService.findAllPublicAreas().size());
+        assertEquals(1, areaService.findAllPublicAreas().size());
     }
 
     private void doNewAreaAndSave(String name, Person person, Boolean visibility) {
-        testArea = contentAreaService.createArea(name, person, visibility);
-        contentAreaService.saveArea(testArea);
+        testArea = areaService.createArea(name, person, visibility);
+        areaService.saveArea(testArea);
     }
 
     private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
-        testSC = contentAreaService.createContent(name, textArea, areaIDs, person);
-        contentAreaService.saveElement(testSC);
+        testSC = elementService.createContent(name, textArea, areaIDs, person);
+        elementService.saveElement(testSC);
     }
 
     @Test
     public void testDeleteAllLifeFromEarth() {
         doNewAreaAndSave("Long live the Queen", null, Boolean.TRUE);
         doNewSimpleContentAndSave("Life", "Is guut", null, testMan2);
-        assertTrue(contentAreaService.deleteAll());
+        assertTrue(areaService.deleteAllAreas() && elementService.deleteAllElements());
     }
 
     @Test
     public void testAreasCanBeSubscribed() {
-        testArea = contentAreaService.createArea("What's going on?", testMan, Boolean.TRUE);
+        testArea = areaService.createArea("What's going on?", testMan, Boolean.TRUE);
         personService.addSubscribtion(testMan, testArea);
 
         assertEquals(1, testMan.getSubscriptions().size());
@@ -143,52 +149,52 @@ public class ContentAreaServiceTest {
 
     @Test
     public void testCreateListFromSubscribedContentsReturnsSubscribedContent() {
-        testArea = contentAreaService.createArea("Dohvakin", testMan, Boolean.TRUE);
-        contentAreaService.saveArea(testArea);
+        testArea = areaService.createArea("Dohvakin", testMan, Boolean.TRUE);
+        areaService.saveArea(testArea);
         personService.addSubscribtion(testMan, testArea);
 
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
 
-        Content c1 = contentAreaService.createContent("Force", "FUS", areaIds, testMan);
+        Content c1 = elementService.createContent("Force", "FUS", areaIds, testMan);
         testArea.addElements(c1);
-        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
+        Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
         testArea.addElements(c2);
-        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
         testArea.addElements(c3);
 
-        List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
 
         assertEquals(3, subscribedContent.size());
     }
 
     @Test
     public void testCreateListFromSubscribedContentReturnsContentNewestFirst() throws InterruptedException {
-        testArea = contentAreaService.createArea("Dohvakin", testMan, Boolean.TRUE);
-        contentAreaService.saveArea(testArea);
+        testArea = areaService.createArea("Dohvakin", testMan, Boolean.TRUE);
+        areaService.saveArea(testArea);
         personService.addSubscribtion(testMan, testArea);
 
         List<Long> areaIds = new ArrayList<>();
         areaIds.add(testArea.getId());
 
-        Content c1 = contentAreaService.createContent("Force", "FUS", areaIds, testMan);
+        Content c1 = elementService.createContent("Force", "FUS", areaIds, testMan);
         testArea.addElements(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
+        Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
         testArea.addElements(c2);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
         testArea.addElements(c3);
 
-        List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
 
         assertEquals(c3.getName(), subscribedContent.get(0).getName());
     }
 
     @Test
     public void testCreateListFromSubscribersReturnsContentLastModifiedFirst() throws InterruptedException {
-        testArea = contentAreaService.createArea("Dohvakin", testMan, Boolean.TRUE);
-        contentAreaService.saveArea(testArea);
+        testArea = areaService.createArea("Dohvakin", testMan, Boolean.TRUE);
+        areaService.saveArea(testArea);
         personService.addSubscribtion(testMan, testArea);
         
         List<Long> areaIds = new ArrayList<>();
@@ -197,22 +203,22 @@ public class ContentAreaServiceTest {
         String c1Name = "Force";
         String c1Text = "FUS";
         
-        Content c1 = contentAreaService.createContent(c1Name, "FUS", areaIds, testMan);
+        Content c1 = elementService.createContent(c1Name, "FUS", areaIds, testMan);
         c1.setOwner(testMan);
         testArea.addElements(c1);
         Thread.sleep(1000l);
-        Content c2 = contentAreaService.createContent("Balance", "RO", areaIds, testMan);
+        Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
         c2.setOwner(testMan);
         testArea.addElements(c2);
         Thread.sleep(1000l);
-        Content c3 = contentAreaService.createContent("Push", "DAH", areaIds, testMan);
+        Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
         testArea.addElements(c3);
         c3.setOwner(testMan);
         
         Thread.sleep(1000l);
         c1.setModifyTime();
         
-        List<Content> subscribedContent = contentAreaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
         
         assertEquals(c1.getName(), subscribedContent.get(0).getName());
     }

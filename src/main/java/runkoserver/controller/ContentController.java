@@ -17,7 +17,8 @@ import runkoserver.domain.Content;
 import static runkoserver.libraries.Attributes.*;
 import static runkoserver.libraries.Links.*;
 import static runkoserver.libraries.Messages.*;
-import runkoserver.service.ContentAreaService;
+import runkoserver.service.AreaService;
+import runkoserver.service.ElementService;
 import runkoserver.service.PersonService;
 
 /**
@@ -29,7 +30,10 @@ import runkoserver.service.PersonService;
 public class ContentController {
 
     @Autowired
-    ContentAreaService contentAreaService;
+    AreaService areaService;
+    
+    @Autowired
+    ElementService elementService;
 
     @Autowired
     PersonService personService;
@@ -51,14 +55,14 @@ public class ContentController {
             Model model,
             Principal principal) {
 
-        Element content = contentAreaService.findElementById(id);
+        Element content = elementService.findElementById(id);
 
         if (personService.userIsLoggedIn() || content.hasPublicAreas()) {
             model.addAttribute(ATTRIBUTE_CONTENT, content);
                         
             if (principal != null) {
                 model.addAttribute(ATTRIBUTE_PERSON, personService.findByUsername(principal.getName()));
-                model.addAttribute(ATTRIBUTE_IS_BOOKMARKED, personService.findIfBookmarked(personService.findByUsername(principal.getName()), (Content) contentAreaService.findElementById(id)));
+                model.addAttribute(ATTRIBUTE_IS_BOOKMARKED, personService.findIfBookmarked(personService.findByUsername(principal.getName()), (Content) elementService.findElementById(id)));
             }
             return FILE_CONTENT;
         }
@@ -76,8 +80,8 @@ public class ContentController {
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
     public String contentEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
-        model.addAttribute(ATTRIBUTE_CONTENT, contentAreaService.findElementById(id));
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAllAreas());
+        model.addAttribute(ATTRIBUTE_CONTENT, elementService.findElementById(id));
 
         return FILE_CONTENT_EDIT;
     }
@@ -91,7 +95,7 @@ public class ContentController {
      */
     @RequestMapping(value = LINK_CONTENT_FORM, method = RequestMethod.GET)
     public String contentNewForm(Model model) {
-        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
+        model.addAttribute(ATTRIBUTE_AREA, areaService.findAllAreas());
 
         return FILE_CONTENT_FORM;
     }
@@ -115,9 +119,9 @@ public class ContentController {
             Principal principal) {
 
         Person p = personService.findByUsername(principal.getName());
-        Element content = contentAreaService.createContent(name, textArea, areaIds, p);
+        Element content = elementService.createContent(name, textArea, areaIds, p);
 
-        if (contentAreaService.saveElement(content)) {
+        if (elementService.saveElement(content)) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
             
         } else {
@@ -139,14 +143,14 @@ public class ContentController {
      * @return back to index
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
-    public String updateSimpleContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
+    public String updateContent(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds,
             Principal principal
     ) {
 
-        if (contentAreaService.updateContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
+        if (elementService.updateContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
             return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
         } else {
@@ -169,28 +173,15 @@ public class ContentController {
             RedirectAttributes redirectAttributes,
             Principal principal) {
 
-        Element element = contentAreaService.findElementById(id);
+        Element element = elementService.findElementById(id);
 
-        if (contentAreaService.deleteElement(element.getId(), personService.findByUsername(principal.getName()))) {
+        if (elementService.deleteElement(element.getId(), personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_SUCCESS + element.getName());
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_DELETE_FAIL);
         }
         return REDIRECT+LINK_FRONTPAGE;
     }
-    
-//    /**
-//     * GET-method for rendering the form to create new content.
-//     * 
-//     * @param model object for spring to use
-//     * @return path to the content creation form html file 
-//     */
-//    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.GET)
-//    public String fancyContentForm(Model model) {
-//        model.addAttribute(ATTRIBUTE_AREA, contentAreaService.findAllAreas());
-//        
-//        return FILE_FANCY_CONTENT_FORM;
-//    }
     
     /**
      * 
@@ -208,7 +199,7 @@ public class ContentController {
             RedirectAttributes redirectAttributes
     ) {
         Person person = personService.findByUsername(principal.getName());
-        if (personService.addBookmark(person, (Content) contentAreaService.findElementById(id))) {
+        if (personService.addBookmark(person, (Content) elementService.findElementById(id))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_BOOKMARKED);
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_UNBOOKMARKED);
@@ -224,25 +215,4 @@ public class ContentController {
 
         return REDIRECT + LINK_CONTENT + LINK_VIEW_ID;
     }
-    
-//    @RequestMapping(value = LINK_CONTENT_FANCYFORM, method = RequestMethod.POST)
-//    public String postFancyContent(RedirectAttributes redirectAttributes,
-//            @RequestParam(required = true) String name,
-//            @RequestParam(required = true) String textElement,
-//            @RequestParam(required = false) List<Long> areaIds,
-//            Principal principal) {
-//
-//        Person p = personService.findByUsername(principal.getName());
-//        Content fancyContent = contentAreaService.createFancyContent(name, textElement, areaIds, p);
-//
-//        if (contentAreaService.saveContent(fancyContent)) {
-//            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_SUCCESS);
-//            
-//        } else {
-//            redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_SAVE_FAIL);
-//            
-//        }
-//        return REDIRECT+LINK_FRONTPAGE;
-//    }
-
 }
