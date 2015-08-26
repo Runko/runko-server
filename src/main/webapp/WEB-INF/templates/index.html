@@ -33,17 +33,17 @@
 
                 <div th:include="fragments/messages_template :: messages"></div>
 
-                <input type="text" id="search" placeholder="etsi alueista" class="topspace" />
-
                 <div th:each="area : ${areas}">
+                    <div class="toHide">
                     <h3 class="topspace">
                         <a th:name="${area.name}" th:href="@{/area/{id}(id=${area.id})}" th:text="${area.name}"></a></h3>
                     <p>Näkyvyys: <span style="font-style: italic" th:text="${area.visibilityText}"></span></p>
 
-                    <h4>Sisällöt:</h4>
+                    <h4 class="topspace">Sisällöt:</h4>
+                    </div>
                     <div  class="toSearch" th:each="content : ${area.elements}">
                         <label>
-                            <p class="h4"><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></p>
+                            <h4><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h4>
                             <p th:utext="${content.textArea}"></p>
                         </label>
                     </div>
@@ -51,19 +51,4 @@
             </div>
         </div> 
     </body>
-    <script>
-        //function for filtering content
-        var $areas = $('.toSearch a');
-        var $toHide = $('.toSearch label');
-
-        $("#search").keyup
-                (function () {
-                    var inputText = $.trim($(this).val()).replace(/ +/g, '').toLowerCase();
-                    $toHide.show().filter
-                            (function () {
-                                var text = $areas.text().replace(/\s+/g, '').toLowerCase();
-                                return !~text.indexOf(inputText);
-                            }).hide();
-                });
-    </script>
 </html>
