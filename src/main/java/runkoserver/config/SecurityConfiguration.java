@@ -28,7 +28,7 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         http.authorizeRequests()
                 .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
                 .antMatchers(LINK_CONTENT + LINK_CONTENT_FORM).authenticated()
-                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_CONTENT + "/*").permitAll()
+                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_FRONTPAGE, LINK_CONTENT + "/*").permitAll()
                 .anyRequest().authenticated();
 
         http.csrf().disable();

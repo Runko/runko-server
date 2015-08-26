@@ -54,7 +54,7 @@ public class RunkoController {
     @RequestMapping(value = LINK_LOGIN_LOGOUT, method = RequestMethod.GET)
     public String logout() {
         
-        if (personService.userIsLoggedIn()) {;
+        if (personService.userIsLoggedIn()) {
             return REDIRECT + LINK_LOGOUT;
         }
         
