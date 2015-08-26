@@ -15,6 +15,7 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_PASSWORD = "password";
     public static final String ATTRIBUTE_NAME = "name";
     public static final String ATTRIBUTE_TEXTAREA = "textArea";
+    public static final String ATTRIBUTE_VISIBILITY = "visibility";
     public static final String ATTRIBUTE_CONTENT_DELETE = "Poista";
     public static final String ATTRIBUTE_IS_SUBSCRIPTED = "subs";
     public static final String ATTRIBUTE_AREAIDS = "areaIds";
@@ -31,6 +32,7 @@ public abstract class Attributes {
     public static final String PASSWORD_TEST2 = "testi2";
 
     public static final String ATTRIBUTE_LOGOUT = "logout";
+    public static final String ATTRIBUTE_BUTTON_SAVE = "save";
     public static final String ATTRIBUTE_BUTTON_CONTENT_DELETE = "removeContent";
     public static final String ATTRIBUTE_BUTTON_CONTENT_EDIT = "editContent";
     public static final String ATTRIBUTE_BUTTON_AREA_DELETE = "removeArea";

@@ -152,11 +152,19 @@ public class AreaTest {
     }
     
     @Test
-    public void areaVisibilityCanChangeFromDefault(){
+    public void areaVisibilityCanChangeFromDefaultInForm(){
         String areaName = "Näkyvyys vaihtuu";
-        String visibility = "testing2";
+        String areaVisibility = "testing2";
        
-        createNewArea(areaName, visibility);
+        driver.get(LINK_LOCALHOST + LINK_AREA + LINK_AREA_FORM);
+        
+        WebElement name = driver.findElement(By.name(ATTRIBUTE_NAME));
+        WebElement visibility = driver.findElement(By.id(areaVisibility));
+        WebElement saveButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_SAVE));
+        
+        name.sendKeys(areaName);
+        visibility.click();
+        saveButton.click();
         
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SAVE_SUCCESS) );
         driver.get(LINK_LOCALHOST);
@@ -210,7 +218,7 @@ public class AreaTest {
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_SUCCESS));
     }
     
-     @Test
+    @Test
     public void areaOwnerCantDeleteNotNullArea() {
         elementService.deleteAllElements();
         areaService.deleteAllAreas();
@@ -231,6 +239,61 @@ public class AreaTest {
         deleteButton.click();
 
         assertTrue(driver.getPageSource().contains(MESSAGE_AREA_DELETE_FAIL));
+    }
+    
+    @Test
+    public void areaCannotBeWoundByOtherUsersContentManager() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String name = "Ei kannata yrittää";
+        String visibility = "testing2";
+
+        createNewArea(name, visibility);
+
+        driver.get(LINK_LOCALHOST + LINK_LOGIN);
+
+        WebElement username = driver.findElement(By.name(ATTRIBUTE_USERNAME));
+        WebElement password = driver.findElement(By.name(ATTRIBUTE_PASSWORD));
+
+        username.sendKeys(LOGIN_TEST2);
+        password.sendKeys(PASSWORD_TEST2);
+        password.submit();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+
+        assertFalse(driver.getPageSource().contains(name));
+    }
+    
+    @Test
+    public void areaCanBeEdited() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
+        
+        String name = "Editoitavaksi";
+        String visibility = "testing2";
+
+        createNewArea(name, visibility);
+
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_CONTENT_MANAGER);
+
+        WebElement editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_EDIT));
+        editButton.click();
+
+        name = "Arean nimi vaihtuu";
+        visibility = "testing1";
+        
+        WebElement nameField = driver.findElement(By.name(ATTRIBUTE_NAME));
+        WebElement visibilityField = driver.findElement(By.id(visibility));
+    
+        nameField.clear();
+        nameField.sendKeys(name);
+        visibilityField.click();
+
+        editButton = driver.findElement(By.name(ATTRIBUTE_BUTTON_AREA_EDIT));
+        editButton.click();
+        
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_MODIFY_SUCCESS));
     }
     
 }
