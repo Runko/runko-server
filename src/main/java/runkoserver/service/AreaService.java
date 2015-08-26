@@ -57,6 +57,7 @@ public class AreaService {
         area.setName(name);
         area.setOwner(person);
         area.setVisibility(visibility);
+        area.setElements(new ArrayList<>());
 
         return area;
     }

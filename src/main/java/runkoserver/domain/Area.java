@@ -71,7 +71,7 @@ public class Area {
     }
 
     public boolean addElements(Element element) {
-        if (!getElements().contains(element)) {
+        if (!elements.contains(element)) {
             elements.add(element);
             return true;
         }
@@ -87,12 +87,8 @@ public class Area {
     }
     
     public List<Element> getElements() {
-        if (elements != null) {
             return elements;
         }
-        this.elements = new ArrayList<>();
-        return elements;
-    }
 
     public void setElements(List<Element> elements) {
         this.elements = elements;
