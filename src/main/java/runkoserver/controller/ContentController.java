@@ -71,23 +71,36 @@ public class ContentController {
     }
 
     /**
-     * /**
      * GET-method for rendering the form to modify existing content.
      *
-     * @param id
+     * @param id id of the content to be edited
      * @param model object for spring to use
-     * @return path to the content creation form html file
+     * @param principal Spring object that knows who is logged in
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @return path to the content creation form html file if the user is the
+     * owner of the content, otherwise redirect to front page
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.GET)
-    public String contentEditForm(@PathVariable Long id, Model model) {
-        model.addAttribute(ATTRIBUTE_AREA, areaService.findAllAreas());
-        model.addAttribute(ATTRIBUTE_CONTENT, elementService.findElementById(id));
+    public String contentEditForm(@PathVariable Long id,
+            Model model,
+            Principal principal,
+            RedirectAttributes redirectAttributes) {
+        
+        Content content = (Content) elementService.findElementById(id);
 
-        return FILE_CONTENT_EDIT;
+        if (content.getOwner().getId() == personService.findByUsername(principal.getName()).getId()) {
+            model.addAttribute(ATTRIBUTE_AREA, areaService.findAllAreas());
+            model.addAttribute(ATTRIBUTE_CONTENT, content);
+
+            return FILE_CONTENT_EDIT;
+        }
+
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_FAIL);
+
+        return REDIRECT + LINK_FRONTPAGE;
     }
 
     /**
-     *
      * GET-method for rendering the form to create new content.
      *
      * @param model object for spring to use
