@@ -15,7 +15,7 @@
 /* invisible buttons*/
 .nav-btn {
     border: none; 
-    background: lavender;
+    background: #a9ce6c;;
 }
 
 /* Others */
@@ -36,6 +36,10 @@
 h1 {
     padding-left: 0px;
     text-align: center;
+    color: #33652e;
+}
+h2 {
+    padding-left: 0px;
 }
 
 .bookmark {
@@ -45,14 +49,18 @@ h1 {
 
 /* @media is for browser */
 @media only screen and (min-device-width: 1024px){
+    body {
+        background-color: rgba(51,101,46,0.3);
+    }
+
     /* center and color layout*/
     #background {
         position: absolute;
         margin-left: 25%;
         margin-right: -25%;
         min-width: 700px;
-        min-height: 100%;
-        background-color: lavender;
+        min-height: 100vh;
+        background: #a9ce6c;
     }
 
     /* content of pages */
@@ -62,7 +70,6 @@ h1 {
         min-width: 660px;
         margin-left: 3%;
         margin-right: -3%;
-        background-color: transparent;
     }
 
     /* for text editors */
@@ -78,7 +85,7 @@ h1 {
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
     body {
-        background-color: rgba(194,194,192,0.3);
+        background-color: #a9ce6c;
     }
 
     .centered {

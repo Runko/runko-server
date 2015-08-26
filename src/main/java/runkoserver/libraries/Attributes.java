@@ -23,7 +23,7 @@ public abstract class Attributes {
     public static final String ATTRIBUTE_IS_BOOKMARKED = "book";
 
     public static final String TITLE_FRONTPAGE = "-- RUNKO newsfeed --";
-    public static final String TITLE_STANDARD = "Partio";
+    public static final String TITLE_STANDARD = "Pääkaupungin partiolaisten julkaisut sisältöalueittain";
 
     public static final String LOGIN_TEST = "testi";
     public static final String PASSWORD_TEST = "testi";
