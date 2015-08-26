@@ -53,6 +53,9 @@ public class PersonTest {
     Person user;
     Content simpleContent;
 
+    
+    private static int n = 0;
+    
     @Before
     public void userIsLoggedIn() {
         driver.get(LINK_LOCALHOST + LINK_LOGIN);
@@ -70,7 +73,7 @@ public class PersonTest {
     @Before
     public void createAreaAndContent(){
         List<Long> areas = new ArrayList<>();
-        Area area = areaService.createArea("area", user, Boolean.TRUE);
+        Area area = areaService.createArea("area" + n++, user, Boolean.TRUE);
         areaService.saveArea(area);
         areas.add(area.getId());
         
@@ -333,4 +336,5 @@ public class PersonTest {
         
         assertFalse(driver.getPageSource().contains(name));
     }
+
 }

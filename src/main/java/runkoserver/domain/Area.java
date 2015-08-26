@@ -2,6 +2,7 @@ package runkoserver.domain;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -22,6 +23,7 @@ public class Area {
 
     @NotBlank
     @Length(min = 4, max = 50)
+    @Column(unique = true)
     private String name;
 
     private boolean visibility;

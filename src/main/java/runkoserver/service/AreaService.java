@@ -21,7 +21,7 @@ public class AreaService {
     AreaRepository areaRepository;
 
     public boolean saveArea(Area area) {
-        if (area != null) {
+        if (area != null  && (findAreaByName(area.getName()) == null)) {
             areaRepository.save(area);
             return true;
         }
