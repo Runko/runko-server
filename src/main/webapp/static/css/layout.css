@@ -35,11 +35,16 @@
 
 h1 {
     padding-left: 0px;
+    margin-bottom: 20px;
     text-align: center;
     color: #33652e;
 }
 h2 {
     padding-left: 0px;
+}
+
+hr {
+    color: rgba(51,101,46,0.3); 
 }
 
 .bookmark {
@@ -59,7 +64,8 @@ h2 {
         margin-left: 25%;
         margin-right: -25%;
         min-width: 700px;
-        min-height: 100vh;
+        min-height: 100%;
+        background-repeat: repeat-y;
         background: #a9ce6c;
     }
 
