@@ -42,7 +42,7 @@
                     <label>Kuva</label>
                     <input type="text" name="urlToPhoto" class="form-control" placeholder="lisää kuvalinkki tänne" th:value="${person.urlToPhoto}"/>
                     <label>Kuvaus</label>
-                    <input type="text" name="description" class="form-control" placeholder="lisää kuvaus tänne" th:value="${person.description}"/>
+                    <textarea type="text" name="description" pattern="[a-öA-Ö0-9]+[a-öA-Ö0-9 !?.].{0,255}" class="form-control" placeholder="lisää kuvaus tänne" th:value="${person.description}"/></textarea>
 
 
                     <div  class="aroundspace">
