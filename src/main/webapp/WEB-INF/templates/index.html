@@ -43,7 +43,7 @@
                         <div th:each="content : ${area.elements}">
                             <label>
                                 <h4><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h4>
-                                <div id="innerbox">
+                                <div id="innerbox-100">
                                     <p th:utext="${content.textArea}"></p>
                                 </div>
                             </label>

@@ -27,8 +27,8 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter{
         // don't let user in any applications resources without login
         http.authorizeRequests()
                 .antMatchers(FOLDER_CSS, LINK_HOME).permitAll()
-                .antMatchers(LINK_CONTENT + LINK_CONTENT_FORM).authenticated()
-                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_FRONTPAGE, LINK_CONTENT + "/*").permitAll()
+                .antMatchers(LINK_CONTENT + LINK_CONTENT_FORM, LINK_AREA + LINK_AREA_FORM).authenticated()
+                .antMatchers(FOLDER_CSS, LINK_HOME, LINK_FRONTPAGE, LINK_CONTENT + "/*", LINK_AREA + "/*").permitAll()
                 .anyRequest().authenticated();
 
         http.csrf().disable();
