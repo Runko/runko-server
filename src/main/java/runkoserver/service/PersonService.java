@@ -69,6 +69,8 @@ public class PersonService implements RepoService{
     //For tests, unused anywhere else
     @Override
     public void deleteAll() {
+        elementService.deleteAllElements();
+        areaService.deleteAllAreas();
         repository.deleteAll();
     }
 
