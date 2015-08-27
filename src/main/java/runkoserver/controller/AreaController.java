@@ -167,7 +167,7 @@ public class AreaController {
      * @return url where we go
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
-    public String subscriptArea(@PathVariable Long id,
+    public String subscribeArea(@PathVariable Long id,
             @RequestParam(required = false) String whereICome,
             Principal principal,
             RedirectAttributes redirectAttributes

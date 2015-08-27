@@ -1,5 +1,6 @@
 package runkoserver.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
@@ -14,7 +15,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class Area {
+public class Area implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

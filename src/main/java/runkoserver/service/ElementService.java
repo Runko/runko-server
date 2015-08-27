@@ -7,7 +7,6 @@ import org.springframework.stereotype.Service;
 import runkoserver.domain.*;
 import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ElementRepository;
-import runkoserver.service.AreaService;
 
 /**
  * Class for repository-interactions of Areas and Content.
