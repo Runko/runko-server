@@ -52,6 +52,17 @@ public class ElementServiceTest {
         personService.save(testMan2);
 
     }
+    
+    private void doNewAreaAndSave(String name, Person person, Boolean visibility) {
+        testArea = areaService.createArea(name, person, visibility);
+        areaService.saveArea(testArea);
+    }
+
+    private void doNewContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
+        testSC = elementService.createContent(name, textArea, areaIDs, person);
+        elementService.saveElement(testSC);
+
+    }
 
     //Tests for content
     @Test
@@ -63,20 +74,20 @@ public class ElementServiceTest {
 
     @Test
     public void testFindAllContent() {
-        doNewSimpleContentAndSave("Test ", "Find", null, testMan);
-        doNewSimpleContentAndSave("All", "Content", null, testMan);
+        doNewContentAndSave("Test ", "Find", null, testMan);
+        doNewContentAndSave("All", "Content", null, testMan);
         assertEquals(2, elementService.findAllElements().size());
     }
 
     @Test
     public void testFindContentById() {
-        doNewSimpleContentAndSave("Test Find", "by Id", null, testMan);
+        doNewContentAndSave("Test Find", "by Id", null, testMan);
         assertEquals(testSC.getName(), elementService.findElementById(testSC.getId()).getName());
     }
 
     @Test
     public void testDeleteContentWithOutAreas() {
-        doNewSimpleContentAndSave("Test", "Delete", null, testMan);
+        doNewContentAndSave("Test", "Delete", null, testMan);
         assertFalse(elementService.deleteElement(testSC.getId(), testMan2));
         assertTrue(elementService.deleteElement(testSC.getId(), testMan));
         assertFalse(elementService.deleteElement(testSC.getId(), testMan));
@@ -87,7 +98,7 @@ public class ElementServiceTest {
         areaIDs = new ArrayList<>();
         doNewAreaAndSave("Test Area", null, Boolean.TRUE);
         areaIDs.add(testArea.getId());
-        doNewSimpleContentAndSave("Test", "Delete", areaIDs, testMan);
+        doNewContentAndSave("Test", "Delete", areaIDs, testMan);
         assertTrue(elementService.deleteElement(testSC.getId(), testMan));
         assertFalse(elementService.deleteElement(testSC.getId(), testMan));
         assertEquals(0, testArea.getElements().size());
@@ -167,16 +178,5 @@ public class ElementServiceTest {
         List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
 
         assertEquals(c1.getName(), subscribedContent.get(0).getName());
-    }
-
-    private void doNewAreaAndSave(String name, Person person, Boolean visibility) {
-        testArea = areaService.createArea(name, person, visibility);
-        areaService.saveArea(testArea);
-    }
-
-    private void doNewSimpleContentAndSave(String name, String textArea, List<Long> areaIDs, Person person) {
-        testSC = elementService.createContent(name, textArea, areaIDs, person);
-        elementService.saveElement(testSC);
-
     }
 }
