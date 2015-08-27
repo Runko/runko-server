@@ -199,6 +199,25 @@ public class AreaTest {
                 driver.getPageSource().contains(ATTRIBUTE_UNSUBSCRIPTION));
     }
     
+    @Test
+    public void areaCanBeUnsubscribed() {
+        String areaName = "Mansikkaa";
+        String visibility = "testing1";
+        
+        Area area = createNewArea(areaName, visibility);
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_SUBSCRIBE));
+        subscribe.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_AREA + "/" + area.getId());
+        
+        WebElement unsubscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_UNSUBSCRIBE));
+        unsubscribe.click();
+        
+        assertTrue(driver.getPageSource().contains(MESSAGE_AREA_SUBSCRIPTION_STOP));
+    }
    
     @Test
     public void areaOwnerCanDeleteNullArea() {
