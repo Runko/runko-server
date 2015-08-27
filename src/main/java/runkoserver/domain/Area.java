@@ -1,7 +1,9 @@
 package runkoserver.domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -9,18 +11,18 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
-import javax.persistence.UniqueConstraint;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 @Entity
-public class Area {
+public class Area implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @NotBlank
+    @Column(unique = true)
     @Length(min = 4, max = 50)
     private String name;
 
@@ -71,7 +73,7 @@ public class Area {
     }
 
     public boolean addElements(Element element) {
-        if (!getElements().contains(element)) {
+        if (!elements.contains(element)) {
             elements.add(element);
             return true;
         }
@@ -87,12 +89,8 @@ public class Area {
     }
     
     public List<Element> getElements() {
-        if (elements != null) {
             return elements;
         }
-        this.elements = new ArrayList<>();
-        return elements;
-    }
 
     public void setElements(List<Element> elements) {
         this.elements = elements;

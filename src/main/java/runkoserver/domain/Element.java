@@ -1,7 +1,6 @@
 package runkoserver.domain;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -74,7 +73,6 @@ public abstract class Element implements Serializable {
     }
 
     public void setAreas(List<Area> areas) {
-        this.areas = new ArrayList<>();
         this.areas = areas;
     }
 
