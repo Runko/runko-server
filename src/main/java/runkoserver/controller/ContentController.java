@@ -146,7 +146,7 @@ public class ContentController {
      * POST-method to modify a Content.
      *
      * @param id identifies which content is modified
-     * @param redirectAttributes
+     * @param redirectAttributes Spring object for redirect attributes
      * @param name title of the content
      * @param textArea text area of the content
      * @param areaIds list of areas where content is connected

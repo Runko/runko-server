@@ -27,7 +27,7 @@ public class ElementService {
      * Saves an Element to the repository and adds connections to corresponding
      * areas.
      *
-     * @param element
+     * @param element the Element that will be saved
      * @return was save successful
      */
     public boolean saveElement(Element element) {

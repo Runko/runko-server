@@ -33,10 +33,10 @@ public class AreaController {
     /**
      * GET-method for rendering a view with the information of a specific Area.
      *
-     * @param redirectAttributes
+     * @param redirectAttributes Spring object for redirect attributes
      * @param id the id of the Area whose information will be shown
      * @param model model object for Spring to use
-     * @param principal
+     * @param principal Spring object that knows who is logged in
      * @return path to the html file that shows Area information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
@@ -102,7 +102,7 @@ public class AreaController {
     /**
      * GET-method for rendering the form to modify an existing Area.
      *
-     * @param id
+     * @param id ID of the Area that will be edited
      * @param model object for spring to use
      * @return path to the content creation form html file
      */
