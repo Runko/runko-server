@@ -111,4 +111,16 @@ public class Area implements Serializable {
         }
         return "Julkinen";
     }
+    
+    /* patches unknown bug which multiplys each element in element list by the number of areas 
+        while getting areaRepository.findOne(id); found in area.html */
+    public void cleanElementList() {
+        ArrayList<Element> noDoubles = new ArrayList<>();
+        for (Element ele:elements) {
+            if(!noDoubles.contains(ele)){
+            noDoubles.add(ele);
+            }
+        }
+        this.elements = noDoubles;
+    }
 }

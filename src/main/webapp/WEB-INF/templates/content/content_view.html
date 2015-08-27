@@ -34,7 +34,7 @@
                 <div class="col-sm-12">
 
                     <!-- This makes contens name to heading -->
-                    <h2 th:text="${content.name}"></h2>
+                    <h1 th:text="${content.name}"></h1>
 
                     <form th:method="post" th:action="@{/content/{id}(id=${content.id})}" id="contentform">
                         <div th:if="${book} == false">
@@ -53,7 +53,7 @@
                     </div>
 
                     <!-- This tell content -->
-                    <div class="centered-inner" style="padding-right: 5px">
+                    <div class="centered-inner">
                         <p th:utext="${content.textArea}"></p>
                     </div>
 

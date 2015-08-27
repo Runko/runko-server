@@ -49,10 +49,14 @@
                 <!-- This lists contents, which include to area -->
                 <h4>Sisällöt:</h4>
                 <div th:each="content : ${area.elements}">
-                    <label>
-                        <h3><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h3>
-                        <p th:utext="${content.textArea}"></p>
-                    </label>
+                    <div class="centered-inner">
+                        <label>
+                            <h3><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h3>
+                            <div id="innerbox-300">
+                                <p th:utext="${content.textArea}"></p>
+                            </div>
+                        </label>
+                    </div>
                 </div>
             </div>
         </div>
