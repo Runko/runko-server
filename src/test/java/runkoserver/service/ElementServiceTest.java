@@ -42,8 +42,8 @@ public class ElementServiceTest {
 
     @Before
     public void setUp() {
-        areaService.deleteAllAreas();
         elementService.deleteAllElements();
+        areaService.deleteAllAreas();
         testSC = null;
         testArea = null;
         testMan = new Person("Jenny");
@@ -178,5 +178,30 @@ public class ElementServiceTest {
         List<Content> subscribedContent = areaService.createListOfSubscribedContents(testMan);
 
         assertEquals(c1.getName(), subscribedContent.get(0).getName());
+    }
+    
+    @Test
+    public void testContentCanBeBookmarked() {
+        doNewAreaAndSave("He-Man", testMan, Boolean.FALSE);
+        testArea = areaService.findAreaByName("He-Man");
+        List<Long> areaIds = new ArrayList<>();
+        areaIds.add(testArea.getId());
+        Content content = elementService.createContent("I say HEEYYYYYY", "What's going on?", areaIds, testMan);
+        personService.addBookmark(testMan, content);
+                
+        assertEquals(1, testMan.getBookmarks().size());
+    }
+    
+    @Test
+    public void testContentCanBeUnbookmarked() {   
+        doNewAreaAndSave("He-Man2", testMan, Boolean.FALSE);
+        testArea = areaService.findAreaByName("He-Man2");
+        List<Long> areaIds = new ArrayList<>();
+        areaIds.add(testArea.getId());
+        Content content = elementService.createContent("I say HEEYYYYYY", "What's going on?", areaIds, testMan);
+        personService.addBookmark(testMan, content);
+        personService.addBookmark(testMan, content);
+        
+        assertEquals(0, testMan.getBookmarks().size());
     }
 }
