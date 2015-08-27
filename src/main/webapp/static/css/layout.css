@@ -19,6 +19,7 @@
 }
 
 /* Others */
+
 .topspace {
     margin-top: 15px;
 }
@@ -30,7 +31,7 @@
 
 /* Bold makes text bold, obviously */
 .bold {
-    font-style: oblique;
+    font-weight: bold;
 }
 
 h1 {
@@ -39,6 +40,7 @@ h1 {
     text-align: center;
     color: #33652e;
 }
+
 h2 {
     padding-left: 0px;
 }
@@ -50,6 +52,18 @@ hr {
 .bookmark {
     float: right;
     top: -25px
+}
+
+#innerbox {
+   height: 100px; 
+   max-height: 100px;
+   overflow-y: hidden;
+}
+
+#innerbox-300 {
+   height: 300px; 
+   max-height: 300px; 
+   overflow-y: hidden;
 }
 
 /* @media is for browser */
