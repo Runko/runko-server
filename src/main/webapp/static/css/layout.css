@@ -54,7 +54,7 @@ hr {
     top: -25px
 }
 
-#innerbox {
+#innerbox-100 {
    height: 100px; 
    max-height: 100px;
    overflow-y: hidden;
@@ -80,7 +80,7 @@ hr {
         min-width: 700px;
         min-height: 100%;
         background-repeat: repeat-y;
-        overflow: auto;
+        max-height: 100000px;
         background: #a9ce6c;
     }
 
@@ -96,6 +96,7 @@ hr {
     /* for text editors */
     .centered-inner{
         max-width: 660px;
+        margin-left: 0px;
     }
 
     .mobileform{
