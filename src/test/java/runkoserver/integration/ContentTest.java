@@ -1,6 +1,7 @@
 package runkoserver.integration;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 import org.junit.Before;
@@ -108,7 +109,7 @@ public class ContentTest {
 
         assertTrue(content != null);
     }
-
+    
     @Test
     public void createdContentContainsAllGivenInformation() {
         String name = "timo viheltää";
@@ -232,5 +233,26 @@ public class ContentTest {
         subscribe.click();
         
         assertEquals(ATTRIBUTE_BUTTON_UNBOOKMARK, driver.findElement(By.name(ATTRIBUTE_BUTTON_UNBOOKMARK)).getAttribute("name"));
+    }
+
+    @Test
+    public void contentCanBeUnbookmarkInBookmarks() {
+        elementService.deleteAllElements();
+        
+        String name = "Testaus on kivaa! Usko pois.";
+        String text = "Uudestaan....... Ja uudestaan......";
+        Content content = createNewContent(name, text);
+        
+        driver.get(LINK_LOCALHOST + LINK_CONTENT + "/" + content.getId());
+        
+        WebElement subscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_BOOKMARK));
+        subscribe.click();
+        
+        driver.get(LINK_LOCALHOST + LINK_PERSONS + LINK_BOOKMARK);
+        
+        WebElement unsubscribe = driver.findElement(By.name(ATTRIBUTE_BUTTON_UNBOOKMARK));
+        unsubscribe.click();
+        
+        assertTrue(driver.getPageSource().contains(MESSAGE_CONTENT_UNBOOKMARKED));
     }
 }

@@ -215,10 +215,7 @@ public class ContentController {
             if (null != whereICome) {
                 if (whereICome.equals("bookmarks")) {
                     return REDIRECT + LINK_PERSONS + LINK_BOOKMARK;
-                }
-                if (whereICome.equals("CM")) {
-                    return REDIRECT + LINK_PERSONS + LINK_CONTENT_MANAGER;
-                }
+                }   
             } 
         }
 
