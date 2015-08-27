@@ -33,16 +33,28 @@ public class AreaController {
     /**
      * GET-method for rendering a view with the information of a specific Area.
      *
+     * @param redirectAttributes
      * @param id the id of the Area whose information will be shown
      * @param model model object for Spring to use
      * @param principal
      * @return path to the html file that shows Area information
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
-    public String getArea(@PathVariable Long id, Model model, Principal principal) {
-        model.addAttribute(ATTRIBUTE_AREA, areaService.findAreaById(id));
-        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), areaService.findAreaById(id)));
-        return FILE_AREA;
+    public String getArea(RedirectAttributes redirectAttributes, @PathVariable Long id, Model model, Principal principal) {
+        Area area = areaService.findAreaById(id);
+        area.cleanElementList();
+//        model.addAttribute(ATTRIBUTE_AREA, area);
+//        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), area));
+        if (personService.userIsLoggedIn() || areaService.isPublic(area)) {
+            model.addAttribute(ATTRIBUTE_AREA, area);
+            if (personService.userIsLoggedIn()) {
+                model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), area));
+            }
+            return FILE_AREA;
+        }
+        redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PAGE_NOT_AVAILABLE);
+        return REDIRECT_HOME;
+
     }
 
     /**
@@ -70,7 +82,7 @@ public class AreaController {
      * @return the URL path that the user will be redirected to
      */
     @RequestMapping(value = LINK_AREA_FORM, method = RequestMethod.POST)
-    public String postAreaContent(RedirectAttributes redirectAttributes,
+    public String postArea(RedirectAttributes redirectAttributes,
             @RequestParam(required = true) Long ownerId,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) Boolean visibility) {
@@ -84,7 +96,7 @@ public class AreaController {
         }
         return REDIRECT + LINK_FRONTPAGE;
     }
-    
+
     /**
      * /**
      * GET-method for rendering the form to modify existing area.
@@ -100,8 +112,8 @@ public class AreaController {
         return FILE_AREA_EDIT;
     }
 
-     /**
-     * 
+    /**
+     *
      * @param id the id of the Area to be modified
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redi
@@ -122,12 +134,12 @@ public class AreaController {
             return REDIRECT + LINK_AREA + LINK_VIEW_ID;
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_MODIFY_FAIL);
-            return REDIRECT+LINK_FRONTPAGE;
+            return REDIRECT + LINK_FRONTPAGE;
         }
     }
-    
+
     /**
-     * 
+     *
      * @param id the id of the Area to be deleted
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redi
@@ -146,9 +158,9 @@ public class AreaController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_DELETE_FAIL);
         }
-        return REDIRECT+LINK_FRONTPAGE;
+        return REDIRECT + LINK_FRONTPAGE;
     }
-    
+
     /**
      *
      * @param id which area is subscripted or unsubscripted
@@ -158,7 +170,7 @@ public class AreaController {
      * @return url where we go
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
-    public String subscriptArea(@PathVariable Long id,
+    public String subscribeArea(@PathVariable Long id,
             @RequestParam(required = false) String whereICome,
             Principal principal,
             RedirectAttributes redirectAttributes
@@ -174,7 +186,6 @@ public class AreaController {
                 }
             }
         }
-
         return REDIRECT + LINK_AREA + LINK_VIEW_ID;
-    } 
+    }
 }

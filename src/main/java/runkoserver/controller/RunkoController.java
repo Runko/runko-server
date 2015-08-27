@@ -65,7 +65,7 @@ public class RunkoController {
      * This method is responsible for displaying the front page
      * @param model object for spring to use
      * @param principal Finds who is logged in 
-     * @return fronpage 
+     * @return frontpage 
      */
     @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
     public String frontPage(Model model, Principal principal) {

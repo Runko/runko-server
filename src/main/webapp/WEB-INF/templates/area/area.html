@@ -32,7 +32,7 @@
                 <div th:include="fragments/messages_template :: messages"></div>
 
                 <!-- This makes areas name to heading  -->
-                <h2 th:text="${area.name}"></h2>
+                <h1 th:text="${area.name}"></h1>
 
                 <form th:method="post" th:action="@{/area/{id}(id=${area.id})}" id="areaform">
 
@@ -44,16 +44,20 @@
                     </div>
                 </form>
 
-                <p>Omistaja: <span th:text="${area.owner.name}"></span></p>
+                <p class="topspace">Omistaja: <span th:text="${area.owner.name}"></span></p>
 
                 <!-- This lists contents, which include to area -->
-                <h3>Sisällöt</h3>
-                <table>
-                    <tr th:each="content : ${area.elements}">
-                    <tr><th><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}" class="bold"></a></th></tr>
-                    <tr><td th:utext="${content.textArea}"></td></tr>
-                    </tr>
-                </table>
+                <h4>Sisällöt:</h4>
+                <div th:each="content : ${area.elements}">
+                    <div class="centered-inner">
+                        <label>
+                            <h3><a th:href="@{/content/{id}(id=${content.id})}" th:text="${content.name}"></a></h3>
+                            <div id="innerbox-300">
+                                <p th:utext="${content.textArea}"></p>
+                            </div>
+                        </label>
+                    </div>
+                </div>
             </div>
         </div>
     </body>
