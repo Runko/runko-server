@@ -62,24 +62,39 @@ public class Area implements Serializable {
     }
 
     public List<Person> getSubscribers() {
-        if (subscribers != null) {
-            return subscribers;
+        if (subscribers == null) {
+            subscribers = new ArrayList<>();
         }
-        return new ArrayList<>();
+
+        return subscribers;
     }
 
     public void setSubscribers(List<Person> subscribers) {
         this.subscribers = subscribers;
     }
 
-    public boolean addElements(Element element) {
+    /**
+     * Adds the given Element to the Area if it is not already there.
+     *
+     * @param element the element to be added
+     * @return true if the Area did not already contain the element, false
+     * if it did
+     */
+    public boolean addElement(Element element) {
         if (!elements.contains(element)) {
             elements.add(element);
             return true;
         }
+
         return false;
     }
 
+    /**
+     * Deletes an element from the Area.
+     *
+     * @param element the element to be deleted
+     * @return true if the area contained the element, false if not
+     */
     public boolean deleteElement(Element element) {
         if (elements.contains(element)) {
             elements.remove(element);
@@ -87,10 +102,10 @@ public class Area implements Serializable {
         }
         return false;
     }
-    
+
     public List<Element> getElements() {
-            return elements;
-        }
+        return elements;
+    }
 
     public void setElements(List<Element> elements) {
         this.elements = elements;
@@ -105,20 +120,26 @@ public class Area implements Serializable {
         return visibility;
     }
 
+    /**
+     * Returns a String that describes the visibility status of the Area.
+     *
+     * @return "Kirjautuneille" if the Area is private, "Julkinen" if public
+     */
     public String getVisibilityText() {
         if (getVisibility() == false) {
             return "Kirjautuneille";
         }
         return "Julkinen";
     }
-    
-    /* patches unknown bug which multiplys each element in element list by the number of areas 
-        while getting areaRepository.findOne(id); found in area.html */
+
+    /**
+     * Makes sure the Area's element list does not contain any duplicates.
+     */
     public void cleanElementList() {
         ArrayList<Element> noDoubles = new ArrayList<>();
-        for (Element ele:elements) {
-            if(!noDoubles.contains(ele)){
-            noDoubles.add(ele);
+        for (Element ele : elements) {
+            if (!noDoubles.contains(ele)) {
+                noDoubles.add(ele);
             }
         }
         this.elements = noDoubles;

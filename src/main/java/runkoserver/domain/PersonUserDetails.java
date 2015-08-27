@@ -7,6 +7,9 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/**
+ * Class to contain Spring security login details.
+ */
 public class PersonUserDetails implements UserDetails {
     
     private final Person person;

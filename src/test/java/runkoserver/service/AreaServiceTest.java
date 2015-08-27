@@ -117,13 +117,13 @@ public class AreaServiceTest {
         areaIds.add(testArea.getId());
 
         Content c1 = elementService.createContent("Force", "FUS", areaIds, testMan);
-        testArea.addElements(c1);
+        testArea.addElement(c1);
         Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
-        testArea.addElements(c2);
+        testArea.addElement(c2);
         Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
-        testArea.addElements(c3);
+        testArea.addElement(c3);
 
-        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListOfSubscribedContents(testMan);
 
         assertEquals(3, subscribedContent.size());
     }

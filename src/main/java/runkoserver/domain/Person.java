@@ -13,7 +13,7 @@ import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 /**
- * User information
+ * Person objects are used to save user information.
  */
 @Entity
 public class Person implements Serializable {
@@ -96,10 +96,10 @@ public class Person implements Serializable {
     }
 
     public List<Area> getSubscriptions() {
-        if (null != subscriptions) {
-            return subscriptions;
+        if (null == subscriptions) {
+            subscriptions = new ArrayList<Area>();
         }
-        return new ArrayList<Area>();
+        return subscriptions;
     }
 
     public void setSubscriptions(List<Area> subscriptions) {
@@ -111,10 +111,10 @@ public class Person implements Serializable {
     }
     
     public List<Content> getBookmarks(){
-        if (null != bookmarks){
-            return bookmarks;
+        if (null == bookmarks){
+            bookmarks = new ArrayList<Content>();
         }
-        return new ArrayList<Content>();
+        return bookmarks;
     }
 
     public List<Area> getOwnedAreas() {

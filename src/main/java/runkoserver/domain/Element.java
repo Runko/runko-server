@@ -13,7 +13,7 @@ import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.NotBlank;
 
 /**
- * Superclass for different elements that a FancyContent can contain.
+ * Superclass for different elements that can be saved to Runko.
  */
 @Entity
 public abstract class Element implements Serializable {

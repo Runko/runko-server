@@ -119,14 +119,14 @@ public class PersonService implements RepoService{
         if(findIfBookmarked(person, content)){
             bookmarks.remove(content);
             person.setBookmarks(bookmarks);
-            elementService.deleteBookmarks(person, content);
+            elementService.deleteBookmark(person, content);
             repository.save(person);
             return false;
         }
         
         bookmarks.add(content);
         person.setBookmarks(bookmarks);
-        elementService.addBookmarks(person, content);
+        elementService.addBookmark(person, content);
         repository.save(person);
         return true;
     }

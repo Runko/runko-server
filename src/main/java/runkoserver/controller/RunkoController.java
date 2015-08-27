@@ -28,10 +28,10 @@ public class RunkoController {
     PersonService personService;
 
     /**
-     * Get method for main-page.
+     * GET-method for main-page view.
      *
-     * @param model object for spring to use
-     * @return back to front page
+     * @param model Spring model object
+     * @return path to front page view html file
      */
     @RequestMapping(method = RequestMethod.GET)
     public String Hello(Model model) {
@@ -62,10 +62,11 @@ public class RunkoController {
     }
     
     /**
-     * This method is responsible for displaying the front page
-     * @param model object for spring to use
-     * @param principal Finds who is logged in 
-     * @return frontpage 
+     * GET-method for displaying the front page.
+     * 
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return redirect URL to old home page  
      */
     @RequestMapping(value = LINK_FRONTPAGE, method = RequestMethod.GET)
     public String frontPage(Model model, Principal principal) {
@@ -74,7 +75,7 @@ public class RunkoController {
         }
         
         Person person = personService.findByUsername(principal.getName());
-        List <Content> contents = areaService.createListFromSubscripedContents(person);
+        List <Content> contents = areaService.createListOfSubscribedContents(person);
         model.addAttribute(ATTRIBUTE_CONTENTS, contents);
         
         return FILE_FRONTPAGE;

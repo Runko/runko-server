@@ -21,7 +21,7 @@ import runkoserver.service.ElementService;
 import runkoserver.service.PersonService;
 
 /**
- * Controller class for HTTP requests related to Content-type objects.
+ * Controller class for HTTP requests related to Content objects.
  */
 @Controller
 @RequestMapping(LINK_CONTENT)
@@ -38,12 +38,12 @@ public class ContentController {
     
 
     /**
-     * GET-method for rendering a view with the information of a specific
+     * GET-method for a view with the information of a specific
      * Content object.
      *
-     * @param redirectAttributes
+     * @param redirectAttributes Spring object for redirect attributes
      * @param id id of the Content whose information will be shown
-     * @param model object for Spring to use
+     * @param model Spring model object
      * @param principal To get who is logged in
      * @return path to the html file that shows Content information
      */
@@ -99,7 +99,7 @@ public class ContentController {
     }
 
     /**
-     * GET-method for rendering the form to create new content.
+     * GET-method for  the form view to create a new Content.
      *
      * @param model object for spring to use
      * @return path to the content creation form html file
@@ -117,7 +117,7 @@ public class ContentController {
      * @param redirectAttributes a Spring object to carry attributes from this
      * method to the one that the user is next redirected to
      * @param name Name of new content
-     * @param textArea textfield of content
+     * @param textArea text field of content
      * @param areaIds List with ares where content is connected
      * @param principal To get who is logged in.
      * @return the URL path that the user will be redirected to
@@ -143,12 +143,12 @@ public class ContentController {
     }
 
     /**
-     * POST-method to modify Contents data.
+     * POST-method to modify a Content.
      *
      * @param id identifies which content is modified
      * @param redirectAttributes
-     * @param name content's title
-     * @param textArea content's text area
+     * @param name title of the content
+     * @param textArea text area of the content
      * @param areaIds list of areas where content is connected
      * @param principal who is logged in
      * @return back to index
@@ -158,8 +158,7 @@ public class ContentController {
             @RequestParam(required = true) String name,
             @RequestParam(required = true) String textArea,
             @RequestParam(required = false) List<Long> areaIds,
-            Principal principal
-    ) {
+            Principal principal) {
 
         if (elementService.updateContent(id, name, textArea, areaIds, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_CONTENT_MODIFY_SUCCESS);
@@ -174,8 +173,7 @@ public class ContentController {
      * Deletes an Element and any possible references to it.
      *
      * @param id the id of the Element to be deleted
-     * @param redirectAttributes a Spring object to carry attributes from this
-     * method to the one that the user is next redi
+     * @param redirectAttributes a Spring object to carry redirect attributes
      * @param principal who is logged in
      * @return the URL path that the user will be redirected to
      */
@@ -195,13 +193,13 @@ public class ContentController {
     }
     
     /**
-     * 
+     * POST-method to add a new bookmark for the currently logged in user.
      *
      * @param id which area is subscripted or unsubscripted
      * @param whereICome tells which URL we should redirect
-     * @param principal who is logged
-     * @param redirectAttributes message
-     * @return url where we go
+     * @param principal Spring object that knows who is logged in
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @return redirect URL to the page the user came from
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
     public String bookmarkedContent(@PathVariable Long id,

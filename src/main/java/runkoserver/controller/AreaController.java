@@ -43,18 +43,19 @@ public class AreaController {
     public String getArea(RedirectAttributes redirectAttributes, @PathVariable Long id, Model model, Principal principal) {
         Area area = areaService.findAreaById(id);
         area.cleanElementList();
-//        model.addAttribute(ATTRIBUTE_AREA, area);
-//        model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), area));
+        
         if (personService.userIsLoggedIn() || areaService.isPublic(area)) {
             model.addAttribute(ATTRIBUTE_AREA, area);
+            
             if (personService.userIsLoggedIn()) {
                 model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), area));
             }
+            
             return FILE_AREA;
         }
+        
         redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_PAGE_NOT_AVAILABLE);
         return REDIRECT_HOME;
-
     }
 
     /**
@@ -94,12 +95,12 @@ public class AreaController {
         } else {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_SAVE_FAIL);
         }
+        
         return REDIRECT + LINK_FRONTPAGE;
     }
 
     /**
-     * /**
-     * GET-method for rendering the form to modify existing area.
+     * GET-method for rendering the form to modify an existing Area.
      *
      * @param id
      * @param model object for spring to use
@@ -113,21 +114,20 @@ public class AreaController {
     }
 
     /**
-     *
+     * POST-method to update an existing Area.
+     * 
      * @param id the id of the Area to be modified
-     * @param redirectAttributes a Spring object to carry attributes from this
-     * method to the one that the user is next redi
+     * @param redirectAttributes a Spring object to carry redirect attributes
      * @param name Area's name
      * @param visibility Area's visibility
-     * @param principal who is logged in
-     * @return back to index
+     * @param principal Spring object that knows who is logged in
+     * @return redirect URL to front page
      */
     @RequestMapping(value = "/edit" + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updateArea(@PathVariable Long id, RedirectAttributes redirectAttributes,
             @RequestParam(required = true) String name,
             @RequestParam(required = true) boolean visibility,
-            Principal principal
-    ) {
+            Principal principal) {
 
         if (areaService.updateArea(id, name, visibility, personService.findByUsername(principal.getName()))) {
             redirectAttributes.addFlashAttribute(ATTRIBUTE_MESSAGES, MESSAGE_AREA_MODIFY_SUCCESS);
@@ -139,12 +139,12 @@ public class AreaController {
     }
 
     /**
-     *
+     * Deletes an Area if the currently logged in user is the Area's owner.
+     * 
      * @param id the id of the Area to be deleted
-     * @param redirectAttributes a Spring object to carry attributes from this
-     * method to the one that the user is next redi
-     * @param principal who is logged in
-     * @return back to index
+     * @param redirectAttributes a Spring object to carry redirect attributes
+     * @param principal Spring object that knows who is logged in
+     * @return redirect URL to front page
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.DELETE)
     public String deleteArea(@PathVariable Long id,
@@ -162,12 +162,13 @@ public class AreaController {
     }
 
     /**
-     *
+     * POST-method to subscribe the currently logged in user to an Area.
+     * 
      * @param id which area is subscripted or unsubscripted
      * @param whereICome tells which URL we should redirect
-     * @param principal who is logged
-     * @param redirectAttributes message
-     * @return url where we go
+     * @param principal Spring object that knows who is logged in
+     * @param redirectAttributes Spring object for redirect attributes
+     * @return redirect URL to either content manager or Area page 
      */
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.POST)
     public String subscribeArea(@PathVariable Long id,
