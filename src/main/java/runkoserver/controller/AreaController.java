@@ -42,6 +42,7 @@ public class AreaController {
     @RequestMapping(value = LINK_VIEW_ID, method = RequestMethod.GET)
     public String getArea(@PathVariable Long id, Model model, Principal principal) {
         Area area = areaService.findAreaById(id);
+        area.cleanElementList();
         model.addAttribute(ATTRIBUTE_AREA, area);
         model.addAttribute(ATTRIBUTE_IS_SUBSCRIPTED, personService.findIfSubscripted(personService.findByUsername(principal.getName()), area));
         /* if (personService.userIsLoggedIn() || areaService.isPublic(area)) {
