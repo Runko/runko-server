@@ -80,6 +80,7 @@ hr {
         min-width: 700px;
         min-height: 100%;
         background-repeat: repeat-y;
+        overflow: auto;
         background: #a9ce6c;
     }
 
