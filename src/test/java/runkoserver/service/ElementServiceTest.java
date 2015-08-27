@@ -114,13 +114,13 @@ public class ElementServiceTest {
         areaIds.add(testArea.getId());
 
         Content c1 = elementService.createContent("Force", "FUS", areaIds, testMan);
-        testArea.addElements(c1);
+        testArea.addElement(c1);
         Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
-        testArea.addElements(c2);
+        testArea.addElement(c2);
         Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
-        testArea.addElements(c3);
+        testArea.addElement(c3);
 
-        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListOfSubscribedContents(testMan);
 
         assertEquals(3, subscribedContent.size());
     }
@@ -135,15 +135,15 @@ public class ElementServiceTest {
         areaIds.add(testArea.getId());
 
         Content c1 = elementService.createContent("Force", "FUS", areaIds, testMan);
-        testArea.addElements(c1);
+        testArea.addElement(c1);
         Thread.sleep(1000l);
         Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
-        testArea.addElements(c2);
+        testArea.addElement(c2);
         Thread.sleep(1000l);
         Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
-        testArea.addElements(c3);
+        testArea.addElement(c3);
 
-        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListOfSubscribedContents(testMan);
 
         assertEquals(c3.getName(), subscribedContent.get(0).getName());
     }
@@ -162,20 +162,20 @@ public class ElementServiceTest {
 
         Content c1 = elementService.createContent(c1Name, "FUS", areaIds, testMan);
         c1.setOwner(testMan);
-        testArea.addElements(c1);
+        testArea.addElement(c1);
         Thread.sleep(1000l);
         Content c2 = elementService.createContent("Balance", "RO", areaIds, testMan);
         c2.setOwner(testMan);
-        testArea.addElements(c2);
+        testArea.addElement(c2);
         Thread.sleep(1000l);
         Content c3 = elementService.createContent("Push", "DAH", areaIds, testMan);
-        testArea.addElements(c3);
+        testArea.addElement(c3);
         c3.setOwner(testMan);
 
         Thread.sleep(1000l);
         c1.setModifyTime();
 
-        List<Content> subscribedContent = areaService.createListFromSubscripedContents(testMan);
+        List<Content> subscribedContent = areaService.createListOfSubscribedContents(testMan);
 
         assertEquals(c1.getName(), subscribedContent.get(0).getName());
     }

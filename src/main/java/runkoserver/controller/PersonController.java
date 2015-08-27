@@ -37,12 +37,24 @@ public class PersonController {
     @Autowired
     ElementService elementService;
 
+    /**
+     * GET-method to list all Persons.
+     * 
+     * @param model Spring model object
+     * @return path to Person view html file
+     */
     @RequestMapping(method = RequestMethod.GET)
     public String list(Model model) {
         model.addAttribute(FILE_PERSONS, personService.findAll());
         return FILE_PERSON;
     }
 
+    /**
+     * POST-method to add a new Person to database.
+     * 
+     * @param person Person to be added
+     * @return redirect URL to person listing
+     */
     @RequestMapping(method = RequestMethod.POST)
     public String addPerson(@ModelAttribute Person person) {
         personService.save(person);
@@ -51,12 +63,12 @@ public class PersonController {
     }
 
     /**
-     * GET - method to open person's profile including owned contents
+     * GET-method to open person's profile including owned contents
      *
-     * @param redirectAttributes
-     * @param model
-     * @param principal
-     * @return profile page
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return path to profile view html file
      */
     @RequestMapping(value = LINK_PROFILE, method = RequestMethod.GET)
     public String getProfile(RedirectAttributes redirectAttributes, Model model, Principal principal) {
@@ -68,11 +80,12 @@ public class PersonController {
     }
 
     /**
-     *
-     * @param redirectAttributes
-     * @param model
-     * @param principal
-     * @return to profile's edit form
+     * GET-method for profile edit form view.
+     * 
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in 
+     * @return path to profile edit form html file
      */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.GET)
     public String getProfileEdit(RedirectAttributes redirectAttributes, Model model, Principal principal) {
@@ -87,10 +100,10 @@ public class PersonController {
      * POST-method to modify person's profile.
      *
      * @param id identifies which content is modified
-     * @param redirectAttributes
+     * @param redirectAttributes Spring object to carry redirect attributes
      * @param urlToPhoto link to person's photo
-     * @param description
-     * @return back to person's updated profile
+     * @param description person's profile description text
+     * @return redirect URL to person's updated profile
      */
     @RequestMapping(value = LINK_PROFILE + LINK_EDIT + LINK_VIEW_ID, method = RequestMethod.POST)
     public String updatePersonProfile(@PathVariable Long id, RedirectAttributes redirectAttributes,
@@ -103,6 +116,14 @@ public class PersonController {
         return REDIRECT+LINK_PERSONS+LINK_PROFILE;
     }
     
+    /**
+     * GET-method for the content manager view.
+     * 
+     * @param redirectAttributes Spring object to carry redirect attributes
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return path to content manager view html file
+     */
     @RequestMapping(value = LINK_CONTENT_MANAGER, method = RequestMethod.GET)
     public String getContentManager(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());
@@ -113,6 +134,14 @@ public class PersonController {
         return FILE_CONTENT_MANAGER;
     }
     
+    /**
+     * GET-method to view list of all user's bookmarks.
+     * 
+     * @param redirectAttributes Spring object for redirect attributes
+     * @param model Spring model object
+     * @param principal Spring object that knows who is logged in
+     * @return path to bookmark view html file
+     */
     @RequestMapping(value = LINK_BOOKMARK, method = RequestMethod.GET)
     public String getBookmarks(RedirectAttributes redirectAttributes, Model model, Principal principal) {
         Person person = personService.findByUsername(principal.getName());

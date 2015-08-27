@@ -15,7 +15,7 @@ import javax.persistence.Lob;
 
 
 /**
- * Upper class for all content types.
+ * Content is an Element that can be used to save HTML-formatted text.
  */
 @Entity
 public class Content extends Element implements Serializable {

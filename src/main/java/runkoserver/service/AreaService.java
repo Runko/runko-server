@@ -9,7 +9,7 @@ import runkoserver.repository.AreaRepository;
 import runkoserver.repository.ElementRepository;
 
 /**
- * Class for repository-interactions of Areas and Content.
+ * Class for repository-interactions of Areas.
  */
 @Service
 public class AreaService {
@@ -20,6 +20,12 @@ public class AreaService {
     @Autowired
     AreaRepository areaRepository;
 
+    /**
+     * Saves an Area to the database.
+     *
+     * @param area the Area to be saved
+     * @return true if Area was successfully saved, false otherwise
+     */
     public boolean saveArea(Area area) {
         if ((area != null) && (findAreaByName(area.getName()) == null)) {
             areaRepository.save(area);
@@ -63,12 +69,14 @@ public class AreaService {
     }
 
     /**
+     * Updates an Area's attributes if the currently logged in user is the owner
+     * of the Area.
      *
      * @param areaId which area will be updated
      * @param name areas new name
      * @param visibility areas new visibility
      * @param whoIsLogged to check who is logged in
-     * @return
+     * @return true if update was successful, false if not
      */
     public boolean updateArea(Long areaId, String name, boolean visibility, Person whoIsLogged) {
         Area area = findAreaById(areaId);
@@ -83,10 +91,11 @@ public class AreaService {
     }
 
     /**
+     * Deletes an Area if the currently logged in user is the owner of the Area.
      *
      * @param areaid which area will be deleted
      * @param whoIsLoggedIn to check who is logged in
-     * @return
+     * @return true if deletion was successful, false if not
      */
     public boolean deleteArea(Long areaid, Person whoIsLoggedIn) {
 
@@ -108,7 +117,7 @@ public class AreaService {
      * Finds all areas by id from the given list by their id and returns them as
      * Area-objects. Used by CreateSimpleContent-method
      *
-     * @param areaIds Areas' ids
+     * @param areaIds list of Area ids
      * @return list of Area-objects
      */
     public List<Area> findListedAreasById(List<Long> areaIds) {
@@ -120,22 +129,24 @@ public class AreaService {
     }
 
     /**
-     * Adds connection between given content and it's Areas. Used by delete
-     * content.
+     * Goes through the list of areas that an element has a database connection
+     * to, and makes sure the areas also have a connection to the element.
      *
-     * @param element on which the connections are wanted
+     * @param element the element that connections will be checked on
      */
     public void saveContentToAreas(Element element) {
         for (Area area : element.getAreas()) {
-            area.addElements(element);
+            area.addElement(element);
             areaRepository.save(area);
         }
     }
 
     /**
-     * Deletes connection between given connection and it's Areas-
+     * Goes through the list of areas that an element has a database connection
+     * to, and removes any connections from the areas to the element -- but not
+     * from the element to the areas.
      *
-     * @param element on which connections are disabled 
+     * @param element on which connections will be removed
      */
     public void deleteElementFromAreas(Element element) {
         for (Area area : element.getAreas()) {
@@ -144,11 +155,10 @@ public class AreaService {
         }
     }
 
-    //shared interactions
     /**
-     * Deletion ONLY for testing purposes
+     * Deletes all Areas from the repository.
      *
-     * @return was repositories emptied.
+     * @return true if Area repository is now empty, false if not
      */
     public boolean deleteAllAreas() {
         areaRepository.deleteAll();
@@ -156,18 +166,20 @@ public class AreaService {
     }
 
     /**
+     * Returns a list of the Areas that a Person owns.
      *
      * @param person whose areas will be found
-     * @return
+     * @return list of Areas
      */
     public List<Area> findAreasByOwner(Person person) {
         return areaRepository.findByOwner(person);
     }
 
     /**
+     * Adds a new Area subscriptions for a Person.
      *
-     * @param person tells to whom subcription will be added
-     * @param area which area wil be added to subcription
+     * @param person person to whom subscription will be added
+     * @param area which area will be subscribed
      */
     public void addSubcriptions(Person person, Area area) {
         List<Person> subscribers = area.getSubscribers();
@@ -177,9 +189,10 @@ public class AreaService {
     }
 
     /**
+     * Deletes an Area subscription from a Person.
      *
-     * @param person tells whose subcription will be deleted
-     * @param area which area wil be deleted from subcription
+     * @param person person whose subscription will be deleted
+     * @param area which area will be un-subscribed
      */
     public void deleteSubcriptions(Person person, Area area) {
         List<Person> subscribers = area.getSubscribers();
@@ -189,20 +202,23 @@ public class AreaService {
     }
 
     /**
+     * Goes through all the Areas a user has subscribed to and creates a list of
+     * contents published in those areas, ordered by their modification times.
      *
-     * @param person tells whose frontpage must be build
-     * @return the content in chronological order
+     * @param person the person whose subscriptions will be used
+     * @return list of the content in chronological order
      */
-    public List<Content> createListFromSubscripedContents(Person person) {
+    public List<Content> createListOfSubscribedContents(Person person) {
         List<Content> newList = new ArrayList<>();
 
-        // Builds new list without dublicates
+        // Builds new list without duplicates
         person.getSubscriptions().stream().forEach((area) -> {
             area.getElements().stream().filter((content)
                     -> (!newList.contains(content))).forEach((content) -> {
                         newList.add((Content) content);
                     });
         });
+
         // sorts new list to chronological order. Newest first.
         newList.sort((Content x, Content y) -> {
             return y.getModifyTime().compareTo(x.getModifyTime());
