@@ -42,8 +42,8 @@ public class AreaServiceTest {
 
     @Before
     public void setUp() {
-        areaService.deleteAllAreas();
         elementService.deleteAllElements();
+        areaService.deleteAllAreas(); 
         testSC = null;
         testArea = null;
         testMan = new Person("Jenny");
@@ -130,9 +130,10 @@ public class AreaServiceTest {
 
     @Test
     public void testDeleteAreaWithOutElements() {
-        doNewAreaAndSave("TestiArea", testMan, Boolean.TRUE);
-        assertTrue(areaService.deleteArea(testSC.getId(), testMan));
-        assertFalse(areaService.deleteArea(testSC.getId(), testMan));
+        doNewAreaAndSave("Testataan areaa!", testMan, Boolean.FALSE);
+        testArea = areaService.findAreaByName("Testataan areaa!");
+        assertTrue(areaService.deleteArea(testArea.getId(), testMan));
+        assertFalse(areaService.deleteArea(testArea.getId(), testMan));
     }
 
     @Test
@@ -142,5 +143,25 @@ public class AreaServiceTest {
         areaIDs.add(testArea.getId());
         doNewContentAndSave("Test", "Delete", areaIDs, testMan);
         assertFalse(areaService.deleteArea(testSC.getId(), testMan));
+    }
+    
+    @Test
+    public void testDontCreateToAreasWithSameName() {
+        doNewAreaAndSave("Sama Area", testMan, Boolean.TRUE);
+        assertEquals("Sama Area", areaService.findAreaByName("Sama Area").getName());
+        doNewAreaAndSave("Sama Area", testMan, Boolean.FALSE);
+        assertNotEquals(Boolean.FALSE, areaService.findAreaByName("Sama Area").getVisibility());
+    }
+    
+    @Test
+    public void testAreasInformationCanBeChange() {
+        doNewAreaAndSave("AREAAAAA", testMan, Boolean.TRUE);
+        testArea = areaService.findAreaByName("AREAAAAA");
+        assertEquals("AREAAAAA", testArea.getName());
+        assertEquals(Boolean.TRUE, testArea.getVisibility());    
+        areaService.updateArea(testArea.getId(), "Muokattu alue", Boolean.FALSE, testMan);
+        testArea = areaService.findAreaByName("Muokattu alue");
+        assertEquals("Muokattu alue", testArea.getName());
+        assertEquals(Boolean.FALSE, testArea.getVisibility());
     }
 }
