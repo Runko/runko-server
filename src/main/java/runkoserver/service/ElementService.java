@@ -40,7 +40,7 @@ public class ElementService {
     }
 
     public List<Element> findAllElements() {
-        return elementRepository.findAll();
+        return (List<Element>) elementRepository.findAll();
     }
 
     public Element findElementById(Long id) {

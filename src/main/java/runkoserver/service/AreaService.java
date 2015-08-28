@@ -35,7 +35,7 @@ public class AreaService {
     }
 
     public List<Area> findAllAreas() {
-        return areaRepository.findAll();
+        return (List<Area>) areaRepository.findAll();
     }
 
     public List<Area> findAllPublicAreas() {

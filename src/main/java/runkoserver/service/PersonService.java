@@ -27,7 +27,7 @@ public class PersonService implements RepoService{
     private ElementService elementService;
     
     public List<Person> findAll() {
-        return repository.findAll();
+        return (List<Person>) repository.findAll();
     }
     
     public void save(Person person) {
