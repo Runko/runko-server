@@ -17,7 +17,7 @@ import runkoserver.domain.Person;
  *
  * @author evly
  */
-public interface ElementRepository extends CrudRepository<Element, Long> {
+public interface ElementRepository extends JpaRepository<Element, Long> {
 
     @Query
     public Element findByName(String name);
