@@ -19,7 +19,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public abstract class Element implements Serializable {
     
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private long id;
     
     @NotBlank

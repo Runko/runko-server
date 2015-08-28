@@ -18,7 +18,7 @@ import org.hibernate.validator.constraints.NotBlank;
 public class Area implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue
     private Long id;
 
     @NotBlank
