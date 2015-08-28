@@ -8,6 +8,7 @@ package runkoserver.repository;
 import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.CrudRepository;
 import runkoserver.domain.Area;
 import runkoserver.domain.Element;
 import runkoserver.domain.Person;
@@ -16,7 +17,7 @@ import runkoserver.domain.Person;
  *
  * @author evly
  */
-public interface ElementRepository extends JpaRepository<Element, Long> {
+public interface ElementRepository extends CrudRepository<Element, Long> {
 
     @Query
     public Element findByName(String name);
