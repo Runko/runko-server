@@ -69,7 +69,7 @@ hr {
 /* @media is for browser */
 @media only screen and (min-device-width: 1024px){
     body {
-        background-color: rgba(51,101,46,0.3);
+        background-color: #a9ce6c;
     }
 
     /* center and color layout*/
@@ -107,7 +107,7 @@ hr {
 /* @media is for mobile */
 @media only screen and (max-device-width: 1024px){
     body {
-        background-color: rgba(51,101,46,0.3);
+        background-color: #a9ce6c;
     }
 
     .centered {
